@@ -364,10 +364,8 @@ public class OpenTaobaoTests {
         // 推荐物流公司的下单方式.可选值:offline(电话联系/自己联系),online(在线下单),all(即电话联系又在线下单).
         // 此参数仅仅用于is_recommended 为ture时。就是说对于推荐物流公司才可用.如果不选择此参数将会返回推荐物流中支持电话联系的物流公司.
         data.put("order_mode","offline");
-
         // 参数签名
         data.put("sign", Utils.Sign(data,Config.AppSecret));
-
         List<BasicNameValuePair> params = new ArrayList<BasicNameValuePair>();
         for (Map.Entry<String, String> entry : data.entrySet()) {
             params.add(new BasicNameValuePair(entry.getKey(), entry.getValue()));
@@ -403,7 +401,6 @@ public class OpenTaobaoTests {
         String tb_seller_nick = Config.TBSellerNick ; //要查询支付宝的淘宝商家
         CloseableHttpClient httpclient = HttpClients.createDefault();
         HttpPost httpPost = new HttpPost( Config.LogisticesOnlineSendUrl );
-
         //业务参数
         Map<String, String> data = new HashMap<String, String>();
         data.put("appid",  Config.AppId);
@@ -418,8 +415,10 @@ public class OpenTaobaoTests {
         data.put("company_code","SF");
         // 运单号.具体一个物流公司的真实运单号码。淘宝官方物流会校验，请谨慎传入；
         data.put("out_sid","SF1191992347148");
-
-        System.out.println("sign:" +  Utils.Sign(data,Config.AppSecret));
+        // 卖家交易备注旗帜，   可选值为：0(灰色), 1(红色), 2(黄色), 3(绿色), 4(蓝色), 5(粉红色)，说明：如果不想加旗帜，则传空串""
+        data.put("flag","1");
+        // 卖家交易备注。最大长度: 1000个字节  ，说明：如果不想加旗帜，则传空串""
+        data.put("memo","效果不错");
         // 参数签名
         data.put("sign", Utils.Sign(data,Config.AppSecret));
 
