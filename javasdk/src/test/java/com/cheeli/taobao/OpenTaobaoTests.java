@@ -239,7 +239,7 @@ public class OpenTaobaoTests {
 
         String result ="";
         String tb_seller_nick = Config.TBSellerNick ; //要查询支付宝的淘宝商家
-        String alipay_order_no = "2020070622001413231427949559"; // 支付宝交易订单号
+        String alipay_order_no = "20200713110070101506950096909090"; // 支付宝交易订单号
         CloseableHttpClient httpclient = HttpClients.createDefault();
         HttpPost httpPost = new HttpPost( Config.AliPayTradeDetailUrl );
 
@@ -338,6 +338,113 @@ public class OpenTaobaoTests {
         System.out.println(result);
 
     }
+
+    /**
+     *  查询物流公司列表
+     * @throws Exception
+     */
+    @Test
+    public void getLogisticesCompany() throws Exception {
+
+        String result ="";
+        String tb_seller_nick = Config.TBSellerNick ; //要查询支付宝的淘宝商家
+        CloseableHttpClient httpclient = HttpClients.createDefault();
+        HttpPost httpPost = new HttpPost( Config.LogisticesCompanyUrl );
+
+        //业务参数
+        Map<String, String> data = new HashMap<String, String>();
+        data.put("appid",  Config.AppId);
+        data.put("tb_seller_nick", tb_seller_nick);
+        Long timestamp = System.currentTimeMillis() / 1000;
+        data.put("timestamp", timestamp.toString());
+
+
+        // 是否查询推荐物流公司.可选值:true,false.如果不提供此参数,将会返回所有支持电话联系的物流公司.
+        data.put("is_recommended", "true");
+        // 推荐物流公司的下单方式.可选值:offline(电话联系/自己联系),online(在线下单),all(即电话联系又在线下单).
+        // 此参数仅仅用于is_recommended 为ture时。就是说对于推荐物流公司才可用.如果不选择此参数将会返回推荐物流中支持电话联系的物流公司.
+        data.put("order_mode","offline");
+
+        // 参数签名
+        data.put("sign", Utils.Sign(data,Config.AppSecret));
+
+        List<BasicNameValuePair> params = new ArrayList<BasicNameValuePair>();
+        for (Map.Entry<String, String> entry : data.entrySet()) {
+            params.add(new BasicNameValuePair(entry.getKey(), entry.getValue()));
+        }
+        //发起POST请求
+        try {
+            httpPost.setEntity(new UrlEncodedFormEntity(params, "UTF-8"));
+            HttpResponse httpResponse = httpclient.execute(httpPost);
+            if (httpResponse.getStatusLine().getStatusCode() == HttpStatus.SC_OK) {
+                result =  EntityUtils.toString(httpResponse.getEntity());
+            } else {
+                result =  ("doPost Error Response: " + httpResponse.getStatusLine().toString());
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+
+        }
+
+        System.out.println(result);
+
+    }
+
+
+
+    /**
+     *  在线订单发货处理（支持货到付款）
+     * @throws Exception
+     */
+    @Test
+    public void logisticesCompanyOnineSend() throws Exception {
+
+        String result ="";
+        String tb_seller_nick = Config.TBSellerNick ; //要查询支付宝的淘宝商家
+        CloseableHttpClient httpclient = HttpClients.createDefault();
+        HttpPost httpPost = new HttpPost( Config.LogisticesOnlineSendUrl );
+
+        //业务参数
+        Map<String, String> data = new HashMap<String, String>();
+        data.put("appid",  Config.AppId);
+        data.put("tb_seller_nick", tb_seller_nick);
+        Long timestamp = System.currentTimeMillis() / 1000;
+        data.put("timestamp", timestamp.toString());
+
+
+        // 淘宝交易ID，必须
+        data.put("tid", "1148987073290565830");
+       //  物流公司代码.如"POST"就代表中国邮政,"ZJS"就代表宅急送 ，通过接口 "查询物流公司列表"   获取。
+        data.put("company_code","SF");
+        // 运单号.具体一个物流公司的真实运单号码。淘宝官方物流会校验，请谨慎传入；
+        data.put("out_sid","SF1191992347148");
+
+        System.out.println("sign:" +  Utils.Sign(data,Config.AppSecret));
+        // 参数签名
+        data.put("sign", Utils.Sign(data,Config.AppSecret));
+
+        List<BasicNameValuePair> params = new ArrayList<BasicNameValuePair>();
+        for (Map.Entry<String, String> entry : data.entrySet()) {
+            params.add(new BasicNameValuePair(entry.getKey(), entry.getValue()));
+        }
+        //发起POST请求
+        try {
+            httpPost.setEntity(new UrlEncodedFormEntity(params, "UTF-8"));
+            HttpResponse httpResponse = httpclient.execute(httpPost);
+            if (httpResponse.getStatusLine().getStatusCode() == HttpStatus.SC_OK) {
+                result =  EntityUtils.toString(httpResponse.getEntity());
+            } else {
+                result =  ("doPost Error Response: " + httpResponse.getStatusLine().toString());
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+
+        }
+
+        System.out.println(result);
+
+    }
+
 
 
 
