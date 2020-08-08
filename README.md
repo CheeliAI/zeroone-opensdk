@@ -8,9 +8,16 @@ http://help.fw199.com/docs/autosend/autosend-tb
 
 
 ## 淘宝相关接口见
+ 
+1. 文档： http://help.fw199.com/docs/autosend/autosend-tb
 
-1. 代码： src/test/java/com/cheeli/taobao/OpenTaobaoTests.java
-2. 文档： http://help.fw199.com/docs/autosend/autosend-tb
+## 拼多多相关接口见
+ 
+2. 文档：http://help.fw199.com/docs/autosend/pddhome
+
+## 代码
+1. Java接入示例代码：https://github.com/CheeliAI/zeroone-opensdk/tree/master/javasdk
+2. PHP接入示例代码： https://github.com/CheeliAI/zeroone-opensdk/tree/master/phpsdk
 
 ## 支付相关接口
 
