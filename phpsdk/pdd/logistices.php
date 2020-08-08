@@ -11,8 +11,7 @@
       
     $LogisticesCompanyUrl = $baseUrl  .   "/gateway/pdd/logistices/getcompany";
     $LogisticesOnlineSendUrl = $baseUrl .   "/gateway/pdd/logistices/onlinesend";
-	$PddOrderListUrl = $baseUrl .   "/gateway/pdd/order/list";
-	$PddOrderDetailUrl = $baseUrl .   "/gateway/pdd/order/detail";
+ 
 	
   // 获取物流公司列表
   function getLogisticesCompany() { 
@@ -67,78 +66,7 @@
 		}
 
 
-	 // 获取商家店铺的订单列表
-   	function getOrderList() { 
-			global $APP_ID;
-			global $AppSecret;
-			global $PddOrderListUrl;
-			global $SellerNick;
-	
-			$apiHost = $PddOrderListUrl;  
-			// 必填        发货状态，1：待发货，2：已发货待签收，3：已签收 5：全部
-			$order_status = "5";
-			//必填	售后状态 1：无售后或售后关闭，2：售后处理中，3：退款中，4： 退款成功 5：全部
-			$refund_status = "5"; 
-			$page = "1"; 
-    		$page_size = "20"; 
-			$trade_type = "" ;
-			 // 非必填	是否启用has_next的分页方式，如果指定true,则返回的结果中不包含总记录数，
-			 //但是会新增一个是否存在下一页的的字段，通过此种方式获取增量交易，效率在原有的基础上有80%的提升。
-			$use_has_next = "false"; 
-			 // 必填，成交时间开始时间的时间戳，指格林威治时间 1970 年 01 月 01 日 00 时 00 分 00 秒
-			 //(北京时间 1970 年 01 月 01 日 08 时 00 分 00 秒)起至现在的总秒数 
-			$start_confirm_at = strtotime(date('Y-m-d H:i:s',strtotime('-1 day')));
- 			// 必填，成交时间结束时间的时间戳, 开始时间和结束时间不要超过24小时
-			$end_confirm_at = time(); 
-
-			$config = array(
-				"appid" =>   $APP_ID , 
-				"timestamp" => time()  , 
-				"seller_nick" =>  $SellerNick ,  // 必填， 对应的卖家，注意卖家要先授权给开发者
-				"order_status" => $order_status , 
-				"refund_status" =>  $refund_status , 
-				"start_confirm_at" => $start_confirm_at  ,   
-				"end_confirm_at" => $end_confirm_at ,   
-				"page" => $page ,    
-				"page_size" => $page_size ,    
-				"trade_type" => $trade_type,
-				"use_has_next" => $use_has_next 
- 			); 
-				$sign =  _signParams($config, $AppSecret );
-				$config['sign'] = $sign ;
-				$response =   _curlPost( $apiHost,$config); 
 	 
-				// 请按实际业务需求处理接口返回结果，下面代码仅打印返回结果。 
-				print $response ;
-			 
-		}
-
-
-		// 获取商家店铺的订单详情
-		function getOrderDetail() { 
-			global $APP_ID;
-			global $AppSecret;
-			global $PddOrderDetailUrl;
-			global $SellerNick;
-
-			$apiHost = $PddOrderDetailUrl;  
-			// 订单号
-			$order_sn = "200807-061031711860804";
-			 
-			$config = array(
-				"appid" =>   $APP_ID , 
-				"timestamp" => time()  , 
-				"seller_nick" =>  $SellerNick ,  // 必填， 对应的卖家，注意卖家要先授权给开发者
-				"order_sn" => $order_sn ,  
-			); 
-				$sign =  _signParams($config, $AppSecret );
-				$config['sign'] = $sign ;
-				$response =   _curlPost( $apiHost,$config);  
-				// 请按实际业务需求处理接口返回结果，下面代码仅打印返回结果。 
-				print $response ;
-			
-		}
-
 	  function _curlPost($url,$params){
 		$ch = curl_init();
 		curl_setopt($ch, CURLOPT_URL,$url);
@@ -175,15 +103,10 @@
 
  
     // 获取物流公司信息接口 
-    // getLogisticesCompany();
+     getLogisticesCompany();
 
    //  拼多多物流发货
    // LogisticesOnlineSend();
-
-	// 获取商家的订单列表
-	// getOrderList();
-
-	// 获取订单详情
-	getOrderDetail();
+ 
 
 ?> 
