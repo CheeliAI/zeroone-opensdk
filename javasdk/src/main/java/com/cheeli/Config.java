@@ -3,15 +3,15 @@ package com.cheeli;
 public class Config {
 
 
-    //开发者的ID和密钥,demo
-    public   static    String AppId  = "pt2411531762";
-    public  static   String AppSecret = "211522ai29km63";
-    public  static String TBSellerNick = "xxx";//    订购的淘宝卖家账号
-    public  static String PddSellerNick="pdd75712771556";//    拼多卖家
 
-    // 付款通知回调Url ，改为开发者自己网站或系统
-    public  static String PayNotifyUrl ="http://dev.baolai.la:12345/paynotice";
+    //开发者的ID和密钥
+    public   static    String AppId  = "aaa";
+    public  static   String AppSecret = "bbb"; //  //修改
+    public  static String TBSellerNick="百鞋馆";//     淘宝卖家
+    public  static String PddSellerNick="pdd92853259xx";//    拼多卖家
 
+    // 付款通知回调Url
+    public  static String PayNotifyUrl ="http://192.168.0.202:12345/paynotice";
 
     //正式环境
     public   static    String     baseUrl = "https://open.fw199.com";
@@ -24,4 +24,6 @@ public class Config {
     public   static    String     LogisticesOnlineSendUrl = baseUrl +   "/gateway/taobao/logistices/onlinesend";
     public   static    String     PddLogisticesCompanyUrl = baseUrl +   "/gateway/pdd/logistices/getcompany";
     public   static    String     PddLogisticesOnlineSendUrl = baseUrl +   "/gateway/pdd/logistices/onlinesend";
+    public   static    String     PddOrderDetailUrl = baseUrl +   "/gateway/pdd/order/detail";
+    public   static    String     PddOrderListUrl = baseUrl +   "/gateway/pdd/order/list";
 }
