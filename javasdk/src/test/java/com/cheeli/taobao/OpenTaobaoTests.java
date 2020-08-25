@@ -397,17 +397,16 @@ public class OpenTaobaoTests {
     @Test
     public void logisticesCompanyOnineSend() throws Exception {
 
-        String result ="";
+
         String tb_seller_nick = Config.TBSellerNick ; //要查询支付宝的淘宝商家
-        CloseableHttpClient httpclient = HttpClients.createDefault();
-        HttpPost httpPost = new HttpPost( Config.LogisticesOnlineSendUrl );
+
+
         //业务参数
         Map<String, String> data = new HashMap<String, String>();
         data.put("appid",  Config.AppId);
         data.put("tb_seller_nick", tb_seller_nick);
         Long timestamp = System.currentTimeMillis() / 1000;
         data.put("timestamp", timestamp.toString());
-
 
         // 淘宝交易ID，必须
         data.put("tid", "1148987073290565830");
@@ -422,6 +421,73 @@ public class OpenTaobaoTests {
         // 参数签名
         data.put("sign", Utils.Sign(data,Config.AppSecret));
 
+        // 调用服务API
+        doHttpRequest(Config.LogisticesOnlineSendUrl,data);
+
+    }
+
+    /**
+     *   获取订单列表
+     * @throws Exception
+     */
+    @Test
+    public void getTradeList() throws Exception {
+
+
+        String tb_seller_nick = Config.TBSellerNick ; //要查询的淘宝商家
+        //业务参数
+        Map<String, String> data = new HashMap<String, String>();
+        data.put("appid",  Config.AppId);
+        data.put("tb_seller_nick", tb_seller_nick);
+        Long timestamp = System.currentTimeMillis() / 1000;
+        data.put("timestamp", timestamp.toString());
+
+
+        Calendar calendar=Calendar.getInstance();
+        calendar.add(Calendar.DAY_OF_MONTH, -14);
+        SimpleDateFormat df = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+        data.put("start_created", df.format(calendar.getTime()));
+        Date end = new Date();
+        data.put("end_created",  df.format(end));
+        data.put("status",  "");
+        data.put("buyer_nick",  "");
+        data.put("page_no", "1");
+        data.put("page_size","20");
+        data.put("use_has_next","false");
+        data.put("sign", Utils.Sign(data,Config.AppSecret));
+        // 调用服务API
+        doHttpRequest(Config.TaoBaoOrderListUrl ,data);
+
+    }
+
+
+    /**
+     *   获取订单详情
+     * @throws Exception
+     */
+    @Test
+    public void getTradeDetail() throws Exception {
+
+        String tb_seller_nick = Config.TBSellerNick ; //要查询支付宝的淘宝商家
+        //业务参数
+        Map<String, String> data = new HashMap<String, String>();
+        data.put("appid",  Config.AppId);
+        data.put("tb_seller_nick", tb_seller_nick);
+        Long timestamp = System.currentTimeMillis() / 1000;
+        data.put("timestamp", timestamp.toString());
+        data.put("tid", "1189348257255565830");
+        data.put("sign", Utils.Sign(data,Config.AppSecret));
+        // 调用服务API
+        doHttpRequest(Config.TaoBaoOrderDetailUrl ,data);
+
+    }
+
+
+
+    private  void doHttpRequest(String url ,  Map<String, String> data ){
+        String result ="";
+        CloseableHttpClient httpclient = HttpClients.createDefault();
+        HttpPost httpPost = new HttpPost( url);
         List<BasicNameValuePair> params = new ArrayList<BasicNameValuePair>();
         for (Map.Entry<String, String> entry : data.entrySet()) {
             params.add(new BasicNameValuePair(entry.getKey(), entry.getValue()));
@@ -441,11 +507,7 @@ public class OpenTaobaoTests {
         }
 
         System.out.println(result);
-
     }
-
-
-
 
 
 }
