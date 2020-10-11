@@ -26,6 +26,12 @@ public class Config {
     public   static    String     PddLogisticesOnlineSendUrl = baseUrl +   "/gateway/pdd/logistices/onlinesend";
     public   static    String     PddOrderDetailUrl = baseUrl +   "/gateway/pdd/order/detail";
     public   static    String     PddOrderListUrl = baseUrl +   "/gateway/pdd/order/list";
-    public   static    String    TaoBaoOrderListUrl = baseUrl +   "/gateway/taobao/order/list";
+    public   static    String     TaoBaoOrderListUrl = baseUrl +   "/gateway/taobao/order/list";
     public   static    String     TaoBaoOrderDetailUrl = baseUrl +   "/gateway/taobao/order/detail";
+    public   static    String     TaoBaoCaiNiaoCloudPrintStdtemplatesUrl = baseUrl +   "/gateway/taobao/cainiao/cloudprint/getstdtemplates";
+    public   static    String     TaoBaoCaiNiaoWayBillSearchUrl = baseUrl +   "/gateway/taobao/cainiao/waybill/search";
+    public   static    String     TaoBaoCaiNiaoWayBillGetUrl = baseUrl +   "/gateway/taobao/cainiao/waybill/get";
+    public   static    String     TradePreCreate4WeiXinJSAPI = baseUrl +   "/gateway/partner/pay/tradeprecreate4wxjsapi";
+    public   static    String     TaoBaoLogisticesDummySend = baseUrl +   "/gateway/taobao/logistices/dummysend";
+    public   static    String     TaoBaoQianNiuSendMsg = baseUrl +   "/gateway/taobao/qianniu/sendmsg";
 }

@@ -1,4 +1,4 @@
-package com.cheeli.pay;
+package com.cheeli;
 
 import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.JSONObject;
@@ -23,12 +23,10 @@ import java.text.SimpleDateFormat;
 import java.util.*;
 
 
-/**
- * 场景：合作伙伴使用，可管理其他授权的店铺。即可以管理多家店铺
- */
+
 
 @RunWith(SpringRunner.class)
-@SpringBootTest
+@SpringBootTest(classes = OpenPayTests.class)
 public class OpenPayTests {
 
 
@@ -451,6 +449,85 @@ public class OpenPayTests {
 
 
 
+
+    /**
+     *  发起一笔支付交易 -- 微信jsapi代收版
+     * @throws Exception
+     */
+
+    @Test
+    public void TradePreCreate4WeiXinJSAPIAgent() throws Exception {
+
+        //************************** 请求参数填写开始 ***************************************/
+
+        //支付金额 (单位分），  修改
+        String  amount ="10";
+        // 确保传入的开发者订单号唯一, 订单号生成规则开发者可自定，  修改
+        String ext_trade_no =String.valueOf(System.currentTimeMillis());
+        // 扩展参数，付款成功时回调给开发者时会原样返回，根据自己需求填写或为空。
+        String attach ="biz=sms";
+        // 订单标题
+        String body ="故宫3日游团票";
+
+        // 回调通知url，开发者自己的服务器Url
+        String notify_url = Config.PayNotifyUrl;
+        String openid = "oxL-nt_wXbwtIh04tCNZ27T1X57M"; //miller
+
+        //************************** 请求参数填写结束 ***************************************/
+
+        String result ="";
+        CloseableHttpClient httpclient = HttpClients.createDefault();
+        HttpPost httpPost = new HttpPost( Config.TradePreCreate4WeiXinJSAPI );
+
+        //业务参数
+        Map<String, String> data = new HashMap<String, String>();
+        data.put("appid",  Config.AppId);
+        Long timestamp = System.currentTimeMillis() / 1000;
+        data.put("timestamp", timestamp.toString());
+        data.put("ext_trade_no",ext_trade_no );
+        data.put("amount",amount );
+        data.put("attach",attach );
+        data.put("body" , body );
+        data.put("notify_url",notify_url );
+        data.put("openid",openid );
+
+
+        //参数签名
+        try {
+            data.put("sign", Utils.Sign(data, Config.AppSecret));
+        } catch (NoSuchAlgorithmException e) {
+            e.printStackTrace();
+        } catch (UnsupportedEncodingException e) {
+            e.printStackTrace();
+        }
+        List<BasicNameValuePair> params = new ArrayList<BasicNameValuePair>();
+        for (Map.Entry<String, String> entry : data.entrySet()) {
+            params.add(new BasicNameValuePair(entry.getKey(), entry.getValue()));
+        }
+        //发起POST请求
+        try {
+            httpPost.setEntity(new UrlEncodedFormEntity(params, "UTF-8"));
+            HttpResponse httpResponse = httpclient.execute(httpPost);
+            if (httpResponse.getStatusLine().getStatusCode() == HttpStatus.SC_OK) {
+                result =  EntityUtils.toString(httpResponse.getEntity());
+                JSONObject jsonObject  =  JSON.parseObject(result);
+                Integer  code = jsonObject.getInteger("code");
+                String   message = jsonObject.getString("message");
+                JSONObject   dataObject = jsonObject.getJSONObject("data");
+                String   qr_url = dataObject.getString("qr_url");
+                System.out.println("qr_url:"+ qr_url);
+
+            } else {
+                result =  ("doPost Error Response: " + httpResponse.getStatusLine().toString());
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+
+        }
+
+        System.out.println(result);
+
+    }
 
 
 

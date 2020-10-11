@@ -226,7 +226,7 @@ public class OpenPDDTests {
         data.put("timestamp", timestamp.toString());
 
         //  必填 ，订单号
-        data.put("order_sn", "200807-061031711860804");
+        data.put("order_sn", "200912-574091430461236");
 
         // 参数签名
         data.put("sign", Utils.Sign(data,Config.AppSecret));

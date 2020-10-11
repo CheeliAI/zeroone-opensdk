@@ -239,7 +239,7 @@ public class OpenTaobaoTests {
 
         String result ="";
         String tb_seller_nick = Config.TBSellerNick ; //要查询支付宝的淘宝商家
-        String alipay_order_no = "20200713110070101506950096909090"; // 支付宝交易订单号
+        String alipay_order_no = "20200811200040011100790075219429"; // 支付宝交易订单号
         CloseableHttpClient httpclient = HttpClients.createDefault();
         HttpPost httpPost = new HttpPost( Config.AliPayTradeDetailUrl );
 
@@ -434,7 +434,7 @@ public class OpenTaobaoTests {
     public void getTradeList() throws Exception {
 
 
-        String tb_seller_nick = Config.TBSellerNick ; //要查询的淘宝商家
+        String tb_seller_nick = Config.TBSellerNick; //要查询的淘宝商家
         //业务参数
         Map<String, String> data = new HashMap<String, String>();
         data.put("appid",  Config.AppId);
@@ -444,7 +444,7 @@ public class OpenTaobaoTests {
 
 
         Calendar calendar=Calendar.getInstance();
-        calendar.add(Calendar.DAY_OF_MONTH, -14);
+        calendar.add(Calendar.DAY_OF_MONTH, -90);
         SimpleDateFormat df = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
         data.put("start_created", df.format(calendar.getTime()));
         Date end = new Date();
@@ -452,7 +452,7 @@ public class OpenTaobaoTests {
         data.put("status",  "");
         data.put("buyer_nick",  "");
         data.put("page_no", "1");
-        data.put("page_size","20");
+        data.put("page_size","100");
         data.put("use_has_next","false");
         data.put("sign", Utils.Sign(data,Config.AppSecret));
         // 调用服务API
@@ -475,10 +475,130 @@ public class OpenTaobaoTests {
         data.put("tb_seller_nick", tb_seller_nick);
         Long timestamp = System.currentTimeMillis() / 1000;
         data.put("timestamp", timestamp.toString());
-        data.put("tid", "1189348257255565830");
+        data.put("tid", "90020206078841641229");
         data.put("sign", Utils.Sign(data,Config.AppSecret));
         // 调用服务API
         doHttpRequest(Config.TaoBaoOrderDetailUrl ,data);
+
+    }
+
+    /**
+     * 获取所有的菜鸟标准电子面单模板
+     * @throws Exception
+     */
+    @Test
+    public void getCloudPrintStdtemplates() throws Exception {
+
+        String tb_seller_nick = Config.TBSellerNick ; //要查询支付宝的淘宝商家
+        //业务参数
+        Map<String, String> data = new HashMap<String, String>();
+        data.put("appid",  Config.AppId);
+        data.put("tb_seller_nick", tb_seller_nick);
+        Long timestamp = System.currentTimeMillis() / 1000;
+        data.put("timestamp", timestamp.toString());
+        data.put("sign", Utils.Sign(data,Config.AppSecret));
+        // 调用服务API
+        doHttpRequest(Config.TaoBaoCaiNiaoCloudPrintStdtemplatesUrl ,data);
+
+    }
+
+
+
+    /**
+     *   查询面单服务订购及面单使用情况
+     * @throws Exception
+     */
+    @Test
+    public void getCaiNiaoWayBillSearch() throws Exception {
+
+        String tb_seller_nick = Config.TBSellerNick ; //要查询支付宝的淘宝商家
+        //业务参数
+        Map<String, String> data = new HashMap<String, String>();
+        data.put("appid",  Config.AppId);
+        data.put("tb_seller_nick", tb_seller_nick);
+        Long timestamp = System.currentTimeMillis() / 1000;
+        data.put("timestamp", timestamp.toString());
+        data.put("cp_code", "");
+        data.put("sign", Utils.Sign(data,Config.AppSecret));
+        // 调用服务API
+        doHttpRequest(Config.TaoBaoCaiNiaoWayBillSearchUrl ,data);
+
+    }
+
+
+    /**
+     *    电子面单云打印接口
+     * @throws Exception
+     */
+    @Test
+    public void getCaiNiaoWayBillGet() throws Exception {
+
+        String tb_seller_nick = Config.TBSellerNick ; //要查询支付宝的淘宝商家
+        String reqeustData ="{\"cp_code\":\"ZTO\",\"dms_sorting\":false,\"resource_code\":\"\",\"sender\":{\"address\":{\"city\":\"长沙市\",\"detail\":\"望城大道61号丰树物流园三期（于野彩卡）\",\"district\":\"望城区\",\"province\":\"湖南省\"},\"mobile\":\"1326443654\",\"name\":\"XX印务-as\",\"phone\":\"0571232222\"},\"store_code\":\"\",\"trade_order_info_dtos\":[{\"object_id\":\"1\",\"order_info\":{\"order_channels_type\":\"TB\",\"trade_order_list\":[\"90020206078841641229\"]},\"package_info\":{\"id\":\"1\",\"items\":[{\"count\":50,\"name\":\"名片\"}],\"volume\":1,\"weight\":1},\"recipient\":{\"address\":{\"city\":\"杭州市\",\"detail\":\"横村镇桐千路8118号华艺大酒店单身公寓12楼\",\"district\":\"桐庐县\",\"province\":\"浙江省\",\"town\":\"横村镇\"},\"mobile\":\"13357035578\",\"name\":\"洪勇军修改-智能发货\",\"phone\":\"057123222233\"},\"template_url\":\"http:\\/\\/cloudprint.cainiao.com\\/template\\/standard\\/256771\\/9\",\"user_id\":0}]}";
+        //业务参数
+        Map<String, String> data = new HashMap<String, String>();
+        data.put("appid",  Config.AppId);
+        data.put("tb_seller_nick", tb_seller_nick);
+        Long timestamp = System.currentTimeMillis() / 1000;
+        data.put("timestamp", timestamp.toString());
+
+        data.put("request_data",reqeustData );
+
+        data.put("sign", Utils.Sign(data,Config.AppSecret));
+        // 调用服务API
+        doHttpRequest(Config.TaoBaoCaiNiaoWayBillGetUrl ,data);
+
+    }
+
+
+    /**
+     *    淘宝无物流发货
+     * @throws Exception
+     */
+    @Test
+    public void logisticesDummySend() throws Exception {
+
+        String tb_seller_nick = Config.TBSellerNick ; //要查询支付宝的淘宝商家
+        //业务参数
+        Map<String, String> data = new HashMap<String, String>();
+        data.put("appid",  Config.AppId);
+        data.put("tb_seller_nick", tb_seller_nick);
+        Long timestamp = System.currentTimeMillis() / 1000;
+        data.put("timestamp", timestamp.toString());
+
+        data.put("tid", "1264569985994565830");
+        data.put("memo", "这一个使用API添加的备注");
+        data.put("flag", "1");
+
+        data.put("sign", Utils.Sign(data,Config.AppSecret));
+        // 调用服务API
+        doHttpRequest(Config.TaoBaoLogisticesDummySend ,data);
+
+    }
+
+
+    /**
+     *    发送千牛消息
+     *    前提 ：千牛助手和千牛在电脑客户端正常工作。
+     * @throws Exception
+     */
+    @Test
+    public void qianiuSendMsg() throws Exception {
+
+        String tb_seller_nick = Config.TBSellerNick ; //要查询支付宝的淘宝商家
+        //业务参数
+
+        Map<String, String> data = new HashMap<String, String>();
+        data.put("appid",  Config.AppId);
+        data.put("tb_seller_nick", tb_seller_nick);
+        Long timestamp = System.currentTimeMillis() / 1000;
+        data.put("timestamp", timestamp.toString());
+
+        data.put("buyer_nick", "supercode");
+        data.put("msg_content", "这是通过api发送的千牛消息哈");
+        data.put("sign", Utils.Sign(data,Config.AppSecret));
+        // 调用服务API
+        doHttpRequest(Config.TaoBaoQianNiuSendMsg ,data);
 
     }
 
