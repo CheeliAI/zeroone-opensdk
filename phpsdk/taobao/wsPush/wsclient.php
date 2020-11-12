@@ -1,51 +1,80 @@
 <?php
-/* 淘宝订单推送客户端 */
-/* 文档：http://help.fw199.com/docs/h7b/taobao-preface */ 
-/* 请采用php cli 模式运行 */
+ 
+/**
+ * 蜂巢开放平台websocket客户端
+ * http://help.fw199.com/docs/h7b/taobao-preface
+ * Auth:Miller   
+ * Date:2020-11-11
+ */
+require "./H7BWebSocket.php";
+ 
 
-require __DIR__ . '/vendor/autoload.php';
+$server = 'open.fw199.com';
+$port  = 443; 
+$ssl = true;
 
-// 修改自己的appId和appSecret
-$appId= 'xxxxxx';
-$appSecret = 'bbbbbb';
+// 开发者AppId
+$appId= '你的appid';
+// 开发者的密钥
+$appSecret = '你的appSecret';
 
 $token = md5($appSecret . $appId . $appSecret);
-$url = 'wss://open.fw199.com:443/acc?appid=' . $appId . "&token=" . $token;
-  
-$pid = posix_getpid(); //取得主进程ID 
-$client= new WebSocket\Client($url); 
-process_execute_beat($client);
+ 
+$path =  '/acc?appid=' . $appId . "&token=" . $token  .  "&version=v1.1" ."&clientid=server007"; 
+$wsclient= new H7BWebSocket($server,$port,'', $errstr,$ssl, $path );  
+$ok = $wsclient->Connect();
+ 
+echo "Connecting to server: $server " .$ok . "\n"; 
+$last_beat = time();
 while (true) {
     try {
           
-        $message = $client->receive(); 
-        echo '收到消息服务端的消息：' . $message . "\r\n"; 
-        // 根据上面收到消息$message，进行相应的业务处理
+         $server_message = $wsclient->websocket_read($errstr); 
+         
+        if ($server_message !== false) { 
+            echo 'receiver server msg：' . $server_message . "\r\n";   
+            // 处理消息
+            $server_response = json_decode($server_message,true);  
 
+            /** 以下业务逻辑处理 */  
+            $code = $server_response['code']; 
+            if ($code  == 0) {
+                // 正常的消息
+               $topic = $server_response['topic']; 
+               // 根据不同的$topic进行逻辑相应的topic， 见文档
+
+
+
+            } else {
+                // 服务端有相应的错误返回过来
+                $msg = $server_response['msg']; 
+                echo $msg;
+            }
+
+             /** 如果是需要确认的消息，则确认此消息，否则服务端消息将会重发。*/
+            $uuid = $server_response['uuid']; 
+            if ($uuid != "") {
+              $ack_cmd =  json_encode(array ('cmd'=>"ack_sync_data",'seq'=> $uuid ));
+              $wsclient->websocket_write($ack_cmd);
+            }
+
+        }
+
+        // 心跳
+        $second =  time()  -  $last_beat ; 
+        if ($second > 10 ) { 
+            $last_beat = time();
+            $result = $wsclient->websocket_write( '{"cmd":"beat"}'); 
+            echo 'send beat to server, result:' . $result .  "\r\n"; 
+            if ($result == 0){
+                $wsclient->Connect();
+            } 
+        } 
+ 
     } catch (\WebSocket\ConnectionException $e) { 
         echo  '连接异常: ' . $e . "\r\n";
     }
 }
-
-$client->close();
-
-// 心跳处理
-function process_execute_beat($client ) {  
-    $pid = pcntl_fork(); 
-    if ($pid == -1 ) {  
-            echo '创建子进程失败时返回-1'; 
-            exit;  
-    } else if($pid) {//主进程  
-             pcntl_wait($status, WNOHANG); //取得子进程结束状态   
-    } else {
-        while(true) { 
-            sleep(30);
-            echo 'send beat to server' . "\r\n";
-            $client->send('{"cmd":"beat"}');
-       }
-    }
-} 
  
-
+ 
 ?>
- 
