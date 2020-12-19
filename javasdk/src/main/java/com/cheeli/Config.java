@@ -22,6 +22,7 @@ public class Config {
     public   static    String     TradePreCreate = baseUrl +   "/gateway/partner/pay/tradeprecreate";
     public   static    String     LogisticesCompanyUrl = baseUrl +   "/gateway/taobao/logistices/getcompany";
     public   static    String     LogisticesOnlineSendUrl = baseUrl +   "/gateway/taobao/logistices/onlinesend";
+    public   static    String     LogisticesOfflineSendUrl = baseUrl +   "/gateway/taobao/logistices/offlinesend";
     public   static    String     PddLogisticesCompanyUrl = baseUrl +   "/gateway/pdd/logistices/getcompany";
     public   static    String     PddLogisticesOnlineSendUrl = baseUrl +   "/gateway/pdd/logistices/onlinesend";
     public   static    String     PddOrderDetailUrl = baseUrl +   "/gateway/pdd/order/detail";
@@ -30,8 +31,11 @@ public class Config {
     public   static    String     TaoBaoOrderDetailUrl = baseUrl +   "/gateway/taobao/order/detail";
     public   static    String     TaoBaoCaiNiaoCloudPrintStdtemplatesUrl = baseUrl +   "/gateway/taobao/cainiao/cloudprint/getstdtemplates";
     public   static    String     TaoBaoCaiNiaoWayBillSearchUrl = baseUrl +   "/gateway/taobao/cainiao/waybill/search";
-    public   static    String     TaoBaoCaiNiaoWayBillGetUrl = baseUrl +   "/gateway/taobao/cainiao/waybill/get";
+    public   static    String     TaoBaoCaiNiaoWayBillBatchGetUrl = baseUrl +   "/gateway/taobao/cainiao/waybill/batchget";
     public   static    String     TradePreCreate4WeiXinJSAPI = baseUrl +   "/gateway/partner/pay/tradeprecreate4wxjsapi";
     public   static    String     TaoBaoLogisticesDummySend = baseUrl +   "/gateway/taobao/logistices/dummysend";
     public   static    String     TaoBaoQianNiuSendMsg = baseUrl +   "/gateway/taobao/qianniu/sendmsg";
+    public   static    String     TaoBaoStoreGrantUrl = baseUrl +   "/gateway/partner/store/grant";
+    public   static    String     TaoBaoUpdateMemoUrl = baseUrl +   "/gateway/taobao/order/updatememo";
+
 }

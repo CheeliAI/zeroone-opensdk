@@ -13,7 +13,6 @@ import java.util.TimerTask;
 public class WSSync {
 
 
-//    private static String serverUrl = "ws://127.0.0.1:9095/acc";
     private static String serverUrl = "wss://open.fw199.com/acc";
     private EasyWSClient   webSocketClient = null;
     public void start() {
@@ -21,7 +20,7 @@ public class WSSync {
         try {
 
               String token = Utils.MD5(Config.AppSecret + Config.AppId + Config.AppSecret);
-              String finallyUrl = serverUrl +"?appid=" + Config.AppId + "&token=" + token;
+              String finallyUrl = serverUrl +"?appid=" + Config.AppId + "&token=" + token +"&version=v1.1" +"&clientid=lpclient002";
               webSocketClient = new EasyWSClient(new URI(finallyUrl));
               webSocketClient.connect();
 

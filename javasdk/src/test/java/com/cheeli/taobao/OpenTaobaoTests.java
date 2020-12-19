@@ -1,8 +1,12 @@
 package com.cheeli.taobao;
 
+import com.alibaba.fastjson.JSON;
 import com.cheeli.Config;
+import com.cheeli.tradeserver.model.ChangeMemoWithTrade;
+import com.cheeli.tradeserver.model.TradeMemo;
 import com.cheeli.utils.Utils;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import org.apache.commons.lang.StringEscapeUtils;
 import org.apache.http.HttpResponse;
 import org.apache.http.HttpStatus;
 import org.apache.http.client.entity.UrlEncodedFormEntity;
@@ -142,7 +146,8 @@ public class OpenTaobaoTests {
     public void getAlipayAccountInfo() throws Exception {
 
         String result ="";
-        String url = "https://open.fw199.com/gateway/alipay/account/detail";
+//        String url = "https://open.fw199.com/gateway/alipay/account/detail";
+        String url = "http://web2.vs.fw199.com/gateway/alipay/account/detail";
         String tb_seller_nick = Config.TBSellerNick ; //要查询支付宝的淘宝商家
         CloseableHttpClient httpclient = HttpClients.createDefault();
         HttpPost httpPost = new HttpPost( url );
@@ -188,12 +193,11 @@ public class OpenTaobaoTests {
     @Test
     public void checkStoreGrant() throws Exception {
 
-        String url = "https://open.fw199.com/gateway/partner/store/grant";
         String result ="";
         String tb_seller_nick = Config.TBSellerNick ; //要查询支付宝的淘宝商家
 
         CloseableHttpClient httpclient = HttpClients.createDefault();
-        HttpPost httpPost = new HttpPost( url );
+        HttpPost httpPost = new HttpPost( Config.TaoBaoStoreGrantUrl );
 
         //业务参数
         Map<String, String> data = new HashMap<String, String>();
@@ -426,6 +430,45 @@ public class OpenTaobaoTests {
 
     }
 
+
+
+    /**
+     *  自己联系物流（线下物流）发货
+     *  用户调用该接口可实现自己联系发货（线下物流），使用该接口发货，交易订单状态会直接变成卖家已发货。不支持货到付款、在线下单类型的订单。
+     * @throws Exception
+     */
+    @Test
+    public void logisticesCompanyOffineSend() throws Exception {
+
+
+        String tb_seller_nick = Config.TBSellerNick ; //要查询支付宝的淘宝商家
+
+        //业务参数
+        Map<String, String> data = new HashMap<String, String>();
+        data.put("appid",  Config.AppId);
+        data.put("tb_seller_nick", tb_seller_nick);
+        Long timestamp = System.currentTimeMillis() / 1000;
+        data.put("timestamp", timestamp.toString());
+
+        // 淘宝交易ID，必须
+        data.put("tid", "1366575805196235184");
+        //  物流公司代码.如"POST"就代表中国邮政,"ZJS"就代表宅急送 ，通过接口 "查询物流公司列表"   获取。
+        data.put("company_code","STO");
+        // 运单号.具体一个物流公司的真实运单号码。淘宝官方物流会校验，请谨慎传入；
+        data.put("out_sid","773067452686046");
+        // 卖家交易备注旗帜，   可选值为：0(灰色), 1(红色), 2(黄色), 3(绿色), 4(蓝色), 5(粉红色)，说明：如果不想加旗帜，则传空串""
+        data.put("flag","1");
+        // 卖家交易备注。最大长度: 1000个字节  ，说明：如果不想加旗帜，则传空串""
+        data.put("memo","效果不错");
+        // 参数签名
+        data.put("sign", Utils.Sign(data,Config.AppSecret));
+
+        // 调用服务API
+        doHttpRequest(Config.LogisticesOfflineSendUrl,data);
+
+    }
+
+
     /**
      *   获取订单列表
      * @throws Exception
@@ -444,19 +487,29 @@ public class OpenTaobaoTests {
 
 
         Calendar calendar=Calendar.getInstance();
-        calendar.add(Calendar.DAY_OF_MONTH, -90);
+        calendar.add(Calendar.DAY_OF_MONTH, -2);
         SimpleDateFormat df = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
         data.put("start_created", df.format(calendar.getTime()));
         Date end = new Date();
         data.put("end_created",  df.format(end));
-        data.put("status",  "");
+        data.put("status",  ""); // 待发货订单 WAIT_SELLER_SEND_GOODS
         data.put("buyer_nick",  "");
         data.put("page_no", "1");
-        data.put("page_size","100");
-        data.put("use_has_next","false");
+        data.put("page_size","20");
+        data.put("use_has_next","true");
         data.put("sign", Utils.Sign(data,Config.AppSecret));
         // 调用服务API
+        long startTime = System.currentTimeMillis(); //获取开始时间
+
         doHttpRequest(Config.TaoBaoOrderListUrl ,data);
+
+        long endTime = System.currentTimeMillis(); //获取结束时间
+
+        System.out.println("程序运行时间：" + (endTime - startTime) + "ms"); //输出程序运行时间
+
+
+
+
 
     }
 
@@ -475,7 +528,7 @@ public class OpenTaobaoTests {
         data.put("tb_seller_nick", tb_seller_nick);
         Long timestamp = System.currentTimeMillis() / 1000;
         data.put("timestamp", timestamp.toString());
-        data.put("tid", "90020206078841641229");
+        data.put("tid", "1366575805196235184");
         data.put("sign", Utils.Sign(data,Config.AppSecret));
         // 调用服务API
         doHttpRequest(Config.TaoBaoOrderDetailUrl ,data);
@@ -518,7 +571,7 @@ public class OpenTaobaoTests {
         data.put("tb_seller_nick", tb_seller_nick);
         Long timestamp = System.currentTimeMillis() / 1000;
         data.put("timestamp", timestamp.toString());
-        data.put("cp_code", "");
+        data.put("cp_code", ""); //  物流公司code  比如，YUNDA
         data.put("sign", Utils.Sign(data,Config.AppSecret));
         // 调用服务API
         doHttpRequest(Config.TaoBaoCaiNiaoWayBillSearchUrl ,data);
@@ -526,15 +579,204 @@ public class OpenTaobaoTests {
     }
 
 
+
+
+
     /**
-     *    电子面单云打印接口
+     *    电子面单云打印接口 -批量
      * @throws Exception
      */
     @Test
-    public void getCaiNiaoWayBillGet() throws Exception {
+    public void getCaiNiaoWayBillGetBatch() throws Exception {
 
         String tb_seller_nick = Config.TBSellerNick ; //要查询支付宝的淘宝商家
-        String reqeustData ="{\"cp_code\":\"ZTO\",\"dms_sorting\":false,\"resource_code\":\"\",\"sender\":{\"address\":{\"city\":\"长沙市\",\"detail\":\"望城大道61号丰树物流园三期（于野彩卡）\",\"district\":\"望城区\",\"province\":\"湖南省\"},\"mobile\":\"1326443654\",\"name\":\"XX印务-as\",\"phone\":\"0571232222\"},\"store_code\":\"\",\"trade_order_info_dtos\":[{\"object_id\":\"1\",\"order_info\":{\"order_channels_type\":\"TB\",\"trade_order_list\":[\"90020206078841641229\"]},\"package_info\":{\"id\":\"1\",\"items\":[{\"count\":50,\"name\":\"名片\"}],\"volume\":1,\"weight\":1},\"recipient\":{\"address\":{\"city\":\"杭州市\",\"detail\":\"横村镇桐千路8118号华艺大酒店单身公寓12楼\",\"district\":\"桐庐县\",\"province\":\"浙江省\",\"town\":\"横村镇\"},\"mobile\":\"13357035578\",\"name\":\"洪勇军修改-智能发货\",\"phone\":\"057123222233\"},\"template_url\":\"http:\\/\\/cloudprint.cainiao.com\\/template\\/standard\\/256771\\/9\",\"user_id\":0}]}";
+//        String reqeustData ="{\"cp_code\":\"ZTO\",\"dms_sorting\":false,\"resource_code\":\"\",\"sender\":{\"address\":{\"city\":\"长沙市\",\"detail\":\"望城大道61号丰树物流园三期（于野彩卡）\",\"district\":\"望城区\",\"province\":\"湖南省\"},\"mobile\":\"1326443654\",\"name\":\"XX印务-as\",\"phone\":\"0571232222\"},\"store_code\":\"\",\"trade_order_info_dtos\":[{\"object_id\":\"1\",\"order_info\":{\"order_channels_type\":\"TB\",\"trade_order_list\":[\"90020206078841641229\"]},\"package_info\":{\"id\":\"1\",\"items\":[{\"count\":50,\"name\":\"名片\"}],\"volume\":1,\"weight\":1},\"recipient\":{\"address\":{\"city\":\"杭州市\",\"detail\":\"横村镇桐千路8118号华艺大酒店单身公寓12楼\",\"district\":\"桐庐县\",\"province\":\"浙江省\",\"town\":\"横村镇\"},\"mobile\":\"13357035578\",\"name\":\"洪勇军修改-智能发货\",\"phone\":\"057123222233\"},\"template_url\":\"http:\\/\\/cloudprint.cainiao.com\\/template\\/standard\\/256771\\/9\",\"user_id\":0}]}";
+        String reqeustData ="{\n" +
+                "    \"cp_code\": \"YTO\",\n" +
+                "    \"dms_sorting\": false,\n" +
+                "    \"resource_code\": \"\",\n" +
+                "    \"sender\": {\n" +
+                "        \"address\": {\n" +
+                "            \"city\": \"泉州市\",\n" +
+                "            \"detail\": \"灵秀镇子江路15号\",\n" +
+                "            \"district\": \"鲤城区\",\n" +
+                "            \"province\": \"福建省\"\n" +
+                "        },\n" +
+                "        \"mobile\": \"13960280440\",\n" +
+                "        \"name\": \"吴远金\",\n" +
+                "        \"phone\": \"\"\n" +
+                "    },\n" +
+                "    \"store_code\": \"\",\n" +
+                "    \"trade_order_info_dtos\": [\n" +
+                "        {\n" +
+                "            \"object_id\": \"7329529\",\n" +
+                "            \"order_info\": {\n" +
+                "                \"order_channels_type\": \"TB\",\n" +
+                "                \"trade_order_list\": [\n" +
+                "                    \"7329529\"\n" +
+                "                ]\n" +
+                "            },\n" +
+                "            \"package_info\": {\n" +
+                "                \"id\": \"225\",\n" +
+                "                \"items\": [\n" +
+                "                    {\n" +
+                "                        \"count\": 1,\n" +
+                "                        \"name\": \"赠品：自提件\"\n" +
+                "                    }\n" +
+                "                ],\n" +
+                "                \"volume\": 1,\n" +
+                "                \"weight\": 1\n" +
+                "            },\n" +
+                "            \"recipient\": {\n" +
+                "                \"address\": {\n" +
+                "                    \"city\": \"吕梁市\",\n" +
+                "                    \"detail\": \"凤山街道北川河东路善水新苑二单元1902户\",\n" +
+                "                    \"district\": \"离石区\",\n" +
+                "                    \"province\": \"山西省\"\n" +
+                "                },\n" +
+                "                \"mobile\": \"15869015241\",\n" +
+                "                \"name\": \"吴家\",\n" +
+                "                \"phone\": \"\"\n" +
+                "            },\n" +
+                "            \"template_url\": \"http:\\\\/\\\\/cloudprint.cainiao.com\\\\/template\\\\/standard\\\\/290659\\\\/42\",\n" +
+                "            \"user_id\": 271\n" +
+                "        },\n" +
+                "        {\n" +
+                "            \"object_id\": \"7329530\",\n" +
+                "            \"order_info\": {\n" +
+                "                \"order_channels_type\": \"TB\",\n" +
+                "                \"trade_order_list\": [\n" +
+                "                    \"7329530\"\n" +
+                "                ]\n" +
+                "            },\n" +
+                "            \"package_info\": {\n" +
+                "                \"id\": \"225\",\n" +
+                "                \"items\": [\n" +
+                "                    {\n" +
+                "                        \"count\": 1,\n" +
+                "                        \"name\": \"赠品：自提件\"\n" +
+                "                    }\n" +
+                "                ],\n" +
+                "                \"volume\": 1,\n" +
+                "                \"weight\": 1\n" +
+                "            },\n" +
+                "            \"recipient\": {\n" +
+                "                \"address\": {\n" +
+                "                    \"city\": \"金华市\",\n" +
+                "                    \"detail\": \"西城街道杨官路118号\",\n" +
+                "                    \"district\": \"永康市\",\n" +
+                "                    \"province\": \"浙江省\"\n" +
+                "                },\n" +
+                "                \"mobile\": \"15869015241\",\n" +
+                "                \"name\": \"吴家\",\n" +
+                "                \"phone\": \"\"\n" +
+                "            },\n" +
+                "            \"template_url\": \"http:\\\\/\\\\/cloudprint.cainiao.com\\\\/template\\\\/standard\\\\/290659\\\\/42\",\n" +
+                "            \"user_id\": 271\n" +
+                "        },\n" +
+                "        {\n" +
+                "            \"object_id\": \"7329531\",\n" +
+                "            \"order_info\": {\n" +
+                "                \"order_channels_type\": \"TB\",\n" +
+                "                \"trade_order_list\": [\n" +
+                "                    \"7329531\"\n" +
+                "                ]\n" +
+                "            },\n" +
+                "            \"package_info\": {\n" +
+                "                \"id\": \"225\",\n" +
+                "                \"items\": [\n" +
+                "                    {\n" +
+                "                        \"count\": 1,\n" +
+                "                        \"name\": \"赠品：自提件\"\n" +
+                "                    }\n" +
+                "                ],\n" +
+                "                \"volume\": 1,\n" +
+                "                \"weight\": 1\n" +
+                "            },\n" +
+                "            \"recipient\": {\n" +
+                "                \"address\": {\n" +
+                "                    \"city\": \"营口市\",\n" +
+                "                    \"detail\": \"石桥街道二零二国道佳美馨居2号楼\",\n" +
+                "                    \"district\": \"大石桥市\",\n" +
+                "                    \"province\": \"辽宁省\"\n" +
+                "                },\n" +
+                "                \"mobile\": \"15869015241\",\n" +
+                "                \"name\": \"吴家\",\n" +
+                "                \"phone\": \"\"\n" +
+                "            },\n" +
+                "            \"template_url\": \"http:\\\\/\\\\/cloudprint.cainiao.com\\\\/template\\\\/standard\\\\/290659\\\\/42\",\n" +
+                "            \"user_id\": 271\n" +
+                "        },\n" +
+                "        {\n" +
+                "            \"object_id\": \"7329532\",\n" +
+                "            \"order_info\": {\n" +
+                "                \"order_channels_type\": \"TB\",\n" +
+                "                \"trade_order_list\": [\n" +
+                "                    \"7329532\"\n" +
+                "                ]\n" +
+                "            },\n" +
+                "            \"package_info\": {\n" +
+                "                \"id\": \"225\",\n" +
+                "                \"items\": [\n" +
+                "                    {\n" +
+                "                        \"count\": 1,\n" +
+                "                        \"name\": \"赠品：自提件\"\n" +
+                "                    }\n" +
+                "                ],\n" +
+                "                \"volume\": 1,\n" +
+                "                \"weight\": 1\n" +
+                "            },\n" +
+                "            \"recipient\": {\n" +
+                "                \"address\": {\n" +
+                "                    \"city\": \"聊城市\",\n" +
+                "                    \"detail\": \"青年路街道嘉和苑小区3号楼5单元602\",\n" +
+                "                    \"district\": \"临清市\",\n" +
+                "                    \"province\": \"山东省\"\n" +
+                "                },\n" +
+                "                \"mobile\": \"15869015241\",\n" +
+                "                \"name\": \"吴家\",\n" +
+                "                \"phone\": \"\"\n" +
+                "            },\n" +
+                "            \"template_url\": \"http:\\\\/\\\\/cloudprint.cainiao.com\\\\/template\\\\/standard\\\\/290659\\\\/42\",\n" +
+                "            \"user_id\": 271\n" +
+                "        },\n" +
+                "        {\n" +
+                "            \"object_id\": \"7329533\",\n" +
+                "            \"order_info\": {\n" +
+                "                \"order_channels_type\": \"TB\",\n" +
+                "                \"trade_order_list\": [\n" +
+                "                    \"7329533\"\n" +
+                "                ]\n" +
+                "            },\n" +
+                "            \"package_info\": {\n" +
+                "                \"id\": \"225\",\n" +
+                "                \"items\": [\n" +
+                "                    {\n" +
+                "                        \"count\": 1,\n" +
+                "                        \"name\": \"赠品：自提件\"\n" +
+                "                    }\n" +
+                "                ],\n" +
+                "                \"volume\": 1,\n" +
+                "                \"weight\": 1\n" +
+                "            },\n" +
+                "            \"recipient\": {\n" +
+                "                \"address\": {\n" +
+                "                    \"city\": \"沧州市\",\n" +
+                "                    \"detail\": \"河城街镇河城街中心校\",\n" +
+                "                    \"district\": \"献县\",\n" +
+                "                    \"province\": \"河北省\"\n" +
+                "                },\n" +
+                "                \"mobile\": \"15869015241\",\n" +
+                "                \"name\": \"吴家\",\n" +
+                "                \"phone\": \"\"\n" +
+                "            },\n" +
+                "            \"template_url\": \"http:\\\\/\\\\/cloudprint.cainiao.com\\\\/template\\\\/standard\\\\/290659\\\\/42\",\n" +
+                "            \"user_id\": 271\n" +
+                "        }\n" +
+                "    ]\n" +
+                "}";
+
+
         //业务参数
         Map<String, String> data = new HashMap<String, String>();
         data.put("appid",  Config.AppId);
@@ -546,9 +788,10 @@ public class OpenTaobaoTests {
 
         data.put("sign", Utils.Sign(data,Config.AppSecret));
         // 调用服务API
-        doHttpRequest(Config.TaoBaoCaiNiaoWayBillGetUrl ,data);
+        doHttpRequest(Config.TaoBaoCaiNiaoWayBillBatchGetUrl ,data);
 
     }
+
 
 
     /**
@@ -599,6 +842,38 @@ public class OpenTaobaoTests {
         data.put("sign", Utils.Sign(data,Config.AppSecret));
         // 调用服务API
         doHttpRequest(Config.TaoBaoQianNiuSendMsg ,data);
+
+    }
+
+    /**
+     *    修改淘宝订单备注
+     * @throws Exception
+     */
+    @Test
+    public void updateMemo() throws Exception {
+
+        String tb_seller_nick = Config.TBSellerNick ; //要查询支付宝的淘宝商家
+        //业务参数
+
+        Map<String, String> data = new HashMap<String, String>();
+        data.put("appid",  Config.AppId);
+        data.put("tb_seller_nick", tb_seller_nick);
+        Long timestamp = System.currentTimeMillis() / 1000;
+        data.put("timestamp", timestamp.toString());
+        // 订单号
+        data.put("tid", "1394872671557565830");
+        // 卖家交易备注旗帜，可选值为：0(灰色), 1(红色), 2(黄色), 3(绿色), 4(蓝色), 5(粉红色)，默认值为0
+        data.put("flag", "2");
+        // 卖家交易备注。最大长度: 1000个字节
+        data.put("memo", "这是通过api写的备注");
+        // 是否对memo的值置空若为true，则不管传入的memo字段的值是否为空，都将会对已有的memo值清空，慎用；
+        // 若用false，则会根据memo是否为空来修改memo的值：若memo为空则忽略对已有memo字段的修改，若memo非空，则使用新传入的memo覆盖已有的memo的值
+        data.put("reset", "false");
+
+        // 签名
+        data.put("sign", Utils.Sign(data,Config.AppSecret));
+        // 调用服务API
+        doHttpRequest(Config.TaoBaoUpdateMemoUrl ,data);
 
     }
 

@@ -23,11 +23,11 @@ public class SyncSuccessTrade {
         this.payment = payment;
     }
 
-    public int getOid() {
+    public long getOid() {
         return oid;
     }
 
-    public void setOid(int oid) {
+    public void setOid(long oid) {
         this.oid = oid;
     }
 
@@ -51,7 +51,7 @@ public class SyncSuccessTrade {
     private String payment;
 
     @JSONField(name = "oid")
-    private int oid;
+    private long oid;
 
     @JSONField(name = "tid")
     private long tid;
