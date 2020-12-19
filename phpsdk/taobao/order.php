@@ -8,7 +8,7 @@
       
     $OrderListUrl = $baseUrl  .   "/gateway/taobao/order/list";
     $OrderDetailUrl = $baseUrl .   "/gateway/taobao/order/detail";
-
+	$OrderUpdateMemoUrl = $baseUrl .   "/gateway/taobao/order/updatememo";
 
 	// 获取淘宝订单列表 , 
 	// 接口说明：http://help.fw199.com/docs/autosend/autosend-tb
@@ -54,12 +54,12 @@
 	function getOrderDetail() { 
 		global $APP_ID;
 		global $AppSecret;
-		global $OrderDetailUrl;
+		global $OrderUpdateMemoUrl;
 		global $TBSellerNick;
 
-    	$apiHost = $OrderDetailUrl; 
+    	$apiHost = $OrderUpdateMemoUrl;  
  
-			$config = array (
+	      $config = array (
 				"appid" =>   $APP_ID , 
 				"timestamp" => time()  , 
 				"tb_seller_nick" =>  $TBSellerNick  ,   
@@ -74,6 +74,37 @@
 		 
 		  
 	}
+
+
+
+	 // 修改淘宝订单备注   
+	function updateMemo() { 
+		global $APP_ID;
+		global $AppSecret;
+		global $OrderDetailUrl;
+		global $TBSellerNick;
+
+    	$apiHost = $OrderDetailUrl; 
+ 
+			$config = array (
+				"appid" =>   $APP_ID , 
+				"timestamp" => time()  , 
+				"tb_seller_nick" =>  $TBSellerNick  ,   
+				"tid" =>  "1189348257255565830"  ,
+				"flag" =>  "3"  ,
+				"memo" =>  "这是通过api写的备注"  ,
+				"reset" =>  "false"   
+			 );
+
+			$sign =  _signParams($config, $AppSecret );
+			$config['sign'] = $sign ;
+			$response =   _curlPost( $apiHost, $config);  
+		    // 请按实际业务需求处理接口返回结果，下面代码仅打印返回结果。 
+			print $response;
+		 
+		  
+	}
+
 
 
 
@@ -116,6 +147,6 @@
     getOrderList();
 
    // 获取订单详情
-     getOrderDetail();
+   getOrderDetail();
 
 ?> 
