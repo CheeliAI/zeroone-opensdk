@@ -12,6 +12,9 @@
 1. Java接入示例代码：https://github.com/CheeliAI/zeroone-opensdk/tree/master/javasdk
 2. PHP接入示例代码： https://github.com/CheeliAI/zeroone-opensdk/tree/master/phpsdk
 
+Java的代码比较全面，PHP提供部分示例接口，更多的接口参照文档编写。
+
+
 ## 支付相关接口
 
 1. 生成支付二维码（付款码）代码： src/test/java/com/cheeli/pay/OpenPayTests.java
