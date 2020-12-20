@@ -500,15 +500,9 @@ public class OpenTaobaoTests {
         data.put("sign", Utils.Sign(data,Config.AppSecret));
         // 调用服务API
         long startTime = System.currentTimeMillis(); //获取开始时间
-
         doHttpRequest(Config.TaoBaoOrderListUrl ,data);
-
         long endTime = System.currentTimeMillis(); //获取结束时间
-
         System.out.println("程序运行时间：" + (endTime - startTime) + "ms"); //输出程序运行时间
-
-
-
 
 
     }
@@ -876,6 +870,127 @@ public class OpenTaobaoTests {
         doHttpRequest(Config.TaoBaoUpdateMemoUrl ,data);
 
     }
+
+    /**
+     *     获取在售商品
+     * @throws Exception
+     */
+    @Test
+    public void getItemOnSale() throws Exception {
+
+        String tb_seller_nick = Config.TBSellerNick ; //要查询支付宝的淘宝商家
+        //业务参数
+
+        Map<String, String> data = new HashMap<String, String>();
+        data.put("appid",  Config.AppId);
+        data.put("tb_seller_nick", tb_seller_nick);
+        Long timestamp = System.currentTimeMillis() / 1000;
+        data.put("timestamp", timestamp.toString());
+
+        data.put("fields", "approve_status,num_iid,title,nick,type,cid,pic_url,num,props,valid_thru, " +
+                "list_time,price,has_discount,has_invoice,has_warranty,has_showcase,modified,delist_time,postage_id,seller_cids,outer_id,sold_quantity");
+
+        data.put("q", "");
+        data.put("cid", "");
+        data.put("seller_cids", "");
+        data.put("page_no", "1");
+        data.put("has_discount", "false");
+        data.put("has_showcase", "false");
+        data.put("order_by", "");
+        data.put("is_taobao", "true");
+        data.put("is_ex", "false");
+        data.put("page_size", "10");
+        data.put("start_modified", "");
+        data.put("end_modified", "");
+        data.put("is_cspu", "false");
+        data.put("is_combine", "false");
+        data.put("auction_type", "b"); // 商品类型：a-拍卖,b-一口价
+
+        // 签名
+        data.put("sign", Utils.Sign(data,Config.AppSecret));
+        // 调用服务API
+        doHttpRequest(Config.TaoBaoItemOnSaleUrl ,data);
+
+    }
+
+
+    /**
+     *  获取单个商品详细信息
+     * @throws Exception
+     */
+    @Test
+    public void getItemDetail() throws Exception {
+
+        String tb_seller_nick = Config.TBSellerNick ; //要查询支付宝的淘宝商家
+        //业务参数
+
+        Map<String, String> data = new HashMap<String, String>();
+        data.put("appid",  Config.AppId);
+        data.put("tb_seller_nick", tb_seller_nick);
+        Long timestamp = System.currentTimeMillis() / 1000;
+        data.put("timestamp", timestamp.toString());
+
+        String defaultFields  =   "num_iid,title,nick,price,approve_status,sku,num,list_time,delist_time,stuff_status,price,post_fee,express_fee,ems_fee,auction_point,skus,item_imgs,prop_imgs," +
+                "barcode,created,features" ;
+        data.put("fields", defaultFields);
+        data.put("num_iid", "544876335798");
+        // 签名
+        data.put("sign", Utils.Sign(data,Config.AppSecret));
+        // 调用服务API
+        doHttpRequest(Config.TaoBaoItemDetailUrl ,data);
+
+    }
+
+    /**
+     *  一口价商品上架
+     * @throws Exception
+     */
+    @Test
+    public void  itemUpdateListing() throws Exception {
+
+        String tb_seller_nick = Config.TBSellerNick ; //要查询支付宝的淘宝商家
+        //业务参数
+
+        Map<String, String> data = new HashMap<String, String>();
+        data.put("appid",  Config.AppId);
+        data.put("tb_seller_nick", tb_seller_nick);
+        Long timestamp = System.currentTimeMillis() / 1000;
+        data.put("timestamp", timestamp.toString());
+
+        data.put("num", "22");
+        data.put("num_iid", "544876335798");
+        // 签名
+        data.put("sign", Utils.Sign(data,Config.AppSecret));
+        // 调用服务API
+        doHttpRequest(Config.TaoBaoItemUpdateListingUrl ,data);
+
+    }
+
+    /**
+     *   商品下架
+     * @throws Exception
+     */
+    @Test
+    public void  itemUpdateDeListing() throws Exception {
+
+        String tb_seller_nick = Config.TBSellerNick ;
+        //业务参数
+        Map<String, String> data = new HashMap<String, String>();
+        data.put("appid",  Config.AppId);
+        data.put("tb_seller_nick", tb_seller_nick);
+        Long timestamp = System.currentTimeMillis() / 1000;
+        data.put("timestamp", timestamp.toString());
+        // 商品Id
+        data.put("num_iid", "544876335798");
+        // 签名
+        data.put("sign", Utils.Sign(data,Config.AppSecret));
+        // 调用服务API
+        doHttpRequest(Config.TaoBaoItemUpdateDeListingUrl ,data);
+
+    }
+
+
+
 
 
 

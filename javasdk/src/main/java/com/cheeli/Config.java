@@ -37,5 +37,10 @@ public class Config {
     public   static    String     TaoBaoQianNiuSendMsg = baseUrl +   "/gateway/taobao/qianniu/sendmsg";
     public   static    String     TaoBaoStoreGrantUrl = baseUrl +   "/gateway/partner/store/grant";
     public   static    String     TaoBaoUpdateMemoUrl = baseUrl +   "/gateway/taobao/order/updatememo";
+    public   static    String     TaoBaoItemOnSaleUrl = baseUrl +   "/gateway/taobao/item/getonsale";
+    public   static    String     TaoBaoItemDetailUrl = baseUrl +   "/gateway/taobao/item/detail";
+    public   static    String     TaoBaoItemUpdateListingUrl = baseUrl +   "/gateway/taobao/item/updatelisting";
+    public   static    String     TaoBaoItemUpdateDeListingUrl = baseUrl +   "/gateway/taobao/item/updatedelisting";
+
 
 }
