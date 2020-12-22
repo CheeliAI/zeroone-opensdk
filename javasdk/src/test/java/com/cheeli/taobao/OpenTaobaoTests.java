@@ -990,6 +990,45 @@ public class OpenTaobaoTests {
     }
 
 
+    /**
+     *   更新宝贝库存/sku
+     * @throws Exception
+     */
+    @Test
+    public void  itemUpdateStock() throws Exception {
+
+        String tb_seller_nick = Config.TBSellerNick ;
+        //业务参数
+        Map<String, String> data = new HashMap<String, String>();
+        data.put("appid",  Config.AppId);
+        data.put("tb_seller_nick", tb_seller_nick);
+        Long timestamp = System.currentTimeMillis() / 1000;
+        data.put("timestamp", timestamp.toString());
+        //  商品Id ， 必填
+        data.put("num_iid", "544876335798");
+
+        //  要操作的SKU的数字ID，可选。如果不填默认修改宝贝的库存，如果填上则修改该SKU的库存
+        data.put("sku_id", "");
+
+        // SKU的商家编码，可选参数。如果不填则默认修改宝贝的库存，如果填了则按照商家编码搜索出对应的SKU并修改库存。当sku_id和本字段都填写时以sku_id为准搜索对应SKU
+        data.put("outer_id", "white35");
+
+        // 库存修改值，必选。当全量更新库存时，quantity必须为大于等于0的正整数；当增量更新库存时，quantity为整数，
+        // 可小于等于0。若增量更新时传入的库存为负数，则负数与实际库存之和不能小于0。比如当前实际库存为1，传入增量更新quantity=-1，库存改为0
+        data.put("quantity", "100");
+
+        // 库存更新方式，可选。1为全量更新，2为增量更新。如果不填，默认为全量更新
+        data.put("type", "1");
+
+
+        // 签名
+        data.put("sign", Utils.Sign(data,Config.AppSecret));
+        // 调用服务API
+        doHttpRequest(Config.TaoBaoItemUpdateStockUrl ,data);
+
+    }
+
+
 
 
 
