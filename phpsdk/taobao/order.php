@@ -1,9 +1,9 @@
 <?php
 
      
-    $APP_ID = "aa" ;  // 开发者AppId
-    $AppSecret = "bb";   // 开发者密钥
-    $TBSellerNick  = "百鞋馆"; //要操作的商家，提前是商家要先授权给开发者
+    $APP_ID = "98lsUeiaI1jxxxx" ;  // 开发者AppId
+    $AppSecret = "fU5U5Caxxxxxx";   // 开发者密钥
+    $TBSellerNick  = "我是淘宝卖家账号"; //要操作的商家，提前是商家要先授权给开发者
     $baseUrl = "https://open.fw199.com";
       
     $OrderListUrl = $baseUrl  .   "/gateway/taobao/order/list";
@@ -54,10 +54,10 @@
 	function getOrderDetail() { 
 		global $APP_ID;
 		global $AppSecret;
-		global $OrderUpdateMemoUrl;
+		global $OrderDetailUrl;
 		global $TBSellerNick;
 
-    	$apiHost = $OrderUpdateMemoUrl;  
+    	$apiHost = $OrderDetailUrl;  
  
 	      $config = array (
 				"appid" =>   $APP_ID , 
@@ -81,11 +81,10 @@
 	function updateMemo() { 
 		global $APP_ID;
 		global $AppSecret;
-		global $OrderDetailUrl;
+		global $OrderUpdateMemoUrl;
 		global $TBSellerNick;
 
-    	$apiHost = $OrderDetailUrl; 
- 
+    	$apiHost = $OrderUpdateMemoUrl;  
 			$config = array (
 				"appid" =>   $APP_ID , 
 				"timestamp" => time()  , 
@@ -147,6 +146,9 @@
     getOrderList();
 
    // 获取订单详情
-   getOrderDetail();
+   // getOrderDetail();
+ 
+   // 修改订单备注
+   // updateMemo();
 
 ?> 
