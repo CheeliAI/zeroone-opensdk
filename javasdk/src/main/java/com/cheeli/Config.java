@@ -9,8 +9,6 @@ public class Config {
     public  static String TBSellerNick = "xxx";//    订购的淘宝卖家账号
     public  static String PddSellerNick="pdd75712771556";//    拼多卖家
 
-
-
     // 付款通知回调Url ，改为开发者自己网站或系统
     public  static String PayNotifyUrl ="http://dev.baolai.la:12345/paynotice";
 
@@ -44,5 +42,9 @@ public class Config {
     public   static    String     TaoBaoItemUpdateListingUrl = baseUrl +   "/gateway/taobao/item/updatelisting";
     public   static    String     TaoBaoItemUpdateDeListingUrl = baseUrl +   "/gateway/taobao/item/updatedelisting";
     public   static    String     TaoBaoItemUpdateStockUrl = baseUrl +   "/gateway/taobao/item/updatestock";
+    public   static    String     TaoBaoTBKTpWdConvertUrl = baseUrl +   "/gateway/taobao/tbk/tpwdconvert";
+    public   static    String     TaoBaoTBKTpWdCreateUrl = baseUrl +   "/gateway/taobao/tbk/tpwdcreate";
+    public   static    String     LogisticesOfflineBatchSendUrl = baseUrl +   "/gateway/taobao/logistices/offlinebatchsend";
+
 
 }

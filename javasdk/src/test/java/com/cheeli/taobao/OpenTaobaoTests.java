@@ -2,6 +2,7 @@ package com.cheeli.taobao;
 
 import com.alibaba.fastjson.JSON;
 import com.cheeli.Config;
+import com.cheeli.models.LogisticesBatchSendItem;
 import com.cheeli.tradeserver.model.ChangeMemoWithTrade;
 import com.cheeli.tradeserver.model.TradeMemo;
 import com.cheeli.utils.Utils;
@@ -451,20 +452,77 @@ public class OpenTaobaoTests {
         data.put("timestamp", timestamp.toString());
 
         // 淘宝交易ID，必须
-        data.put("tid", "1366575805196235184");
+        data.put("tid", "1466807438846346252");
         //  物流公司代码.如"POST"就代表中国邮政,"ZJS"就代表宅急送 ，通过接口 "查询物流公司列表"   获取。
         data.put("company_code","STO");
         // 运单号.具体一个物流公司的真实运单号码。淘宝官方物流会校验，请谨慎传入；
-        data.put("out_sid","773067452686046");
+        data.put("out_sid","773075543162315");
         // 卖家交易备注旗帜，   可选值为：0(灰色), 1(红色), 2(黄色), 3(绿色), 4(蓝色), 5(粉红色)，说明：如果不想加旗帜，则传空串""
         data.put("flag","1");
         // 卖家交易备注。最大长度: 1000个字节  ，说明：如果不想加旗帜，则传空串""
-        data.put("memo","效果不错");
+        data.put("memo","通过API发货");
         // 参数签名
         data.put("sign", Utils.Sign(data,Config.AppSecret));
 
         // 调用服务API
         doHttpRequest(Config.LogisticesOfflineSendUrl,data);
+
+    }
+
+    /**
+     *  自己联系物流（线下物流）发货 --批量发送模式
+     *  用户调用该接口可实现自己联系发货（线下物流），使用该接口发货，交易订单状态会直接变成卖家已发货。不支持货到付款、在线下单类型的订单。
+     * @throws Exception
+     */
+    @Test
+    public void logisticesCompanyOffineBatchSend() throws Exception {
+
+
+        String tb_seller_nick = Config.TBSellerNick ; //要查询支付宝的淘宝商家
+
+        //业务参数
+        Map<String, String> data = new HashMap<String, String>();
+        data.put("appid",  Config.AppId);
+        data.put("tb_seller_nick", tb_seller_nick);
+        Long timestamp = System.currentTimeMillis() / 1000;
+        data.put("timestamp", timestamp.toString());
+        List<LogisticesBatchSendItem> list = new ArrayList();
+        LogisticesBatchSendItem item =  new LogisticesBatchSendItem();
+        // 第1个订单
+        // 淘宝交易ID，必须
+        item.setTid("1394382349229565830");
+        // 运单号.具体一个物流公司的真实运单号码。淘宝官方物流会校验，请谨慎传入；
+        item.setOutSid("773075543162332");
+        //  物流公司代码.如"POST"就代表中国邮政,"ZJS"就代表宅急送 ，通过接口 "查询物流公司列表"   获取。
+        item.setCompanyCode("STO");
+        // 卖家交易备注旗帜，   可选值为：0(灰色), 1(红色), 2(黄色), 3(绿色), 4(蓝色), 5(粉红色)，说明：如果不想加旗帜，则传空串""
+        item.setFlag("");
+        // 卖家交易备注。最大长度: 1000个字节  ，说明：如果不想加旗帜，则传空串""
+        item.setMemo("");
+        list.add(item);
+
+        // 第2个订单
+        item =  new LogisticesBatchSendItem();
+        // 淘宝交易ID，必须
+        item.setTid("1394614838090565830");
+        // 运单号.具体一个物流公司的真实运单号码。淘宝官方物流会校验，请谨慎传入；
+        item.setOutSid("773075543162399");
+        //  物流公司代码.如"POST"就代表中国邮政,"ZJS"就代表宅急送 ，通过接口 "查询物流公司列表"   获取。
+        item.setCompanyCode("STO");
+        // 卖家交易备注旗帜，   可选值为：0(灰色), 1(红色), 2(黄色), 3(绿色), 4(蓝色), 5(粉红色)，说明：如果不想加旗帜，则传空串""
+        item.setFlag("");
+        // 卖家交易备注。最大长度: 1000个字节  ，说明：如果不想加旗帜，则传空串""
+        item.setMemo("");
+        list.add(item);
+
+        String jsonItems = JSON.toJSONString(list);
+        System.out.println(jsonItems);
+        data.put("items",jsonItems );
+        // 参数签名
+        data.put("sign", Utils.Sign(data,Config.AppSecret));
+
+        // 调用服务API
+        doHttpRequest(Config.LogisticesOfflineBatchSendUrl,data);
 
     }
 
@@ -522,7 +580,7 @@ public class OpenTaobaoTests {
         data.put("tb_seller_nick", tb_seller_nick);
         Long timestamp = System.currentTimeMillis() / 1000;
         data.put("timestamp", timestamp.toString());
-        data.put("tid", "1366575805196235184");
+        data.put("tid", "1466807438846346252");
         data.put("sign", Utils.Sign(data,Config.AppSecret));
         // 调用服务API
         doHttpRequest(Config.TaoBaoOrderDetailUrl ,data);
@@ -1028,6 +1086,51 @@ public class OpenTaobaoTests {
 
     }
 
+    /**
+     *   淘口令解析
+     * @throws Exception
+     */
+    @Test
+    public void  tbkTPWdConvert() throws Exception {
+
+        //业务参数
+        Map<String, String> data = new HashMap<String, String>();
+        data.put("appid",  Config.AppId);
+        Long timestamp = System.currentTimeMillis() / 1000;
+        data.put("timestamp", timestamp.toString());
+        // 需要解析的淘口令   必填
+       data.put("password_content", "0\uD83D\uDC48\uD83D\uDCB0N5xQcrX37jK£dἌ开\uD83D\uDC49淘bào\uD83D\uDC48或點几url链 https://m.tb.cn/h.4TZZUob?sm=4dbe69 至浏lằn器【i9-10900K/10900KF I7 10700K I5 10600K 10400F 盒装CPU处理器】");
+
+        // 签名
+        data.put("sign", Utils.Sign(data,Config.AppSecret));
+        // 调用服务API
+        doHttpRequest(Config.TaoBaoTBKTpWdConvertUrl ,data);
+
+    }
+
+//    /**
+//     *   淘口令创建 -- 如果需要请联系客服开通
+//     * @throws Exception
+//     */
+//    @Test
+//    public void  tbkTPWdCreate() throws Exception {
+//
+//        //业务参数
+//        Map<String, String> data = new HashMap<String, String>();
+//        data.put("appid",  Config.AppId);
+//        Long timestamp = System.currentTimeMillis() / 1000;
+//        data.put("timestamp", timestamp.toString());
+//        // 需要解析的淘口令   必填
+//        data.put("user_id", "se");
+//        data.put("text", "Apple超级计算机");
+//        data.put("url", "https://uland.taobao.com/");
+//        data.put("logo", "https://img.alicdn.com/imgextra/i2/875470122/O1CN01hSDif41CluxmQkfBC_!!0-item_pic.jpg_430x430q90.jpg");
+//        // 签名
+//        data.put("sign", Utils.Sign(data,Config.AppSecret));
+//        // 调用服务API
+//        doHttpRequest(Config.TaoBaoTBKTpWdCreateUrl ,data);
+//
+//    }
 
 
 
