@@ -15,10 +15,9 @@ import sun.misc.BASE64Encoder;
 import javax.crypto.Cipher;
 import javax.crypto.spec.IvParameterSpec;
 import javax.crypto.spec.SecretKeySpec;
-import java.io.BufferedReader;
-import java.io.InputStreamReader;
-import java.io.OutputStreamWriter;
-import java.io.UnsupportedEncodingException;
+import javax.imageio.ImageIO;
+import java.awt.image.BufferedImage;
+import java.io.*;
 import java.net.HttpURLConnection;
 import java.net.URL;
 import java.security.MessageDigest;
@@ -204,6 +203,22 @@ public class Utils {
     }
 
 
+    public static String getBase64ImageFromBinary(String filename) {
+        File f = new File(filename);
+        try {
+           BASE64Encoder encoder = new sun.misc.BASE64Encoder();
+
+            BufferedImage bi = ImageIO.read(f);
+            ByteArrayOutputStream baos = new ByteArrayOutputStream();
+            ImageIO.write(bi, "jpg", baos);
+            byte[] bytes = baos.toByteArray();
+
+            return encoder.encodeBuffer(bytes).trim();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        return null;
+    }
 
 
 }

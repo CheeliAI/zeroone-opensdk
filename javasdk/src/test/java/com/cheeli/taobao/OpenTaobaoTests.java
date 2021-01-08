@@ -403,8 +403,34 @@ public class OpenTaobaoTests {
     public void logisticesCompanyOnineSend() throws Exception {
 
 
-        String tb_seller_nick = Config.TBSellerNick ; //要查询支付宝的淘宝商家
+//        String tb_seller_nick = Config.TBSellerNick ; //要查询支付宝的淘宝商家
+//
+//
+//        //业务参数
+//        Map<String, String> data = new HashMap<String, String>();
+//        data.put("appid",  Config.AppId);
+//        data.put("tb_seller_nick", tb_seller_nick);
+//        Long timestamp = System.currentTimeMillis() / 1000;
+//        data.put("timestamp", timestamp.toString());
+//
+//        // 淘宝交易ID，必须
+//        data.put("tid", "1148987073290565830");
+//       //  物流公司代码.如"POST"就代表中国邮政,"ZJS"就代表宅急送 ，通过接口 "查询物流公司列表"   获取。
+//        data.put("company_code","SF");
+//        // 运单号.具体一个物流公司的真实运单号码。淘宝官方物流会校验，请谨慎传入；
+//        data.put("out_sid","SF1191992347148");
+//        // 卖家交易备注旗帜，   可选值为：0(灰色), 1(红色), 2(黄色), 3(绿色), 4(蓝色), 5(粉红色)，说明：如果不想加旗帜，则传空串""
+//        data.put("flag","1");
+//        // 卖家交易备注。最大长度: 1000个字节  ，说明：如果不想加旗帜，则传空串""
+//        data.put("memo","效果不错");
+//        // 参数签名
+//        data.put("sign", Utils.Sign(data,Config.AppSecret));
+//
+//        // 调用服务API
+//        doHttpRequest(Config.LogisticesOnlineSendUrl,data);
 
+
+        String tb_seller_nick = Config.TBSellerNick ; //要查询支付宝的淘宝商家
 
         //业务参数
         Map<String, String> data = new HashMap<String, String>();
@@ -414,20 +440,22 @@ public class OpenTaobaoTests {
         data.put("timestamp", timestamp.toString());
 
         // 淘宝交易ID，必须
-        data.put("tid", "1148987073290565830");
-       //  物流公司代码.如"POST"就代表中国邮政,"ZJS"就代表宅急送 ，通过接口 "查询物流公司列表"   获取。
-        data.put("company_code","SF");
+        data.put("tid", "1471254948271960249");
+        //  物流公司代码.如"POST"就代表中国邮政,"ZJS"就代表宅急送 ，通过接口 "查询物流公司列表"   获取。
+        data.put("company_code","YUNDA");
         // 运单号.具体一个物流公司的真实运单号码。淘宝官方物流会校验，请谨慎传入；
-        data.put("out_sid","SF1191992347148");
+        data.put("out_sid","4311540087965");
         // 卖家交易备注旗帜，   可选值为：0(灰色), 1(红色), 2(黄色), 3(绿色), 4(蓝色), 5(粉红色)，说明：如果不想加旗帜，则传空串""
         data.put("flag","1");
         // 卖家交易备注。最大长度: 1000个字节  ，说明：如果不想加旗帜，则传空串""
-        data.put("memo","效果不错");
+        data.put("memo","效果不错，API");
         // 参数签名
         data.put("sign", Utils.Sign(data,Config.AppSecret));
 
         // 调用服务API
         doHttpRequest(Config.LogisticesOnlineSendUrl,data);
+
+
 
     }
 
@@ -452,11 +480,11 @@ public class OpenTaobaoTests {
         data.put("timestamp", timestamp.toString());
 
         // 淘宝交易ID，必须
-        data.put("tid", "1466807438846346252");
+        data.put("tid", "1471254948271960249");
         //  物流公司代码.如"POST"就代表中国邮政,"ZJS"就代表宅急送 ，通过接口 "查询物流公司列表"   获取。
-        data.put("company_code","STO");
+        data.put("company_code","YUNDA");
         // 运单号.具体一个物流公司的真实运单号码。淘宝官方物流会校验，请谨慎传入；
-        data.put("out_sid","773075543162315");
+        data.put("out_sid","4311540087965");
         // 卖家交易备注旗帜，   可选值为：0(灰色), 1(红色), 2(黄色), 3(绿色), 4(蓝色), 5(粉红色)，说明：如果不想加旗帜，则传空串""
         data.put("flag","1");
         // 卖家交易备注。最大长度: 1000个字节  ，说明：如果不想加旗帜，则传空串""
@@ -580,7 +608,7 @@ public class OpenTaobaoTests {
         data.put("tb_seller_nick", tb_seller_nick);
         Long timestamp = System.currentTimeMillis() / 1000;
         data.put("timestamp", timestamp.toString());
-        data.put("tid", "1466807438846346252");
+        data.put("tid", "1471254948271960249");
         data.put("sign", Utils.Sign(data,Config.AppSecret));
         // 调用服务API
         doHttpRequest(Config.TaoBaoOrderDetailUrl ,data);
@@ -1055,6 +1083,7 @@ public class OpenTaobaoTests {
     @Test
     public void  itemUpdateStock() throws Exception {
 
+
         String tb_seller_nick = Config.TBSellerNick ;
         //业务参数
         Map<String, String> data = new HashMap<String, String>();
@@ -1085,6 +1114,7 @@ public class OpenTaobaoTests {
         doHttpRequest(Config.TaoBaoItemUpdateStockUrl ,data);
 
     }
+
 
     /**
      *   淘口令解析

@@ -3,18 +3,19 @@ package com.cheeli;
 public class Config {
 
 
-    //开发者的ID和密钥,demo
-    public   static    String AppId  = "pt2411531762";
-    public  static   String AppSecret = "211522ai29km63";
-    public  static String TBSellerNick = "xxx";//    订购的淘宝卖家账号
+
+    //开发者的ID和密钥，ok, 百鞋馆
+    public   static    String AppId  = "xxx";
+    public  static   String AppSecret = "xxx"; //  //修改
+    public  static String TBSellerNick="xxx";//     淘宝卖家
     public  static String PddSellerNick="pdd75712771556";//    拼多卖家
+
 
     // 付款通知回调Url ，改为开发者自己网站或系统
     public  static String PayNotifyUrl ="http://dev.baolai.la:12345/paynotice";
-
-
     //正式环境
     public   static    String     baseUrl = "https://open.fw199.com";
+
     public   static    String     AliPayTradeListUrl= baseUrl +  "/gateway/alipay/trade/list";
     public   static    String     AliPayTradeDetailUrl=baseUrl +   "/gateway/alipay/trade/detail";
     public   static    String     GetAlipayQRCodeUrl= baseUrl +   "/gateway/partner/pay/startalipay";
@@ -45,6 +46,15 @@ public class Config {
     public   static    String     TaoBaoTBKTpWdConvertUrl = baseUrl +   "/gateway/taobao/tbk/tpwdconvert";
     public   static    String     TaoBaoTBKTpWdCreateUrl = baseUrl +   "/gateway/taobao/tbk/tpwdcreate";
     public   static    String     LogisticesOfflineBatchSendUrl = baseUrl +   "/gateway/taobao/logistices/offlinebatchsend";
-
+    public   static    String     TaoBaoItemAddUrl = baseUrl +   "/gateway/taobao/item/add";
+    public   static    String     TaoBaoItemDeleteUrl = baseUrl +   "/gateway/taobao/item/delete";
+    public   static    String     TaoBaoItemCatGet = baseUrl +   "/gateway/taobao/itemcats/get";
+    public   static    String     TaoBaoItemPropsGet = baseUrl +   "/gateway/taobao/itemprops/get";
+    public   static    String     TaoBaoItemPropsValuesGet = baseUrl +   "/gateway/taobao/itempropvalues/get";
+    public   static    String     TaoBaoProductMatchSchemaGetUrl = baseUrl +   "/gateway/taobao/product/match/schema/get";
+    public   static    String     TaoBaoTmallItemSchemaAddUrl = baseUrl +   "/gateway/taobao/tmall/item/schema/add";
+    public   static    String     TaoBaoTmallProductSchemaMatchUrl = baseUrl +   "/gateway/taobao/product/schema/match";
+    public   static    String     TaoBaoTmallItemAddSchemaGetUrl = baseUrl +   "/gateway/taobao/tmall/item/add/schema/get";
+    public   static    String     TaoBaoTmallItemCatsAuthorizeGetUrl = baseUrl +   "/gateway/taobao/itemcats/authorize/get";
 
 }
