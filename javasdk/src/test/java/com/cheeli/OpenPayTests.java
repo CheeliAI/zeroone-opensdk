@@ -211,8 +211,9 @@ public class OpenPayTests {
         //************************** 请求参数填写开始 ***************************************/
 
         //支付金额 (单位分）
-        String  amount ="3000";
-        String  mchId  ="1587507961"; //微信签约的商户号
+        String  amount ="10000";
+        String  mchId  ="1608725221"; //other  微信签约的商户号
+//        String  mchId  ="1587507961"; // mb 微信签约的商户号
         // 确保传入的开发者订单号唯一, 订单号生成规则开发者可自定，  修改
         String ext_trade_no =String.valueOf(System.currentTimeMillis());
         // 扩展参数，付款成功时回调给开发者时会原样返回，根据自己需求填写或为空。
@@ -293,7 +294,7 @@ public class OpenPayTests {
         //************************** 请求参数填写开始 ***************************************/
 
         //支付金额 (单位分）
-        String  amount ="1500";
+        String  amount ="10000";
         String  mchId  ="2088701568962424"; //签约的支付宝商户号
         // 确保传入的开发者订单号唯一, 订单号生成规则开发者可自定，  修改
         String ext_trade_no =String.valueOf(System.currentTimeMillis());

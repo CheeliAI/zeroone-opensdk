@@ -41,8 +41,34 @@ public class SyncOrder {
         this.outerSkuId = outerSkuId;
     }
 
-    @JSONField(name = "outer_sku_id")
+      @JSONField(name = "outer_sku_id")
     private String outerSkuId;
+
+
+    @JSONField(name = "divide_order_fee")
+    private String divideOrderFee;
+
+    public String getDivideOrderFee() {
+        return divideOrderFee;
+    }
+
+    public void setDivideOrderFee(String divideOrderFee) {
+        this.divideOrderFee = divideOrderFee;
+    }
+
+    public String getPartMjzDiscount() {
+        return partMjzDiscount;
+    }
+
+    public void setPartMjzDiscount(String partMjzDiscount) {
+        this.partMjzDiscount = partMjzDiscount;
+    }
+
+    @JSONField(name = "part_mjz_discount")
+    private String partMjzDiscount;
+
+
+
 
 
     public void setTitle(String title){

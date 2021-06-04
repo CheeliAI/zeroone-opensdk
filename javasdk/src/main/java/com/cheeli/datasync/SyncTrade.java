@@ -1,7 +1,7 @@
 package com.cheeli.datasync;
 
 import com.alibaba.fastjson.annotation.JSONField;
-import org.springframework.core.annotation.Order;
+
 
 import java.util.List;
 
@@ -139,13 +139,25 @@ public class SyncTrade {
     @JSONField(name = "alipay_no")
     private String alipayNo;
 
-    private List<Order> orders;
+    public String getAdjustFee() {
+        return adjustFee;
+    }
+
+    public void setAdjustFee(String adjustFee) {
+        this.adjustFee = adjustFee;
+    }
+
+    @JSONField(name = "adjust_fee")
+    private String adjustFee;
 
 
-    public void setOrders(List<Order> orders){
+    private List<SyncOrder> orders;
+
+
+    public void setOrders(List<SyncOrder> orders){
         this.orders = orders;
     }
-    public List<Order> getOrders(){
+    public List<SyncOrder> getOrders(){
         return this.orders;
     }
 

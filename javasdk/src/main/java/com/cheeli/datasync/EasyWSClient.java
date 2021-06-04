@@ -29,6 +29,9 @@ public class EasyWSClient extends ReconnectingWSClient {
     @Override
     public void onMessageEvent(String message) {
 
+            System.out.println("onMessageEvent：" + message);
+
+
         SyncTradeResponse syncTradeResponse = JSON.parseObject(message, SyncTradeResponse.class);
         if (syncTradeResponse.getCode() == 0) {
 
