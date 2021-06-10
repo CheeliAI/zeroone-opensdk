@@ -1,0 +1,27 @@
+﻿<Properties StartupConfiguration="{E8B8F28A-D405-4D26-BBD4-4234D32CD514}|Default">
+  <MonoDevelop.Ide.ItemProperties.H7BSDK PreferredExecutionTarget="MonoDevelop.Default" />
+  <MonoDevelop.Ide.Workbench ActiveDocument="H7BSDK/H7BUtil.cs">
+    <Files>
+      <File FileName="H7BSDK/Program.cs" Line="23" Column="1" />
+      <File FileName="H7BSDK/TaoBaoTrade.cs" Line="4" Column="29" />
+      <File FileName="H7BSDK/H7BUtil.cs" Line="4" Column="6" />
+    </Files>
+    <Pads>
+      <Pad Id="ProjectPad">
+        <State name="__root__">
+          <Node name="H7BSDK" expanded="True">
+            <Node name="H7BSDK" expanded="True">
+              <Node name="H7BUtil.cs" selected="True" />
+            </Node>
+          </Node>
+        </State>
+      </Pad>
+    </Pads>
+  </MonoDevelop.Ide.Workbench>
+  <MonoDevelop.Ide.DebuggingService.PinnedWatches />
+  <MonoDevelop.Ide.Workspace ActiveConfiguration="Debug|anycpu" />
+  <MonoDevelop.Ide.DebuggingService.Breakpoints>
+    <BreakpointStore />
+  </MonoDevelop.Ide.DebuggingService.Breakpoints>
+  <MultiItemStartupConfigurations />
+</Properties>

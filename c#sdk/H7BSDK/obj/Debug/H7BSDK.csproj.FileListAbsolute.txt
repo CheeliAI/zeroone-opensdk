@@ -1,0 +1,6 @@
+/Users/miller/Projects/H7BSDK/H7BSDK/bin/Debug/H7BSDK.exe
+/Users/miller/Projects/H7BSDK/H7BSDK/bin/Debug/H7BSDK.pdb
+/Users/miller/Projects/H7BSDK/H7BSDK/obj/Debug/H7BSDK.csprojAssemblyReference.cache
+/Users/miller/Projects/H7BSDK/H7BSDK/obj/Debug/H7BSDK.csproj.CoreCompileInputs.cache
+/Users/miller/Projects/H7BSDK/H7BSDK/obj/Debug/H7BSDK.exe
+/Users/miller/Projects/H7BSDK/H7BSDK/obj/Debug/H7BSDK.pdb
