@@ -7,6 +7,9 @@ import java.net.URI;
 public class WSSync {
 
     private static String serverUrl = "wss://open.fw199.com/acc";
+//    private static String serverUrl = "ws://127.0.0.1:9095/acc";
+//    private static String serverUrl = "ws://opendev.fw199.com/acc";
+
     private EasyWSClient   webSocketClient = null;
     public void start() {
         try {

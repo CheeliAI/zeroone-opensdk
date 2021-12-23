@@ -52,14 +52,14 @@ public class OpenTaobaoItemTests {
         Long timestamp = System.currentTimeMillis() / 1000;
         data.put("timestamp", timestamp.toString());
         // 如果
-        data.put("datetime", "2019-01-01 22:00:00" );
+        data.put("datetime", "2021-01-01 22:00:00" );
 
         // 如果使用默认值，则不要传入参数cids
 //        data.put("cids", "");
         // 如果使用默认值，则不要传入参数fields
-//        data.put("fields", "cid,parent_cid,name,is_parent");
+        data.put("fields", "cid,parent_cid,name,is_parent");
         // 如果使用默认值， 则不要传入参数parent_cid
-//        data.put("parent_cid", "50011740");
+        data.put("parent_cid", "50011740");
         // 签名
         data.put("sign", Utils.Sign(data,Config.AppSecret));
         // 调用服务API
@@ -194,13 +194,54 @@ public class OpenTaobaoItemTests {
     }
 
 
-
-
-
     /**
      * 发布一个淘宝商品
      * @throws Exception
      */
+//    @Test
+//    public void  addItem() throws Exception {
+//
+//
+//        String tb_seller_nick = Config.TBSellerNick ;
+//        //业务参数
+//        Map<String, String> data = new HashMap<String, String>();
+//        data.put("appid",  Config.AppId);
+//        data.put("tb_seller_nick", tb_seller_nick);
+//        Long timestamp = System.currentTimeMillis() / 1000;
+//        data.put("timestamp", timestamp.toString());
+//
+//        // 详情页描述(HTML)
+//        String desc = "广东移动5GB全国流量7天包 7天有效 限速不可充值11";
+//        //    必填
+//        data.put("location.state", "浙江");
+//        // 所在地城市。如杭州 。
+//        data.put("location.city", "杭州");
+//        data.put("num", "40");
+//        data.put("type", "fixed");
+//        data.put("stuff_status", "new");
+//        data.put("title", "广东移动5GB全国流量7天包 7天有效 限速不可充值11");
+//        data.put("desc",desc);
+//        data.put("cid", "50256001"); // 鞋类类目
+//        data.put("price", "12.00");
+//        //颜色，尺码，品牌,鞋头款式  闭合方式 鞋面材质 帮面材质 帮面内里材质 上市年份季节 里料材质
+//        data.put("props", "20780:30680;21228:137815084;11246843:271200679;100039951:200213003;28144:6076017;33767:43474;145574751:978938471;145586569:110865470;145628451:21958;");
+//        data.put("sku_properties", "");
+//
+//        data.put("sku_prices", "12");
+//        data.put("sku_quantities", "10");
+//
+//
+//        // 上传主图，3M 以内
+//        String base64ImageLogo = Utils.getBase64ImageFromBinary("/Users/miller/Downloads/O1CN01b4h8NB279Nn6DJcgE_!!0-item_pic.jpeg");
+//        data.put("main_img", base64ImageLogo);
+//
+//        // 签名
+//        data.put("sign", Utils.Sign(data,Config.AppSecret));
+//        // 调用服务API
+//        doHttpRequest(Config.TaoBaoItemAddUrl ,data);
+//
+//    }
+
     @Test
     public void  addItem() throws Exception {
 
@@ -214,29 +255,29 @@ public class OpenTaobaoItemTests {
         data.put("timestamp", timestamp.toString());
 
         // 详情页描述(HTML)
-        String desc = "<p data-spm-anchor-id=\"a2126o.11854294.0.i4.48a94831s8bOar\">这是一个好商品,但是不要拍，&nbsp;<img align=\"absmiddle\" src=\"https://img.alicdn.com/imgextra/i2/661153176/TB2_4DUopuWBuNjSspnXXX1NVXa_!!661153176.jpg\" style=\"max-width:750px\" /> ，不错啊</p>";
+        String desc = "1234";
         //    必填
         data.put("location.state", "浙江");
         // 所在地城市。如杭州 。
         data.put("location.city", "杭州");
-        data.put("num", "40");
+        data.put("num", "1");
         data.put("type", "fixed");
         data.put("stuff_status", "new");
-        data.put("title", "真皮男士增高鞋男高帮工装鞋-api23");
+        data.put("title", "タイプ 1234");
         data.put("desc",desc);
-        data.put("cid", "50012907"); // 鞋类类目
-        data.put("price", "2000");
+        data.put("cid", "50256001"); // 鞋类类目
+        data.put("price", "12.00");
         //颜色，尺码，品牌,鞋头款式  闭合方式 鞋面材质 帮面材质 帮面内里材质 上市年份季节 里料材质
-        data.put("props", "1627207:28321;20549:10145050;20000:519854451;122216351:30233;20490:115481;122216640:3323086;124128491:19597500;139520082:3323086;122216347:1586027483;122216587:6474787");
+        data.put("props", "122276303:42752;122216454:97746;20000:1540;13021751:4467444;6933190:4467444;122216347:828918270;");
         data.put("sku_properties", "1627207:28321;20549:10145050");
 
-        data.put("cid", "50012907"); // 鞋类类目
+        data.put("outer_id", "1234");
         data.put("sku_prices", "100");
         data.put("sku_quantities", "20");
 
 
         // 上传主图，3M 以内
-        String base64ImageLogo = Utils.getBase64ImageFromBinary("/Users/miller/Downloads/pdd.jpeg");
+        String base64ImageLogo = Utils.getBase64ImageFromBinary("/Users/miller/Downloads/O1CN01b4h8NB279Nn6DJcgE_!!0-item_pic.jpeg");
         data.put("main_img", base64ImageLogo);
 
         // 签名
@@ -245,6 +286,56 @@ public class OpenTaobaoItemTests {
         doHttpRequest(Config.TaoBaoItemAddUrl ,data);
 
     }
+
+
+//    /**
+//     * 发布一个淘宝商品
+//     * @throws Exception
+//     */
+//    @Test
+//    public void  addItem() throws Exception {
+//
+//
+//        String tb_seller_nick = Config.TBSellerNick ;
+//        //业务参数
+//        Map<String, String> data = new HashMap<String, String>();
+//        data.put("appid",  Config.AppId);
+//        data.put("tb_seller_nick", tb_seller_nick);
+//        Long timestamp = System.currentTimeMillis() / 1000;
+//        data.put("timestamp", timestamp.toString());
+//
+//        // 详情页描述(HTML)
+//        String desc = "<p data-spm-anchor-id=\"a2126o.11854294.0.i4.48a94831s8bOar\">这是一个好商品,但是不要拍，&nbsp;<img align=\"absmiddle\" src=\"https://img.alicdn.com/imgextra/i2/661153176/TB2_4DUopuWBuNjSspnXXX1NVXa_!!661153176.jpg\" style=\"max-width:750px\" />   <img src=\"https://img.alicdn.com/bao/uploaded/i1/661153176/O1CN01RTQpdp1ZKeb6dXqIU_!!661153176.jpg\" />，不错啊</p>";
+//        //    必填
+//        data.put("location.state", "浙江");
+//        // 所在地城市。如杭州 。
+//        data.put("location.city", "杭州");
+//        data.put("num", "40");
+//        data.put("type", "fixed");
+//        data.put("stuff_status", "new");
+//        data.put("title", "真皮男士增高鞋男高帮工装鞋-api0715");
+//        data.put("desc",desc);
+//        data.put("cid", "50012907"); // 鞋类类目
+//        data.put("price", "2000");
+//        //颜色，尺码，品牌,鞋头款式  闭合方式 鞋面材质 帮面材质 帮面内里材质 上市年份季节 里料材质
+//        data.put("props", "1627207:28321;20549:10145050;20000:519854451;122216351:30233;20490:115481;122216640:3323086;124128491:19597500;139520082:3323086;122216347:1586027483;122216587:6474787");
+//        data.put("sku_properties", "1627207:28321;20549:10145050");
+//
+//        data.put("cid", "50012907"); // 鞋类类目
+//        data.put("sku_prices", "100");
+//        data.put("sku_quantities", "20");
+//
+//
+//        // 上传主图，3M 以内
+//        String base64ImageLogo = Utils.getBase64ImageFromBinary("/Users/miller/Downloads/pdd.jpeg");
+//        data.put("main_img", base64ImageLogo);
+//
+//        // 签名
+//        data.put("sign", Utils.Sign(data,Config.AppSecret));
+//        // 调用服务API
+//        doHttpRequest(Config.TaoBaoItemAddUrl ,data);
+//
+//    }
 
     /**
      * 添加商品图片
@@ -261,14 +352,15 @@ public class OpenTaobaoItemTests {
         data.put("timestamp", timestamp.toString());
         data.put("tb_seller_nick", tb_seller_nick);
         // 宝贝Id (必须）
-        data.put("num_iid", "544876335798");
+        data.put("num_iid", "657712047100");
         // 图片序号（非必须）
         data.put("position", "1");
         // 是否将该图片设为主图,（非必须） , 可选值:true,false;默认值:false(非主图)
-        data.put("is_major", "false");
+        data.put("is_major", "true");
 
          // 添加一张商品图片到num_iid指定的商品中 传入的num_iid所对应的商品必须属于当前会话的用 ,  商品图片内容类型:JPG;最大:3M 。支持的文件类型：jpg,jpeg,png
-        String base64ImageLogo = Utils.getBase64ImageFromBinary("/Users/miller/Downloads/pdd.jpeg");
+//        String base64ImageLogo = Utils.getBase64ImageFromBinary("/Users/miller/Downloads/pdd.jpeg");
+        String base64ImageLogo = Utils.getBase64ImageFromBinary("/Users/miller/Downloads/mm.jpeg");
         data.put("item_img", base64ImageLogo);
 
         // 签名
@@ -277,6 +369,33 @@ public class OpenTaobaoItemTests {
         doHttpRequest(Config.TaoBaoItemUploadImage ,data);
 
     }
+
+    /**
+     * 删除一个商品主图
+     * @throws Exception
+     */
+    @Test
+    public void  itemDeleteImage() throws Exception {
+
+        String tb_seller_nick = Config.TBSellerNick ;
+        //业务参数
+        Map<String, String> data = new HashMap<String, String>();
+        data.put("appid",  Config.AppId);
+        Long timestamp = System.currentTimeMillis() / 1000;
+        data.put("timestamp", timestamp.toString());
+        data.put("tb_seller_nick", tb_seller_nick);
+        // 宝贝Id (必须）
+        data.put("num_iid", "544876335798");
+        // 图片id
+        data.put("id", "1054214371909");
+        // 签名
+        data.put("sign", Utils.Sign(data,Config.AppSecret));
+        // 调用服务API
+        doHttpRequest(Config.TaoBaoItemDeleteImage ,data);
+
+    }
+
+
 
 
     /**

@@ -1,7 +1,6 @@
 package com.cheeli;
 
 import com.alibaba.fastjson.JSON;
-import com.alibaba.fastjson.JSONObject;
 import com.cheeli.utils.Utils;
 import org.apache.http.HttpResponse;
 import org.apache.http.HttpStatus;
@@ -16,9 +15,6 @@ import org.junit.runner.RunWith;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.junit4.SpringRunner;
 
-
-import java.io.UnsupportedEncodingException;
-import java.security.NoSuchAlgorithmException;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -28,13 +24,34 @@ import java.util.zip.Checksum;
 
 
 @RunWith(SpringRunner.class)
-@SpringBootTest(classes = SMSTests.class)
-public class SMSTests {
+@SpringBootTest(classes = FCPrinterTests.class)
+public class FCPrinterTests {
 
 
 
     @Test
     public void contextLoads() {
+    }
+
+
+
+    @Test
+    public void importTrade() throws Exception {
+
+
+        String seller_nick = Config.TBSellerNick ; //
+        //业务参数
+        Map<String, String> data = new HashMap<String, String>();
+        data.put("appid",  Config.AppId);
+        data.put("op", "1");//1=淘宝,2=拼多多
+        data.put("tb_seller_nick", seller_nick);//卖家昵称
+        data.put("tids", "1903399273040565830,1701118800802565830");
+        data.put("trade_list","");
+        Long timestamp = System.currentTimeMillis() / 1000;
+        data.put("timestamp", timestamp.toString());
+        // 参数签名
+        data.put("sign", Utils.Sign(data,Config.AppSecret));
+        doHttpRequest(Config.FCPrinterImportTradeUrl,data);
     }
 
 
@@ -69,10 +86,10 @@ public class SMSTests {
         String requestData = "{" +
                 "                \"custom_sms_id\" :\"\", " +
                 "                \"extended_code\" :\"\", " +
-                "                \"mobiles\" : [\"13816112333\"], " +
-                "                \"templete_code\" :  \"SMS_0545436788\", " +
-                "                \"sign_name\" :\"暗客科技\", " +
-                "                \"template_param\" :{\"shop\":\"壹号流量铺\",\"province\":\"广东移动\",\"product\":\"10G7天包\"}" +
+                "                \"mobiles\" : [\"13829127333\"], " +
+                "                \"templete_code\" :  \"SMS_4037740358\", " +
+                "                \"sign_name\" :\"知神\", " +
+                "                \"template_param\" :{\"code\":\"3223\"}" +
                 "         }";
 
         Map<String, String> data = new HashMap<String, String>();
@@ -90,6 +107,8 @@ public class SMSTests {
 
 
     private  void doHttpRequest(String url ,  Map<String, String> data ){
+        System.out.println("请求Url:" +url);
+        System.out.println("请求数据:" + JSON.toJSONString(data));
         String result ="";
         CloseableHttpClient httpclient = HttpClients.createDefault();
         HttpPost httpPost = new HttpPost( url);

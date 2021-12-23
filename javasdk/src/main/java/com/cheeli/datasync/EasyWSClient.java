@@ -1,12 +1,15 @@
 package com.cheeli.datasync;
 
 import com.alibaba.fastjson.JSON;
+import com.cheeli.models.SFCloudPrintWaybill;
 import com.cheeli.tradeserver.model.ChangeMemoWithTrade;
 import com.cheeli.tradeserver.model.TradeInfo;
 import com.cheeli.tradeserver.model.TradeMemo;
 import org.java_websocket.handshake.ServerHandshake;
 
+import java.io.*;
 import java.net.URI;
+import java.util.Base64;
 
 public class EasyWSClient extends ReconnectingWSClient {
 
@@ -29,8 +32,8 @@ public class EasyWSClient extends ReconnectingWSClient {
     @Override
     public void onMessageEvent(String message) {
 
-            System.out.println("onMessageEvent：" + message);
-
+        // 强烈建议在此处先将消息message写到日志文件，以便日后消息排查！！！
+        System.out.println("onMessageEvent：" + message);
 
         SyncTradeResponse syncTradeResponse = JSON.parseObject(message, SyncTradeResponse.class);
         if (syncTradeResponse.getCode() == 0) {
@@ -51,6 +54,8 @@ public class EasyWSClient extends ReconnectingWSClient {
                 TradeMemo tradeMemo =   JSON.parseObject(memoJson, TradeMemo.class);
                 System.out.println("订单插旗修改消息：tid:"+ tradeInfo.getTid() +  " , 旗帜:" +  tradeMemo.getSeller_flag() + ", 卖家备注：" +  tradeMemo.getSeller_memo());
 
+            } else if (syncTradeResponse.getTopic().equals("sf_push_cloud_print_waybills")){
+                sfPushCloudPrintWaybills(syncTradeResponse);
             }
 
             //  如果是需要确认的消息，则确认此消息，否则服务端消息将会重发。
@@ -63,6 +68,35 @@ public class EasyWSClient extends ReconnectingWSClient {
         }
 
         System.out.println("========onMessageEvent=========== \n " + message + "\n" );
+    }
+
+
+    /**
+     * 将电子面单写入到文件，文件格式为Pdf
+     * @param response
+     */
+    private void sfPushCloudPrintWaybills(SyncTradeResponse response )  {
+
+        try {
+
+            Base64.Decoder decoder = Base64.getDecoder();
+            SFCloudPrintWaybill sfCloudPrintWaybill = JSON.parseObject(response.getData(), SFCloudPrintWaybill.class);
+            // 在下面单请求传入custom_data时，会原样返回过来
+            System.out.println("customData:" + sfCloudPrintWaybill.getCustomData());
+            System.out.println("运单号:" + sfCloudPrintWaybill.getWaybillNo());
+            String fileName =  sfCloudPrintWaybill.getFileName();
+            File file = new File(fileName);
+            OutputStream os = new FileOutputStream(file,true);
+            byte[] data = decoder.decode(sfCloudPrintWaybill.getContent());
+            os.write(data, 0, data.length);
+            os.flush();
+            os.close();
+            System.out.println("生成文件成功");
+
+        }catch (Exception ex) {
+            ex.printStackTrace();
+        }
+
     }
 
 }

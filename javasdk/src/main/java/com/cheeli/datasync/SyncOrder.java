@@ -5,7 +5,20 @@ import com.alibaba.fastjson.annotation.JSONField;
 public class SyncOrder {
 
     @JSONField(name = "num_iid")
-    private int numIid;
+    private long numIid;
+
+    public long getOid() {
+        return oid;
+    }
+
+    public void setOid(long oid) {
+        this.oid = oid;
+    }
+
+    @JSONField(name = "oid")
+    private long oid;
+
+
 
     private String title;
 
@@ -17,11 +30,11 @@ public class SyncOrder {
     @JSONField(name = "outer_iid")
     private String outerIid;
 
-    public int getNumIid() {
+    public long getNumIid() {
         return numIid;
     }
 
-    public void setNumIid(int numIid) {
+    public void setNumIid(long numIid) {
         this.numIid = numIid;
     }
 

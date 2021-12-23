@@ -1,7 +1,10 @@
-package com.cheeli;
+package com.cheeli.taobao;
 
 import com.alibaba.fastjson.JSON;
-import com.cheeli.models.LogisticesBatchSendItem;
+import com.cheeli.Config;
+import com.cheeli.models.taobao.trade.TradeResponse;
+import com.cheeli.models.taobao.waybill.Data;
+import com.cheeli.models.taobao.waybill.WayBillResponse;
 import com.cheeli.utils.Utils;
 import org.apache.http.HttpResponse;
 import org.apache.http.HttpStatus;
@@ -21,78 +24,45 @@ import java.security.NoSuchAlgorithmException;
 import java.text.SimpleDateFormat;
 import java.util.*;
 import java.util.concurrent.CountDownLatch;
+import java.util.concurrent.TimeUnit;
 
 /**
- * 场景：合作伙伴使用，可管理其他授权的店铺。即可以管理多家店铺
+ * 场景： 淘宝电子发票相关接口
  */
 
 @RunWith(SpringRunner.class)
-@SpringBootTest(classes = PartnerTests.class )
-public class PartnerTests {
+@SpringBootTest(classes = OpenEInvoiceTests.class )
+public class OpenEInvoiceTests {
 
     @Test
     public void contextLoads() {
     }
 
 
-
-
-
     /**
-     *  检查商家订购情况
+     * 获取开票信息
      * @throws Exception
      */
-    @Test
-    public void  PartnerSellerSubscribe() throws Exception {
 
-        //  1:淘宝 2：拼多多
-        String channel = "1";
-        // 淘宝/拼多多商家账号
-        String  seller_nick = "康益莱保健品专营店";
-        //业务参数
+    @Test
+    public void  AlibabaEinvoiceApplyGet() throws Exception {
         Map<String, String> data = new HashMap<String, String>();
         data.put("appid",  Config.AppId);
         Long timestamp = System.currentTimeMillis() / 1000;
         data.put("timestamp", timestamp.toString());
-        data.put("seller_nick", seller_nick);
-        //  1:淘宝 2：拼多多
-        data.put("channel",channel);
+        data.put("tb_seller_nick", Config.TBSellerNick);
+        data.put("apply_id", "01wopSpcmXX5BlCqk-7EdrOOEsMzW5LYO4B_HZSANhC0Y");
+        data.put("platform_tid", "2061887863088580545");
         // 签名
         data.put("sign", Utils.Sign(data,Config.AppSecret));
         // 调用服务API
-        doHttpRequest(Config.PartnerSellerSubscribeUrl ,data);
-
-    }
-
-    /**
-     *  取消授权
-     * @throws Exception
-     */
-    @Test
-    public void  partnerRemoveGrant() throws Exception {
-
-        //  1:淘宝 2：拼多多
-        String channel = "2";
-        // 淘宝/拼多多商家账号
-        String  seller_nick = "pdd15824873981";
-        //业务参数
-        Map<String, String> data = new HashMap<String, String>();
-        data.put("appid",  Config.AppId);
-        Long timestamp = System.currentTimeMillis() / 1000;
-        data.put("timestamp", timestamp.toString());
-        data.put("seller_nick", seller_nick);
-        data.put("channel",channel);
-        // 签名
-        data.put("sign", Utils.Sign(data,Config.AppSecret));
-        // 调用服务API
-        doHttpRequest(Config.FCPartnerRemoveGrantUrl ,data);
+        doHttpRequest(Config.AlibabaEinvoiceApplyGetUrl ,data);
 
     }
 
 
 
-
-    private  void doHttpRequest(String url ,  Map<String, String> data ){
+    private  String doHttpRequest(String url ,  Map<String, String> data ){
         String result ="";
         CloseableHttpClient httpclient = HttpClients.createDefault();
         HttpPost httpPost = new HttpPost( url);
@@ -117,6 +87,7 @@ public class PartnerTests {
         }
 
         System.out.println(result);
+        return result;
     }
 
 

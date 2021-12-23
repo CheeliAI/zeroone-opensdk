@@ -1,6 +1,9 @@
 package com.cheeli.utils;
 
+import com.alibaba.fastjson.JSON;
 import org.apache.http.HttpEntity;
+import org.apache.http.HttpResponse;
+import org.apache.http.HttpStatus;
 import org.apache.http.NameValuePair;
 import org.apache.http.client.entity.UrlEncodedFormEntity;
 import org.apache.http.client.methods.CloseableHttpResponse;
@@ -219,6 +222,54 @@ public class Utils {
         }
         return null;
     }
+
+    // 图片转化成base64字符串
+    public static String GetImageStr(String imgFile) {// 将图片文件转化为字节数组字符串，并对其进行Base64编码处理
+        InputStream in = null;
+        byte[] data = null;
+        // 读取图片字节数组
+        try {
+            in = new FileInputStream(imgFile);
+            data = new byte[in.available()];
+            in.read(data);
+            in.close();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        // 对字节数组Base64编码
+        BASE64Encoder encoder = new BASE64Encoder();
+        return encoder.encode(data);// 返回Base64编码过的字节数组字符串
+    }
+
+
+    public static String doHttpRequest(String url ,  Map<String, String> data ){
+        String result ="";
+        CloseableHttpClient httpclient = HttpClients.createDefault();
+        HttpPost httpPost = new HttpPost( url);
+//        System.out.println("请求Url:" +url);
+        System.out.println("请求数据:" + JSON.toJSONString(data));
+        List<BasicNameValuePair> params = new ArrayList<BasicNameValuePair>();
+        for (Map.Entry<String, String> entry : data.entrySet()) {
+            params.add(new BasicNameValuePair(entry.getKey(), entry.getValue()));
+        }
+        //发起POST请求
+        try {
+            httpPost.setEntity(new UrlEncodedFormEntity(params, "UTF-8"));
+            HttpResponse httpResponse = httpclient.execute(httpPost);
+            if (httpResponse.getStatusLine().getStatusCode() == HttpStatus.SC_OK) {
+                result =  EntityUtils.toString(httpResponse.getEntity());
+            } else {
+                result =  ("doPost Error Response: " + httpResponse.getStatusLine().toString());
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+
+        }
+
+        System.out.println(result);
+        return result;
+    }
+
 
 
 }

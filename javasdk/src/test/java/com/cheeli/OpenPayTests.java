@@ -211,15 +211,15 @@ public class OpenPayTests {
         //************************** 请求参数填写开始 ***************************************/
 
         //支付金额 (单位分）
-        String  amount ="10000";
-        String  mchId  ="1608725221"; //other  微信签约的商户号
+        String  amount ="200";
+        String  mchId  ="1614222639"; //other  微信签约的商户号
 //        String  mchId  ="1587507961"; // mb 微信签约的商户号
         // 确保传入的开发者订单号唯一, 订单号生成规则开发者可自定，  修改
         String ext_trade_no =String.valueOf(System.currentTimeMillis());
         // 扩展参数，付款成功时回调给开发者时会原样返回，根据自己需求填写或为空。
         String attach ="biz=sms";
         // 订单标题
-        String body ="故宫3日游团票";
+        String body ="蜂巢支付测试商品";
         //  1：支付宝订购版 2：支付宝代收版  3： 微信代收版  4：支付宝商家签约版  5：微信商家签约版
         String  agentChannel = "5";
         // 回调通知url，开发者自己的服务器Url
@@ -294,7 +294,7 @@ public class OpenPayTests {
         //************************** 请求参数填写开始 ***************************************/
 
         //支付金额 (单位分）
-        String  amount ="10000";
+        String  amount ="100";
         String  mchId  ="2088701568962424"; //签约的支付宝商户号
         // 确保传入的开发者订单号唯一, 订单号生成规则开发者可自定，  修改
         String ext_trade_no =String.valueOf(System.currentTimeMillis());
@@ -362,6 +362,48 @@ public class OpenPayTests {
 
         System.out.println(result);
 
+    }
+
+
+    /**
+     *  支付宝小程序支付接口
+     * @throws Exception
+     */
+    @Test
+    public void F2FQRPayTradeCreate() throws Exception {
+
+        //支付金额 (单位分）
+        String  amount = "100";
+        String  mchId  = "2088341074631210"; //签约的支付宝商户号
+        // 确保传入的开发者订单号唯一, 订单号生成规则开发者可自定，  修改
+        String ext_trade_no =String.valueOf(System.currentTimeMillis());
+        // 扩展参数，付款成功时回调给开发者时会原样返回，根据自己需求填写或为空。
+        String attach ="";
+        // 订单标题
+        String body ="故宫3日游团票";
+        //   固定用4，请不要修改
+        String  agentChannel = "4";
+        // 用户付款完成后，回调通知url，开发者自己的服务器Url
+        String notify_url = Config.PayNotifyUrl;
+
+        //业务参数
+        Map<String, String> data = new HashMap<String, String>();
+        data.put("appid",  Config.AppId);
+        Long timestamp = System.currentTimeMillis() / 1000;
+        data.put("timestamp", timestamp.toString());
+        data.put("ext_trade_no",ext_trade_no );
+        data.put("mch_id",mchId );
+        data.put("amount",amount );
+        data.put("attach",attach );
+        data.put("body" , body );
+        data.put("notify_url",notify_url );
+        data.put("agent_channel",agentChannel );
+        data.put("buyer_id", "2088002269364279" );
+
+        // 参数签名
+        data.put("sign", Utils.Sign(data,Config.AppSecret));
+        String response = Utils.doHttpRequest(Config.F2FQRPayTradeCreateUrl, data);
+        System.out.println(response);
     }
 
 
