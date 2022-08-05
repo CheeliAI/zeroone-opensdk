@@ -42,12 +42,7 @@ public class AES128 {
     }
 
     public static String decrypt(String key, String val) throws GeneralSecurityException {
-
-
-//        byte[] crypted = Base64.Decoder.RFC4648_URLSAFE.decode(val);
         byte[] crypted = Base64.getUrlDecoder().decode(val);
-
-
         byte[] origData = decrypt(key, crypted);
         return new String(origData);
     }
