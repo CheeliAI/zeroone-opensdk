@@ -135,7 +135,7 @@ public class OpenPDDGoodsTests {
         data.put("seller_nick", seller_nick);
         Long timestamp = System.currentTimeMillis() / 1000;
         data.put("timestamp", timestamp.toString());
-        String base64Image  = Utils.getBase64ImageFromBinary("/Users/miller/Downloads/mm.jpeg");
+        String base64Image  = Utils.getBase64ImageFromBinary("/Users/miller/Downloads/arches.png");
         base64Image = "data:image/jpeg;base64," + base64Image;
          data.put("image", base64Image );
         // 参数签名
@@ -182,13 +182,48 @@ public class OpenPDDGoodsTests {
         data.put("timestamp", timestamp.toString());
         data.put("outer_cat_id", "0");
         data.put("outer_cat_name", "");
-        data.put("outer_goods_name", "几许时光黄桃芒果酒草莓番石榴酒红树莓西柚女士微醺低度酒375m");
+        data.put("outer_goods_name", "2021秋季新款时尚减龄设计感小众长袖格子衬衫女网红宽松显瘦上衣");
         // 参数签名
         data.put("sign", Utils.Sign(data,Config.AppSecret));
         doHttpRequest(Config.PddGoodsOuterCatMappingGetRequestUrl, data);
 
 
     }
+
+
+    @Test
+    public void PddGoodsOuterCatMappingGetRequestBatch() throws Exception {
+
+        String result ="";
+        String seller_nick = Config.PddSellerNick ; // 拼多多卖家账号
+        //业务参数
+        Map<String, String> data = new HashMap<String, String>();
+        data.put("appid",  Config.AppId);
+        data.put("seller_nick", seller_nick);
+        Long timestamp = System.currentTimeMillis() / 1000;
+        data.put("timestamp", timestamp.toString());
+        String requestData ="[{\n" +
+                "      \"object_id\": 100,\n" +
+                "        \"outer_cat_id\": 0,\n" +
+                "        \"outer_cat_name\": \"\",\n" +
+                "        \"outer_goods_name\": \"2021秋季新款时尚减龄设计感小众长袖格子衬衫女网红宽松显瘦上衣\"\n" +
+                "    },\n" +
+                "    {\n" +
+                "        \"object_id\": 101,\n" +
+                "        \"outer_cat_id\": 0,\n" +
+                "        \"outer_cat_name\": \"\",\n" +
+                "        \"outer_goods_name\": \"新货巴西松子特级精选手剥松子罐装500g/50g孕妇儿童休闲零食批发\"\n" +
+                "\n" +
+                "    }\n" +
+                "]";
+        data.put("request_data", requestData);
+        // 参数签名
+        data.put("sign", Utils.Sign(data,Config.AppSecret));
+        doHttpRequest(Config.PddGoodsOuterCatMappingBatchGetRequestUrl, data);
+
+    }
+
+
     /**
      *  商品属性类目接口
      * @throws Exception
@@ -245,8 +280,8 @@ public class OpenPDDGoodsTests {
         data.put("seller_nick", seller_nick);
         Long timestamp = System.currentTimeMillis() / 1000;
         data.put("timestamp", timestamp.toString());
-        data.put("goods_commit_id", "72948403362");
-        data.put("goods_id", "286996055566");
+        data.put("goods_commit_id", "95792051318");
+        data.put("goods_id", "395222032631");
         // 参数签名
         data.put("sign", Utils.Sign(data, Config.AppSecret));
         doHttpRequest(Config.PddGoodsCommitDetailGetRequestUrl, data);
@@ -274,13 +309,14 @@ public class OpenPDDGoodsTests {
         data.put("cost_template_id", "163280639235619");
         // 地区/国家ID，country_id可以通过pdd.goods.country.get获取，仅在goods_type为2、3时（海淘商品）入参生效，其余goods_type传0
         data.put("country_id", "10");
+        data.put("goods_type", "2");
         data.put("goods_desc", "新包装，保证产品的口感和新鲜度。单颗独立小包装，双重营养，1斤家庭分享装，更实惠新疆一级骏枣夹核桃仁");
-        data.put("goods_name", "这是通过API发布的商品不要拍！");
+        data.put("goods_name", "这是通过API发布的商品不要拍0727！");
 
         String dg = "[\"https://img.pddpic.com/open-gw/2021-10-11/ffc9a1e35840c3cf7f7af66f56c004c1.jpeg\"]";
 
         data.put("detail_gallery", dg);
-        data.put("goods_type", "1");
+
         data.put("is_folt", "true");
         data.put("is_pre_sale", "false");
         data.put("is_refundable", "true");
@@ -338,6 +374,7 @@ public class OpenPDDGoodsTests {
         data.put("multi_price", "1000");
         data.put("price", "900");
         data.put("quantity", "100");
+        data.put("two_pieces_discount", "95");
         data.put("thumb_url", "https://img.pddpic.com/open-gw/2021-10-11/ffc9a1e35840c3cf7f7af66f56c004c1.jpeg");
         data.put("weight", "100");
 

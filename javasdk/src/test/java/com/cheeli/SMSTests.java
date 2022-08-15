@@ -42,13 +42,23 @@ public class SMSTests {
 
     @Test
     public void sendSMS() throws Exception {
-        String requestData = "{" +
+//        String requestData = "{" +
+//                "                \"custom_sms_id\" :\"XS28381382\", " +
+//                "                \"extended_code\" :\"\", " +
+//                "                \"mobiles\" : [\"13816127333\"], " +
+//                "                \"templete_id\" :  20, " +
+//                "                \"sign_id\" :1, " +
+//                "                \"template_param\" :{\"code\":\"100205\"}" +
+//                "         }";
+
+
+        String requestDataAd = "{" +
                 "                \"custom_sms_id\" :\"XS28381382\", " +
                 "                \"extended_code\" :\"\", " +
-                "                \"mobiles\" : [\"18301061325\"], " +
+                "                \"mobiles\" : [\"13816127333\"], " +
                 "                \"templete_id\" :  32, " +
-                "                \"sign_id\" :15, " +
-                "                \"template_param\" :{\"code\":\"100205\"}" +
+                "                \"sign_id\" :1, " +
+                "                \"template_param\" :{\"url\":\"http://www.baidu.com/ad\"}" +
                 "         }";
 
         Map<String, String> data = new HashMap<String, String>();
@@ -56,7 +66,7 @@ public class SMSTests {
         Long timestamp = System.currentTimeMillis() / 1000;
        // Long timestamp = 837137814712L;
         data.put("timestamp", timestamp.toString());
-        data.put("request_data",requestData );
+        data.put("request_data",requestDataAd );
        // 参数签名
         data.put("sign", Utils.Sign(data,Config.AppSecret));
         doHttpRequest(Config.SendSMSUrl, data);
@@ -66,20 +76,32 @@ public class SMSTests {
 
     @Test
     public void sendSMSV2() throws Exception {
-        String requestData = "{" +
+
+        // 通知
+        String   requestData = "{" +
                 "                \"custom_sms_id\" :\"\", " +
                 "                \"extended_code\" :\"\", " +
-                "                \"mobiles\" : [\"13816112333\"], " +
-                "                \"templete_code\" :  \"SMS_0545436788\", " +
-                "                \"sign_name\" :\"暗客科技\", " +
-                "                \"template_param\" :{\"shop\":\"壹号流量铺\",\"province\":\"广东移动\",\"product\":\"10G7天包\"}" +
+                "                \"mobiles\" : [\"13816122323\"], " +
+                "                \"templete_code\" :  \"SMS_6533902793\", " +
+                "                \"sign_name\" :\"四方掌柜\", " +
+                "                \"template_param\" :{\"code\":\"2212\"}" +
+                "         }";
+
+        // 营销
+        String  requestDataAD = "{" +
+                "                \"custom_sms_id\" :\"\", " +
+                "                \"extended_code\" :\"\", " +
+                "                \"mobiles\" : [\"13816127333\"], " +
+                "                \"templete_code\" :  \"SMS_6318499315\", " +
+                "                \"sign_name\" :\"四方掌柜\", " +
+                "                \"template_param\" :{\"url\":\"https://www.163.com/ad\"}" +
                 "         }";
 
         Map<String, String> data = new HashMap<String, String>();
         data.put("appid",  Config.AppId);
         Long timestamp = System.currentTimeMillis() / 1000;
         data.put("timestamp", timestamp.toString());
-        data.put("request_data",requestData );
+        data.put("request_data",requestDataAD);
         // 参数签名
         data.put("sign", Utils.Sign(data,Config.AppSecret));
         doHttpRequest(Config.SendSMSV2Url, data);

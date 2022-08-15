@@ -186,12 +186,30 @@ public class OpenAlibabaItemTests {
         data.put("tb_seller_nick", tb_seller_nick);
         Long timestamp = System.currentTimeMillis() / 1000;
         data.put("timestamp", timestamp.toString());
-        data.put("item_id", "657645255129");
-        String schema = "<itemSchema>\n" +
-                "    <field id=\"title\" type=\"input\">\n" +
-                "        <value>测试宝贝连衣裙 2021</value>\n" +
-                "    </field>\n" +
+        data.put("item_id", "657712047100");
+//        String schema = "<itemSchema>\n" +
+//                "    <field id=\"title\" type=\"input\">\n" +
+//                "        <value>测试宝贝连衣裙 2021</value>\n" +
+//                "    </field>\n" +
+//                "</itemSchema>";
+
+        String schema ="<itemSchema> \n" +
+                "     <field id=\"desc\" name=\"PC端详情描述\" type=\"input\">\n" +
+                "        <rules>\n" +
+                "            <rule name=\"requiredRule\" value=\"true\"></rule>\n" +
+                "            <rule name=\"valueTypeRule\" value=\"html\"></rule>\n" +
+                "        </rules>\n" +
+                "        <value> \n" +
+                "             &lt;p&gt;   &lt;h2&gt;这是一个大美女&lt;/h2&gt; \n" +
+                "           &lt;img src=&quot;https://gd3.alicdn.com/imgextra/i3/661153176/O1CN012Kn0i51ZKecCBEqmY_!!661153176.jpg_400x400.jpg&quot; &gt;&lt;/img&gt;\n" +
+                "            &lt;/p&gt;\n" +
+                "        </value>\n" +
+                "    </field> \n" +
                 "</itemSchema>";
+
+
+
+
         data.put("schema", schema);
         data.put("sign", Utils.Sign(data, Config.AppSecret));
         // 调用服务API

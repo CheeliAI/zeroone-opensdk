@@ -102,7 +102,8 @@ public class QMTests {
     public void  getOpenDevAccount() throws Exception {
 
         String result ="";
-        String url = "https://open.fw199.com/gateway/partner/account/detail";
+//        String url = "https://open.fw199.com/gateway/partner/account/detail";
+        String url = "http://127.0.0.1:8080/gateway/partner/account/detail";
         CloseableHttpClient httpclient = HttpClients.createDefault();
         HttpPost httpPost = new HttpPost( url );
 
@@ -1380,12 +1381,12 @@ public class QMTests {
                     //SELLER_REFUSE_BUYER(卖家拒绝退款)
                     //CLOSED(退款关闭)
                     //SUCCESS(退款成功)
-         data.put("status", "WAIT_SELLER_AGREE");
+//         data.put("status", "WAIT_SELLER_AGREE");
          // 页码。传入值为 1 代表第一页，传入值为 2 代表第二页，依此类推。默认返回的数据是从第一页开始
          data.put("page_no", "1");
          // 每页条数。取值范围:大于零的整数; 默认值:40;最大值:100
          data.put("page_size", "40");
-         data.put("type", "fixed");
+         data.put("type", "guarantee_trade,auto_delivery,fixed,auto_delivery");
 
         // 签名
         data.put("sign", Utils.Sign(data,Config.AppSecret));
@@ -1455,8 +1456,8 @@ public class QMTests {
         data.put("tb_seller_nick", tb_seller_nick);
         // 退款状态，默认查询所有退款状态的数据
 //        data.put("status", "WAIT_SELLER_AGREE");
-        data.put("start_modified", "2021-01-01 00:00:00");
-        data.put("end_modified", "2021-04-01 00:00:00");
+        data.put("start_modified", "2022-01-01 00:00:00");
+        data.put("end_modified", "2022-08-11 00:00:00");
         data.put("page_no", "1");
         data.put("page_size", "30");
         data.put("use_has_next", "true");

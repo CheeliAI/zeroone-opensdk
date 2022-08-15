@@ -48,7 +48,7 @@ public class PartnerTests {
         //  1:淘宝 2：拼多多
         String channel = "1";
         // 淘宝/拼多多商家账号
-        String  seller_nick = "康益莱保健品专营店";
+        String  seller_nick = "创卫家居专营店:可可";
         //业务参数
         Map<String, String> data = new HashMap<String, String>();
         data.put("appid",  Config.AppId);

@@ -5,10 +5,12 @@ import org.java_websocket.client.WebSocketClient;
 import org.java_websocket.drafts.Draft;
 import org.java_websocket.drafts.Draft_6455;
 import org.java_websocket.handshake.ServerHandshake;
+import sun.misc.BASE64Encoder;
 
 import java.net.InetSocketAddress;
 import java.net.URI;
 import java.nio.channels.NotYetConnectedException;
+import java.util.Base64;
 import java.util.Date;
 import java.util.Timer;
 import java.util.TimerTask;
@@ -145,6 +147,8 @@ public abstract class ReconnectingWSClient {
                 attemptCounter = new AtomicInteger(0);
                 onOpenEvent(handshakedata);
                 sendBeat();
+
+
             }
 
             @Override

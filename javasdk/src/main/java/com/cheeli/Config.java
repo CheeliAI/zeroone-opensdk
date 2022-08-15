@@ -4,36 +4,25 @@ package com.cheeli;
 public class Config {
 
 
+     public   static    String AppId  = "8CJyJ0xxxx";
+     public  static   String AppSecret = "jUAbcrzzxxx";  //修改
 
-    //开发者的ID和密钥
-    public   static    String AppId  = "xxxxxxx";
-    public  static   String AppSecret = "xxxxxx"; //  //修改
-
-
-
-
-    // 淘宝卖家账号
-    public  static String TBSellerNick=  "xxxx";
-    // 拼多多卖家账号
-    public  static String PddSellerNick= "pdd75712771556";
-    public  static String SFClientCode = "xxx"; // 顺丰的客户编码
-    public  static String SFCheckWord = "xxxx"; // 顺丰的校验码
-
-
-
+    public  static String TBSellerNick=   "xxxxx" ;
+    public  static String DDSellerNick=     "oms12804644" ;
+    public  static String PddSellerNick= "pdd14544212593";
+    public  static String SFClientCode = "xxxx";   //顺丰的客户编码
+    public  static String SFCheckWord = "xxxxxxxxxx"; // 顺丰的校验码
     // 付款通知回调Url ，改为开发者自己网站或系统
     public  static String PayNotifyUrl ="http://fcpush.vs.fw199.com/paynotice";
-
-
     //正式环境
     public   static    String     baseUrl = "https://open.fw199.com";
-
     public   static    String     qmUrl = "http://u8d0yp7743.api.taobao.com/router/qmtest";
     public   static    String     AliPayTradeListUrl= baseUrl +  "/gateway/alipay/trade/list";
     public   static    String     AliPayTradeDetailUrl=baseUrl +   "/gateway/alipay/trade/detail";
     public   static    String     GetAlipayQRCodeUrl= baseUrl +   "/gateway/partner/pay/startalipay";
     public   static    String     QueryAccountInvokeQtyUrl = baseUrl +  "/gateway/partner/account/invokeqty";
     public   static    String     TradePreCreate = baseUrl +   "/gateway/partner/pay/tradeprecreate";
+    public   static    String     QueryPayTradeUrl = baseUrl +   "/gateway/partner/pay/trade/query";
     public   static    String     F2FQRPayTradeCreateUrl = baseUrl +   "/gateway/partner/pay/f2f/qrpay/trade/create";
     public   static    String     LogisticesCompanyUrl = baseUrl +   "/gateway/taobao/logistices/getcompany";
     public   static    String     LogisticesOnlineSendUrl = baseUrl +   "/gateway/taobao/logistices/onlinesend";
@@ -44,6 +33,7 @@ public class Config {
     public   static    String     PddLogisticesOnlineSendUrl = baseUrl +   "/gateway/pdd/logistices/onlinesend";
     public   static    String     PddOrderDetailUrl = baseUrl +   "/gateway/pdd/order/detail";
     public   static    String     PddGoodsOuterCatMappingGetRequestUrl = baseUrl +   "/gateway/pdd/goods/outer/cat/mapping/get";
+    public   static    String     PddGoodsOuterCatMappingBatchGetRequestUrl = baseUrl +   "/gateway/pdd/goods/outer/cat/mapping/batchget";
 
     public   static    String     PddWayBillSearchByNoUrl = baseUrl +   "/gateway/pdd/waybill/searchbyno";
 
@@ -77,6 +67,8 @@ public class Config {
     public   static    String     TaoBaoCaiNiaoWayBillV2BatchGetUrl = baseUrl +   "/gateway/taobao/cainiao/waybill/v2/batchget";
     public   static    String     TaoBaoCaiNiaoWayBillV3BatchGetUrl = baseUrl +   "/gateway/taobao/cainiao/waybill/v3/batchget";
     public   static    String     TaoBaoCaiNiaoWayBillGetUrl = baseUrl +   "/gateway/taobao/cainiao/waybill/get";
+    public   static    String     TaoBaoCaiNiaoCloudprintCustomeraresGetUrl = baseUrl +   "/gateway/taobao/cainiao/cloudprint/customares/get";
+    public   static    String     TaoBaoCaiNiaoCloudISVTplGetUrl = baseUrl +   "/gateway/taobao/cainiao/cloudprint/isvtemplates/get";
     public   static    String     TaoBaoCaiNiaoWayBillGetByWBCodeUrl = baseUrl +   "/gateway/taobao/cainiao/waybill/querybywbcode";
     public   static    String     TradePreCreate4WeiXinJSAPI = baseUrl +   "/gateway/partner/pay/tradeprecreate4wxjsapi";
     public   static    String     TaoBaoLogisticesDummySend = baseUrl +   "/gateway/taobao/logistices/dummysend";
@@ -85,11 +77,13 @@ public class Config {
     public   static    String     TaoBaoUpdateMemoUrl = baseUrl +   "/gateway/taobao/order/updatememo";
     public   static    String     TaoBaoItemOnSaleUrl = baseUrl +   "/gateway/taobao/item/getonsale";
     public   static    String     TaoBaoItemDetailUrl = baseUrl +   "/gateway/taobao/item/detail";
+    public   static    String     TaoBaoItemPromotionGetUrl = baseUrl +   "/gateway/taobao/item/promotion/get";
     public   static    String     TaoBaoItemUpdateListingUrl = baseUrl +   "/gateway/taobao/item/updatelisting";
     public   static    String     TaoBaoItemUpdateDeListingUrl = baseUrl +   "/gateway/taobao/item/updatedelisting";
     public   static    String     TaoBaoItemUpdateStockUrl = baseUrl +   "/gateway/taobao/item/updatestock";
     public   static    String     TaoBaoTBKTpWdConvertUrl = baseUrl +   "/gateway/taobao/tbk/tpwdconvert";
     public   static    String     TaoBaoTBKTpWdCreateUrl = baseUrl +   "/gateway/taobao/tbk/tpwdcreate";
+    public   static    String     TaoBaoTBKIsTBKOrderUrl = baseUrl +   "/gateway/taobao/tbk/istbkorder";
     public   static    String     LogisticesOfflineBatchSendUrl = baseUrl +   "/gateway/taobao/logistices/offlinebatchsend";
     public   static    String     TaoBaoItemAddUrl = baseUrl +   "/gateway/taobao/item/add";
     public   static    String     TaoBaoItemDeleteUrl = baseUrl +   "/gateway/taobao/item/delete";
@@ -97,7 +91,7 @@ public class Config {
     public   static    String     TaoBaoItemPropsGet = baseUrl +   "/gateway/taobao/itemprops/get";
     public   static    String     TaoBaoItemPropsValuesGet = baseUrl +   "/gateway/taobao/itempropvalues/get";
 
-//    public   static    String     TaoBaoTmallItemSchemaAddUrl = baseUrl +   "/gateway/taobao/tmall/item/schema/add";
+    //    public   static    String     TaoBaoTmallItemSchemaAddUrl = baseUrl +   "/gateway/taobao/tmall/item/schema/add";
 //    public   static    String     TaoBaoTmallProductSchemaMatchUrl = baseUrl +   "/gateway/taobao/product/schema/match";
 //    public   static    String     TaoBaoTmallItemAddSchemaGetUrl = baseUrl +   "/gateway/taobao/tmall/item/add/schema/get";
     public   static    String     TaoBaoTmallItemCatsAuthorizeGetUrl = baseUrl +   "/gateway/taobao/itemcats/authorize/get";
@@ -190,6 +184,21 @@ public class Config {
     public   static    String     FCCSAHostLogisticsSendUrl = baseUrl + "/gateway/cs/host/logistics/send" ;
     public   static    String     FCCSAHostCancelTradeUrl = baseUrl + "/gateway/cs/host/trade/cancel" ;
     public   static    String     FCCSAHostGoodsUpdateUrl = baseUrl + "/gateway/cs/host/goods/update" ;
+    public   static    String     DDTradeListUrl = baseUrl + "/gateway/dd/trade/list" ;
+    public   static    String     DDTradeListExtUrl = baseUrl + "/gateway/dd/trade/listext" ;
+    public   static    String     DDTradeDetailUrl = baseUrl + "/gateway/dd/trade/detail" ;
+    public   static    String     DDLogisticsCompanyListUrl = baseUrl + "/gateway/dd/logistics/company/list" ;
+    public   static    String     DDLogisticstemplateListUrl = baseUrl + "/gateway/dd/logistics/template/list" ;
+    public   static    String     DDLogisticsWaybillGetUrl = baseUrl + "/gateway/dd/logistics/waybill/get" ;
+    public   static    String     DDLogisticsShopnetSiteListUrl = baseUrl + "/gateway/dd/logistics/shopnetsite/list" ;
+    public   static    String     DDLogisticsTraceNoTrouteUrl = baseUrl + "/gateway/dd/logistics/trackno/route" ;
+    public   static    String     DDOrderLogisticsAddUrl = baseUrl + "/gateway/dd/order/logistics/add" ;
+    public   static    String     DDAddListUrl = baseUrl + "/gateway/dd/address/list" ;
+    public   static    String     DDOrderDecryptUrl = baseUrl + "/gateway/dd/order/decrypt" ;
+    public   static    String     DDLogisticsNewcreateorderUrl = baseUrl + "/gateway/dd/logistics/newcreateorder" ;
+    public   static    String     DDLogisticsGetWayBillUrl = baseUrl + "/gateway/dd/logistics/getwaybill" ;
+    public   static    String     AlipayPayPushTradeUrl = baseUrl + "/gateway/partner/pay/quick/alipay/repush" ;
+
 
 
 }

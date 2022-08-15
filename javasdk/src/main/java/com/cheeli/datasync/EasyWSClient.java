@@ -6,10 +6,10 @@ import com.cheeli.tradeserver.model.ChangeMemoWithTrade;
 import com.cheeli.tradeserver.model.TradeInfo;
 import com.cheeli.tradeserver.model.TradeMemo;
 import org.java_websocket.handshake.ServerHandshake;
-
 import java.io.*;
 import java.net.URI;
 import java.util.Base64;
+import java.util.Date;
 
 public class EasyWSClient extends ReconnectingWSClient {
 
@@ -32,8 +32,9 @@ public class EasyWSClient extends ReconnectingWSClient {
     @Override
     public void onMessageEvent(String message) {
 
+
         // 强烈建议在此处先将消息message写到日志文件，以便日后消息排查！！！
-        System.out.println("onMessageEvent：" + message);
+         System.out.println( new Date().toString() + " onMessageEvent：" + message);
 
         SyncTradeResponse syncTradeResponse = JSON.parseObject(message, SyncTradeResponse.class);
         if (syncTradeResponse.getCode() == 0) {
@@ -60,14 +61,16 @@ public class EasyWSClient extends ReconnectingWSClient {
 
             //  如果是需要确认的消息，则确认此消息，否则服务端消息将会重发。
             if ( syncTradeResponse.getUuid() != null && !syncTradeResponse.getUuid().equals("")){
-                send("{\"cmd\":\"ack_sync_data\", \"seq\":\"" + syncTradeResponse.getUuid() +   "\"}");
+
+              //  if (!syncTradeResponse.getData().equals("hello java user B:100")) {
+                    send("{\"cmd\":\"ack_sync_data\", \"seq\":\"" + syncTradeResponse.getUuid() + "\"}");
+              //  }
             }
 
         } else {
             System.out.println("服务端返回业务错误："+ syncTradeResponse.getMsg());
         }
 
-        System.out.println("========onMessageEvent=========== \n " + message + "\n" );
     }
 
 

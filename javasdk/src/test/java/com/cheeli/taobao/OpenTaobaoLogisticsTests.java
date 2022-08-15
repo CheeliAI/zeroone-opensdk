@@ -70,25 +70,10 @@ public class OpenTaobaoLogisticsTests {
         data.put("order_mode", "all");
         // 参数签名
         data.put("sign", Utils.Sign(data, Config.AppSecret));
-        List<BasicNameValuePair> params = new ArrayList<BasicNameValuePair>();
-        for (Map.Entry<String, String> entry : data.entrySet()) {
-            params.add(new BasicNameValuePair(entry.getKey(), entry.getValue()));
-        }
-        //发起POST请求
-        try {
-            httpPost.setEntity(new UrlEncodedFormEntity(params, "UTF-8"));
-            HttpResponse httpResponse = httpclient.execute(httpPost);
-            if (httpResponse.getStatusLine().getStatusCode() == HttpStatus.SC_OK) {
-                result = EntityUtils.toString(httpResponse.getEntity());
-            } else {
-                result = ("doPost Error Response: " + httpResponse.getStatusLine().toString());
-            }
-        } catch (Exception e) {
-            e.printStackTrace();
 
-        }
+        doHttpRequest(Config.LogisticesCompanyUrl, data);
 
-        System.out.println(result);
+//        System.out.println(result);
 
     }
 
@@ -139,21 +124,21 @@ public class OpenTaobaoLogisticsTests {
         data.put("timestamp", timestamp.toString());
 
         // 淘宝交易ID，必须
-        data.put("tid", "1861688487148629051");
+        data.put("tid", "2780103567466192524");
         //  物流公司代码.如"POST"就代表中国邮政,"ZJS"就代表宅急送 ，通过接口 "查询物流公司列表"   获取。
-        data.put("company_code", "YTO");
+        data.put("company_code", "YUNDA");
         // 运单号.具体一个物流公司的真实运单号码。淘宝官方物流会校验，请谨慎传入；
-        data.put("out_sid", "YT5611492268564");
+        data.put("out_sid", "432690393369508");
         // 卖家交易备注旗帜，   可选值为：0(灰色), 1(红色), 2(黄色), 3(绿色), 4(蓝色), 5(粉红色)，说明：如果不想加旗帜，则传空串""
-        data.put("flag", "1");
+        data.put("flag", "");
         // 卖家交易备注。最大长度: 1000个字节  ，说明：如果不想加旗帜，则传空串""
-        data.put("memo", "效果不错，API");
+        data.put("memo", "");
         // 参数签名
         data.put("sign", Utils.Sign(data, Config.AppSecret));
 
         // 调用服务API
-        doHttpRequest(Config.LogisticesOnlineSendUrl, data);
-
+        String resp = doHttpRequest(Config.LogisticesOnlineSendUrl, data);
+        System.out.println(resp);
 
     }
 
@@ -178,7 +163,7 @@ public class OpenTaobaoLogisticsTests {
         data.put("timestamp", timestamp.toString());
 
         // 淘宝交易ID，必须
-        data.put("tid", "1861688487148629051");
+        data.put("tid", "1701006480971565830");
         //  物流公司代码.如"POST"就代表中国邮政,"ZJS"就代表宅急送 ，通过接口 "查询物流公司列表"   获取。
         data.put("company_code", "YTO");
         // 运单号.具体一个物流公司的真实运单号码。淘宝官方物流会校验，请谨慎传入；
@@ -186,7 +171,7 @@ public class OpenTaobaoLogisticsTests {
         // 卖家交易备注旗帜，   可选值为：0(灰色), 1(红色), 2(黄色), 3(绿色), 4(蓝色), 5(粉红色)，说明：如果不想加旗帜，则传空串""
         data.put("flag", "1");
         // 卖家交易备注。最大长度: 1000个字节  ，说明：如果不想加旗帜，则传空串""
-        data.put("memo", "通过API发货");
+        data.put("memo", "通过API发货222");
         // 参数签名
         data.put("sign", Utils.Sign(data, Config.AppSecret));
 
@@ -218,29 +203,29 @@ public class OpenTaobaoLogisticsTests {
         LogisticesBatchSendItem item = new LogisticesBatchSendItem();
         // 第1个订单
         // 淘宝交易ID，必须
-        item.setTid("1394382349229565830");
+        item.setTid("2536086204130565830");
         // 运单号.具体一个物流公司的真实运单号码。淘宝官方物流会校验，请谨慎传入；
         item.setOutSid("773075543162332");
         //  物流公司代码.如"POST"就代表中国邮政,"ZJS"就代表宅急送 ，通过接口 "查询物流公司列表"   获取。
         item.setCompanyCode("STO");
         // 卖家交易备注旗帜，   可选值为：0(灰色), 1(红色), 2(黄色), 3(绿色), 4(蓝色), 5(粉红色)，说明：如果不想加旗帜，则传空串""
-        item.setFlag("");
+        item.setFlag("5");
         // 卖家交易备注。最大长度: 1000个字节  ，说明：如果不想加旗帜，则传空串""
-        item.setMemo("");
+        item.setMemo("好测试");
         list.add(item);
 
         // 第2个订单
         item = new LogisticesBatchSendItem();
         // 淘宝交易ID，必须
-        item.setTid("1394614838090565830");
+        item.setTid("2537423066732565830");
         // 运单号.具体一个物流公司的真实运单号码。淘宝官方物流会校验，请谨慎传入；
         item.setOutSid("773075543162399");
         //  物流公司代码.如"POST"就代表中国邮政,"ZJS"就代表宅急送 ，通过接口 "查询物流公司列表"   获取。
         item.setCompanyCode("STO");
         // 卖家交易备注旗帜，   可选值为：0(灰色), 1(红色), 2(黄色), 3(绿色), 4(蓝色), 5(粉红色)，说明：如果不想加旗帜，则传空串""
-        item.setFlag("");
+        item.setFlag("4");
         // 卖家交易备注。最大长度: 1000个字节  ，说明：如果不想加旗帜，则传空串""
-        item.setMemo("");
+        item.setMemo("好测试2");
         list.add(item);
 
         String jsonItems = JSON.toJSONString(list);
@@ -293,8 +278,18 @@ public class OpenTaobaoLogisticsTests {
 //                "} " +
 //                "]";
 
-        String jsonItems = "[{\"consign_pkgs\":[{\"out_sid\":\"773108740827636\",\"company_code\":\"STO\"},{\"out_sid\":\"773108740398129\",\"company_code\":\"STO\"}], \"tid\":\"1352825185445857178\",\"sub_tid\":\"1352825185446857178,1352825185447857178\"}]";
-
+//        String jsonItems = "[{\"consign_pkgs\":[{\"out_sid\":\"773108740827636\",\"company_code\":\"STO\"},{\"out_sid\":\"78602319365161\",\"company_code\":\"STO\"}], \"tid\":\"1352825185445857178\",\"sub_tid\":\"1352825185446857178,1352825185447857178\"}]";
+        String jsonItems = "[{\n" +
+                "        \"sender_id\": 0,  \n" +
+                "        \"feature\": \"\",\n" +
+                "        \"tid\": \"279078987765406773\",\n" +
+                "        \"sub_tid\": \"\",\n" +
+                "        \"consign_pkgs\": [{\n" +
+                "            \"out_sid\": \"78602319365161\",\n" +
+                "            \"company_code\": \"ZTO\"\n" +
+                "        }],\n" +
+                "        \"cancel_id\": 0\n" +
+                "    }]";
         data.put("items", jsonItems);
         // 参数签名
         data.put("sign", Utils.Sign(data, Config.AppSecret));
@@ -414,9 +409,9 @@ public class OpenTaobaoLogisticsTests {
         data.put("timestamp", timestamp.toString());
         data.put("tb_seller_nick", tb_seller_nick);
         // 淘宝交易号，请勿传非淘宝交易号
-         data.put("tid", "1991668287297351348");
-         data.put("is_split", "1");// 表明是否是拆单，默认值0，1表示拆单
-         data.put("sub_tid", "1991668287298351348");//拆单子订单列表，当is_split=1时，需要传人；对应的数据是：子订单号的列表。
+         data.put("tid", "2683463149182072168");
+         data.put("is_split", "0");// 表明是否是拆单，默认值0，1表示拆单
+//         data.put("sub_tid", "");//拆单子订单列表，当is_split=1时，需要传人；对应的数据是：子订单号的列表。
          data.put("sign", Utils.Sign(data,Config.AppSecret));
         // 调用服务API
         doHttpRequest(Config.TaoBaoLogisticesTraceSearchUrl ,data);
@@ -564,9 +559,9 @@ public class OpenTaobaoLogisticsTests {
         Long timestamp = System.currentTimeMillis() / 1000;
         data.put("timestamp", timestamp.toString());
         data.put("tb_seller_nick", tb_seller_nick);
-        data.put("tid", "2130415454315565830");
-        data.put("company_code", "SF");
-        data.put("out_sid", "SF1303262056675");
+        data.put("tid", "2473718905282565830");
+        data.put("company_code", "YTO");
+        data.put("out_sid", "YT5611492268566");
         data.put("sign", Utils.Sign(data,Config.AppSecret));
         // 调用服务API
         doHttpRequest(Config.TaoBaologisticesConsignResendUrl ,data);
@@ -587,13 +582,15 @@ public class OpenTaobaoLogisticsTests {
         Long timestamp = System.currentTimeMillis() / 1000;
         data.put("timestamp", timestamp.toString());
         data.put("tb_seller_nick", tb_seller_nick);
-
-        String lgTPDtoJson = "{\"name\":\"STO\", \"code\" : \"773132213195671\"}";
-        data.put("tid", "2255147570641390060");
+        data.put("tid", "2532549276407343839");
+        String lgTPDtoJson = "{\"name\":\"圆通速递\", \"code\" : \"YTO\"}";
         data.put("lg_tp_dto", lgTPDtoJson);
+        String jz_top_argsJson  = "{\"mail_no\":\"YT6383161721380\"}";
+        data.put("jz_top_args", jz_top_argsJson);
         data.put("sign", Utils.Sign(data,Config.AppSecret));
         // 调用服务API
-        doHttpRequest(Config.WlbOrderJzConsignRequestUrl ,data);
+        String resp = doHttpRequest(Config.WlbOrderJzConsignRequestUrl ,data);
+        System.out.println(resp);
 
     }
 

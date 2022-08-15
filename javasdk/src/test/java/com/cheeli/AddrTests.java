@@ -3,10 +3,7 @@ package com.cheeli;
 import com.alibaba.fastjson.JSON;
 import com.cheeli.models.AddressItem;
 import com.cheeli.utils.Utils;
-import com.taobao.pac.sdk.cp.PacClient;
-import com.taobao.pac.sdk.cp.SendSysParams;
-import com.taobao.pac.sdk.cp.dataobject.request.ADDRLIB_DIV_FULLPARSE.AddrlibDivFullparseRequest;
-import com.taobao.pac.sdk.cp.dataobject.response.ADDRLIB_DIV_FULLPARSE.AddrlibDivFullparseResponse;
+
 import org.apache.http.HttpResponse;
 import org.apache.http.HttpStatus;
 import org.apache.http.client.entity.UrlEncodedFormEntity;
