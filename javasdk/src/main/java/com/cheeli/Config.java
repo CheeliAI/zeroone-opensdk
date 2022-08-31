@@ -19,6 +19,7 @@ public class Config {
 
     //正式环境
     public   static    String     baseUrl = "https://open.fw199.com";
+//    public   static    String     baseUrl = "http://127.0.0.1:8080";
 
     public   static    String     qmUrl = "http://u8d0yp7743.api.taobao.com/router/qmtest";
     public   static    String     AliPayTradeListUrl= baseUrl +  "/gateway/alipay/trade/list";
