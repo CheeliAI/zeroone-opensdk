@@ -4,18 +4,22 @@ package com.cheeli;
 public class Config {
 
 
-     public   static    String AppId  = "8CJyJ0xxxx";
-     public  static   String AppSecret = "jUAbcrzzxxx";  //修改
+    //开发者的ID和密钥
+    public   static    String AppId  = "xxx";
+    public   static   String AppSecret = "xxx";
 
-    public  static String TBSellerNick=   "xxxxx" ;
-    public  static String DDSellerNick=     "oms12804644" ;
+    public  static String TBSellerNick=   "xxx" ;
+    public  static String DDSellerNick=   "oms12804644";
     public  static String PddSellerNick= "pdd14544212593";
-    public  static String SFClientCode = "xxxx";   //顺丰的客户编码
-    public  static String SFCheckWord = "xxxxxxxxxx"; // 顺丰的校验码
+    public  static String SFClientCode = "xxx"; // 顺丰的客户编码
+    public  static String SFCheckWord = "xxx"; // 顺丰的校验码
+
     // 付款通知回调Url ，改为开发者自己网站或系统
     public  static String PayNotifyUrl ="http://fcpush.vs.fw199.com/paynotice";
+
     //正式环境
     public   static    String     baseUrl = "https://open.fw199.com";
+
     public   static    String     qmUrl = "http://u8d0yp7743.api.taobao.com/router/qmtest";
     public   static    String     AliPayTradeListUrl= baseUrl +  "/gateway/alipay/trade/list";
     public   static    String     AliPayTradeDetailUrl=baseUrl +   "/gateway/alipay/trade/detail";
@@ -197,6 +201,7 @@ public class Config {
     public   static    String     DDOrderDecryptUrl = baseUrl + "/gateway/dd/order/decrypt" ;
     public   static    String     DDLogisticsNewcreateorderUrl = baseUrl + "/gateway/dd/logistics/newcreateorder" ;
     public   static    String     DDLogisticsGetWayBillUrl = baseUrl + "/gateway/dd/logistics/getwaybill" ;
+    public   static    String     DDLogisticsGetOutRangeUrl = baseUrl + "/gateway/dd/logistics/getoutrange" ;
     public   static    String     AlipayPayPushTradeUrl = baseUrl + "/gateway/partner/pay/quick/alipay/repush" ;
 
 

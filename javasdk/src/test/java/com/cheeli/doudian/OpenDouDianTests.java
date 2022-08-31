@@ -388,6 +388,8 @@ public class OpenDouDianTests {
 
 //        reqDataMW = "{\"sender_info\":{\"address\":{\"country_code\":\"CHN\",\"district_name\":\"中山市\",\"city_name\":\"中山市\",\"detail_address\":\"民安中路191号2楼\",\"province_name\":\"广东省\"},\"contact\":{\"name\":\"林生\",\"mobile\":\"15220909710\"}},\"order_infos\":[{\"order_id\":\"548059574956693\",\"items\":[{\"item_count\":1,\"item_name\":\"茶包-1\"}],\"receiver_info\":{\"address\":{\"country_code\":\"CHN\",\"district_name\":\"小榄镇\",\"city_name\":\"中山市\",\"detail_address\":\"民安中路65号\",\"province_name\":\"广东省\"},\"contact\":{\"name\":\"黄先生\",\"mobile\":\"15398888567\"}}}],\"logistics_code\":\"jtexpress\",\"order_channel\":\"54\"}";
 
+//        reqDataMW = "{\"sender_info\":{\"address\":{\"country_code\":\"CHN\",\"district_name\":\"萧山区\",\"city_name\":\"杭州市\",\"detail_address\":\"弋雪云仓\",\"province_name\":\"浙江省\"},\"contact\":{\"name\":\"过眼云烟\",\"mobile\":\"18525873083\"}},\"order_infos\":[{\"order_id\":\"2654530829489781\",\"items\":[{\"item_count\":1,\"item_name\":\"随机小礼品-1\"}],\"receiver_info\":{\"address\":{\"country_code\":\"CHN\",\"district_name\":\"义乌市\",\"city_name\":\"金华市\",\"detail_address\":\"福田街道紫金一区35栋3单元店面\",\"province_name\":\"浙江省\"},\"contact\":{\"name\":\"水杯\",\"mobile\":\"15058679391\"}}}],\"logistics_code\":\"zhongtong\",\"order_channel\":\"54\"}";
+
         Map<String, Object> data = new HashMap<String, Object>();
         data.put("appid", Config.AppId);
         Long timestamp = System.currentTimeMillis() / 1000;
@@ -477,8 +479,8 @@ public class OpenDouDianTests {
 //          reqData2 = "{\"sender_info\":{\"address\":{\"country_code\":\"CHN\",\"district_name\":\"中山市\",\"city_name\":\"中山市\",\"detail_address\":\"民安中路191号2楼\",\"province_name\":\"广东省\"},\"contact\":{\"name\":\"林生\",\"mobile\":\"15220909710\"}},\"order_infos\":[{\"order_id\":\"548059574956693\",\"items\":[{\"item_count\":1,\"item_name\":\"茶包-1\"}],\"receiver_info\":{\"address\":{\"country_code\":\"CHN\",\"district_name\":\"小榄镇\",\"city_name\":\"中山市\",\"detail_address\":\"民安中路65号\",\"province_name\":\"广东省\"},\"contact\":{\"name\":\"黄先生\",\"mobile\":\"15398888567\"}}}],\"logistics_code\":\"jtexpress\",\"order_channel\":\"54\"}";
 
 
-        reqData2= "{\"sender_info\":{\"address\":{\"country_code\":\"CHN\",\"district_name\":\"萧山区\",\"city_name\":\"杭州市\",\"detail_address\":\"弋雪云仓\",\"province_name\":\"浙江省\"},\"contact\":{\"name\":\"过眼云烟\",\"mobile\":\"18525873083\"}},\"order_infos\":[{\"order_id\":\"2051901854858927\",\"items\":[{\"item_count\":1,\"item_name\":\"随机小礼品【站点签收】-1\"}],\"receiver_info\":{\"address\":{\"country_code\":\"CHN\",\"district_name\":\"柯桥区\",\"city_name\":\"绍兴市\",\"detail_address\":\"华舍街道华舍街道兴华小区南区\",\"province_name\":\"浙江省\"}," +
-                "\"contact\":{\"name\":\"寿先生\",\"mobile\":\"15705850542\"}}}],\"logistics_code\":\"zhongtong\",\"order_channel\":\"54\"}";
+//        reqData2= "{\"sender_info\":{\"address\":{\"country_code\":\"CHN\",\"district_name\":\"萧山区\",\"city_name\":\"杭州市\",\"detail_address\":\"弋雪云仓\",\"province_name\":\"浙江省\"},\"contact\":{\"name\":\"过眼云烟\",\"mobile\":\"18525873083\"}},\"order_infos\":[{\"order_id\":\"2051901854858927\",\"items\":[{\"item_count\":1,\"item_name\":\"随机小礼品【站点签收】-1\"}],\"receiver_info\":{\"address\":{\"country_code\":\"CHN\",\"district_name\":\"柯桥区\",\"city_name\":\"绍兴市\",\"detail_address\":\"华舍街道华舍街道兴华小区南区\",\"province_name\":\"浙江省\"}," +
+//                "\"contact\":{\"name\":\"寿先生\",\"mobile\":\"15705850542\"}}}],\"logistics_code\":\"zhongtong\",\"order_channel\":\"54\"}";
 
 //        reqData2 = "{\"sender_info\":{\"address\":{\"country_code\":\"CHN\",\"district_name\":\"萧山区\",\"city_name\":\"杭州市\",\"detail_address\":\"弋雪云仓\",\"province_name\":\"浙江省\"},\"contact\":{\"name\":\"过眼云烟\",\"mobile\":\"18525873083\"}},\"order_infos\":[{\"order_id\":\"2068402470199704\",\"items\":[{\"item_count\":1,\"item_name\":\"随机小礼品-1\"}],\"receiver_info\":{\"address\":{\"country_code\":\"CHN\",\"district_name\":\"渝北区\",\"city_name\":\"重庆市\",\"detail_address\":\"回兴街道金燕佳园附4号门市-卤菜\",\"province_name\":\"重庆市\"},\"contact\":{\"name\":\"曾沙沙\",\"mobile\":\"13290008859\"}}}],\"logistics_code\":\"zhongtong\",\"order_channel\":\"54\"}";
 
@@ -514,6 +516,73 @@ public class OpenDouDianTests {
         data.put("sign", Sign(data, Config.AppSecret));
         // 调用服务API
         String resp = doHttpRequest(Config.DDLogisticsGetWayBillUrl, data);
+        System.out.println(resp);
+
+    }
+
+
+    // 查询地址快递是否可以送达
+    @Test
+    public void  DDLogisticsGetOutRange() throws Exception {
+
+        String requestData = "{" +
+                "    \"logistics_code\": \"zhongtong\"," +
+                "    \"addr_list\": [" +
+                "        {" +
+                "            \"object_id\": \"id001\"," +
+                "            \"sender_addr\": {" +
+                "                \"country_code\": \"CHN\"," +
+                "                \"city_name\": \"杭州市\"," +
+                "                \"detail_address\": \"龙湖西溪天街蓝海引擎8楼\"," +
+                "                \"district_name\": \"西湖区\"," +
+                "                \"province_name\": \"浙江省\"," +
+                "                \"street_name\": \"\"" +
+                "            }," +
+                "            \"receiver_addr\": {" +
+                "                \"country_code\": \"CHN\"," +
+                "                \"city_name\": \"金华市\"," +
+                "                \"detail_address\": \"福田街道紫金一区35栋3单元店面\"," +
+                "                \"district_name\": \"义乌市\"," +
+                "                \"province_name\": \"浙江省\"," +
+                "                \"street_name\": \"\"" +
+                "            }" +
+                "        }," +
+                "        {" +
+                "            \"object_id\": \"id002\"," +
+                "            \"sender_addr\": {" +
+                "                \"country_code\": \"CHN\"," +
+                "                \"city_name\": \"杭州市\"," +
+                "                \"detail_address\": \"龙湖西溪天街蓝海引擎8楼\"," +
+                "                \"district_name\": \"西湖区\"," +
+                "                \"province_name\": \"浙江省\"," +
+                "                \"street_name\": \"\"" +
+                "            }," +
+                "            \"receiver_addr\": {" +
+                "                \"country_code\": \"CHN\"," +
+                "                \"city_name\": \"象山县\"," +
+                "                \"detail_address\": \"天安路999号\"," +
+                "                \"district_name\": \"宁波市\"," +
+                "                \"province_name\": \"浙江省\"," +
+                "                \"street_name\": \"\"" +
+                "            }" +
+                "        }" +
+                "" +
+                "    ]," +
+                "    \"type\": 0," +
+                "    \"service_list\": []," +
+                "    \"product_type\": \"\"," +
+                "    \"delivery_req\": {}" +
+                "}";
+
+        Map<String, Object> data = new HashMap<String, Object>();
+        data.put("appid", Config.AppId);
+        Long timestamp = System.currentTimeMillis() / 1000;
+        data.put("timestamp", timestamp.toString());
+        data.put("seller_nick", Config.DDSellerNick);
+        data.put("request_data", requestData);
+        data.put("sign", Sign(data, Config.AppSecret));
+        // 调用服务API
+        String resp = doHttpRequest(Config.DDLogisticsGetOutRangeUrl, data);
         System.out.println(resp);
 
     }

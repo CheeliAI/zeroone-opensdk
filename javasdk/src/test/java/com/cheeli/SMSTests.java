@@ -97,6 +97,16 @@ public class SMSTests {
                 "                \"template_param\" :{\"url\":\"https://www.163.com/ad\"}" +
                 "         }";
 
+        // 营销
+           requestDataAD = "{" +
+                "                \"custom_sms_id\" :\"\", " +
+                "                \"extended_code\" :\"\", " +
+                "                \"mobiles\" : [\"13816127333\"], " +
+                "                \"templete_code\" :  \"SMS_6318499316\", " +
+                "                \"sign_name\" :\"四方掌柜\", " +
+                "                \"template_param\" :{}}" +
+                "         }";
+
         Map<String, String> data = new HashMap<String, String>();
         data.put("appid",  Config.AppId);
         Long timestamp = System.currentTimeMillis() / 1000;

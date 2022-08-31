@@ -372,7 +372,7 @@ public class OpenTaobaoTests {
                     data.put("page_no", String.valueOf(currentPage));
                     data.put("page_size", "30");
                     data.put("use_has_next", "false");
-                    data.put("buyer_open_id", "AAHW90gYAAjcqSrFKsIjFOPr");
+//                    data.put("buyer_open_id", "AAHW90gYAAjcqSrFKsIjFOPr");
 
                     //fixed(一口价) auction(拍卖) guarantee_trade(一口价、拍卖) auto_delivery(自动发货) independent_simple_trade(旺店入门版交易) independent_shop_trade(旺店标准版交易) ec(直冲)
                     // cod(货到付款) fenxiao(分销) game_equipment(游戏装备) shopex_trade(ShopEX交易) netcn_trade(万网交易)
@@ -446,7 +446,6 @@ public class OpenTaobaoTests {
         parallelTesk(1, new Runnable() {
             @Override
             public void run() {
-
                 try {
                     String tb_seller_nick = Config.TBSellerNick; //要查询的淘宝商家
                     //业务参数
@@ -455,8 +454,8 @@ public class OpenTaobaoTests {
                     data.put("tb_seller_nick", tb_seller_nick);
                     Long timestamp = System.currentTimeMillis() / 1000;
                     data.put("timestamp", timestamp.toString());
-                    data.put("start_created", "2021-01-10 16:59:58");
-                    data.put("end_created", "2022-07-13 16:59:58");
+                    data.put("start_created", "2022-08-01 18:39:51");
+                    data.put("end_created", "2022-08-26 18:39:51");
 //                    data.put("status", "WAIT_SELLER_SEND_GOODS");
 //                    data.put("buyer_nick", "liweiyi");
 //                    data.put("buyer_message_op", "ne");
@@ -658,7 +657,8 @@ public class OpenTaobaoTests {
         Long timestamp = System.currentTimeMillis() / 1000;
         data.put("timestamp", timestamp.toString());
 //        data.put("tid", "2573604720966917733");//bb2556897626634036344
-        data.put("tid", "1632191775688219192"); // bxg
+//        data.put("tid", "1632191775688219192"); // bxg
+        data.put("tid", "2822788155237646335");
         data.put("sign", Utils.Sign(data, Config.AppSecret));
         // 调用服务API
         String response = doHttpRequest(Config.TaoBaoOrderDetailUrl, data);
@@ -794,7 +794,7 @@ public class OpenTaobaoTests {
         data.put("tb_seller_nick", tb_seller_nick);
         Long timestamp = System.currentTimeMillis() / 1000;
         data.put("timestamp", timestamp.toString());
-        data.put("cp_code", "POSTB"); //  物流公司code  比如，YUNDA POSTB
+        data.put("cp_code", ""); //  物流公司code  比如，YUNDA POSTB
         data.put("sign", Utils.Sign(data, Config.AppSecret));
         // 调用服务API
         String resp = doHttpRequest(Config.TaoBaoCaiNiaoWayBillSearchUrl, data);
@@ -1448,7 +1448,64 @@ public class OpenTaobaoTests {
                  "        }\n" +
                  "    ]\n" +
                  "}";
-         data.put("request_data",reqeustData );
+
+
+        reqeustData = "{\n" +
+                "    \"cp_code\": \"LE09252050\",\n" +
+                "    \"dms_sorting\": false,\n" +
+                "    \"three_pl_timing \": false,\n" +
+                "    \"need_encrypt\": true,\n" +
+                "    \"resource_code\": \"\",\n" +
+                "    \"sender\": {\n" +
+                "        \"address\": {\n" +
+                "            \"city\": \"潍坊市\",\n" +
+                "            \"detail\": \"东外环仓储\",\n" +
+                "            \"district\": \"诸城市\",\n" +
+                "            \"province\": \"山东省\"\n" +
+                "        },\n" +
+                "        \"mobile\": \"13366661498\",\n" +
+                "        \"name\": \"王先生\",\n" +
+                "        \"phone\": \"\"\n" +
+                "    },\n" +
+                "    \"store_code\": \"\",\n" +
+                "    \"trade_order_info_dtos\": [\n" +
+                "        {\n" +
+                "            \"object_id\": \"08180951366578860\",\n" +
+                "            \"order_info\": {\n" +
+                "                \"order_channels_type\": \"TB\",\n" +
+                "                \"trade_order_list\": [\n" +
+                "                    \"08180951366578860\"\n" +
+                "                ]\n" +
+                "            },\n" +
+                "            \"package_info\": {\n" +
+                "                \"id\": \"08180951366578860\",\n" +
+                "                \"items\": [\n" +
+                "                    {\n" +
+                "                        \"count\": 1,\n" +
+                "                        \"name\": \"738X1 \"\n" +
+                "                    }\n" +
+                "                ],\n" +
+                "                \"goods_description\": \"小商品\"\n" +
+                "            },\n" +
+                "            \"recipient\": {\n" +
+                "                \"address\": {\n" +
+                "                    \"city\": \"厦门市\",\n" +
+                "                    \"detail\": \"高崎新村3094号\",\n" +
+                "                    \"district\": \"湖里区\",\n" +
+                "                    \"province\": \"福建省\"\n" +
+                "                },\n" +
+                "                \"mobile\": \"13655931708\",\n" +
+                "                \"name\": \"汪波\",\n" +
+                "                \"tid\": \"1646497418696214467\"\n" +
+                "            },\n" +
+                "            \"template_url\": \"http://cloudprint.cainiao.com/template/standard/490207/7\",\n" +
+                "            \"user_id\": 0\n" +
+                "        }\n" +
+                "    ]\n" +
+//                "    \"brand_code\": \"FW\"\n" +
+                "}";
+
+                   data.put("request_data",reqeustData );
 
         data.put("sign", Utils.Sign(data,Config.AppSecret));
         // 调用服务API
@@ -1933,13 +1990,13 @@ public class OpenTaobaoTests {
 //                "{\"tid\": \"1967781171792565830\", \"oaid\": \"xxxx2h12M4LqkhUkt1ibEk6VyZv2gRsECYSQayzH33CwBP1s3CmlhJx18fN3CCL8zKx9v5icW2vib\" ,\"scene\":\"1007\"}" +
 //                "]";
 
-        String requestData = "[{\"tid\": \"2559554679472261300\", \"oaid\": \"1d8HAhgNryB64tMg3RSZ5eqk8ojJhiaJtKqwAgcuNsQ6zwx1nGqQReRGWzxG4sGcSnSsMfL\" ,\"scene\":\"1007\"}]";
+//        String requestData = "[{\"tid\": \"2839035387059034024\",\"secret_no_days\":30,\"oaid\": \"1usoYlNY6Rc6tiaYjnXefUhkYsHTdCdS7Xee6z3ufBdPHpDaeq7m0S4GGXmqkLcx1CcYCfw\" ,\"scene\":\"1006\"}]";
+        String requestData = "[{\"tid\": \"2839035387059034024\",  \"oaid\":\"1usoYlNY6Rc6tiaYjnXefUhkYsHTdCdS7Xee6z3ufBdPHpDaeq7m0S4GGXmqkLcx1CcYCfw\" ,\"scene\":\"1006\"}]";
         Map<String, String> data = new HashMap<String, String>();
         data.put("appid",  Config.AppId);
         Long timestamp = System.currentTimeMillis() / 1000;
         data.put("timestamp", timestamp.toString());
         data.put("tb_seller_nick", tb_seller_nick);
-        // 退款单号
         data.put("request_data", requestData);
         // 签名
         data.put("sign", Utils.Sign(data,Config.AppSecret));

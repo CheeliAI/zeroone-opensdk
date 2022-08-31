@@ -201,32 +201,48 @@ public class OpenTaobaoLogisticsTests {
         data.put("timestamp", timestamp.toString());
         List<LogisticesBatchSendItem> list = new ArrayList();
         LogisticesBatchSendItem item = new LogisticesBatchSendItem();
+
         // 第1个订单
         // 淘宝交易ID，必须
-        item.setTid("2536086204130565830");
+        item.setTid("2822788155237646335");
         // 运单号.具体一个物流公司的真实运单号码。淘宝官方物流会校验，请谨慎传入；
-        item.setOutSid("773075543162332");
+        item.setOutSid("432727706871416");
         //  物流公司代码.如"POST"就代表中国邮政,"ZJS"就代表宅急送 ，通过接口 "查询物流公司列表"   获取。
-        item.setCompanyCode("STO");
+        item.setCompanyCode("YUNDA");
         // 卖家交易备注旗帜，   可选值为：0(灰色), 1(红色), 2(黄色), 3(绿色), 4(蓝色), 5(粉红色)，说明：如果不想加旗帜，则传空串""
         item.setFlag("5");
         // 卖家交易备注。最大长度: 1000个字节  ，说明：如果不想加旗帜，则传空串""
         item.setMemo("好测试");
         list.add(item);
 
-        // 第2个订单
-        item = new LogisticesBatchSendItem();
-        // 淘宝交易ID，必须
-        item.setTid("2537423066732565830");
-        // 运单号.具体一个物流公司的真实运单号码。淘宝官方物流会校验，请谨慎传入；
-        item.setOutSid("773075543162399");
-        //  物流公司代码.如"POST"就代表中国邮政,"ZJS"就代表宅急送 ，通过接口 "查询物流公司列表"   获取。
-        item.setCompanyCode("STO");
-        // 卖家交易备注旗帜，   可选值为：0(灰色), 1(红色), 2(黄色), 3(绿色), 4(蓝色), 5(粉红色)，说明：如果不想加旗帜，则传空串""
-        item.setFlag("4");
-        // 卖家交易备注。最大长度: 1000个字节  ，说明：如果不想加旗帜，则传空串""
-        item.setMemo("好测试2");
-        list.add(item);
+
+
+//        // 第1个订单
+//        // 淘宝交易ID，必须
+//        item.setTid("2536086204130565830");
+//        // 运单号.具体一个物流公司的真实运单号码。淘宝官方物流会校验，请谨慎传入；
+//        item.setOutSid("773075543162332");
+//        //  物流公司代码.如"POST"就代表中国邮政,"ZJS"就代表宅急送 ，通过接口 "查询物流公司列表"   获取。
+//        item.setCompanyCode("STO");
+//        // 卖家交易备注旗帜，   可选值为：0(灰色), 1(红色), 2(黄色), 3(绿色), 4(蓝色), 5(粉红色)，说明：如果不想加旗帜，则传空串""
+//        item.setFlag("5");
+//        // 卖家交易备注。最大长度: 1000个字节  ，说明：如果不想加旗帜，则传空串""
+//        item.setMemo("好测试");
+//        list.add(item);
+
+//        // 第2个订单
+//        item = new LogisticesBatchSendItem();
+//        // 淘宝交易ID，必须
+//        item.setTid("2537423066732565830");
+//        // 运单号.具体一个物流公司的真实运单号码。淘宝官方物流会校验，请谨慎传入；
+//        item.setOutSid("773075543162399");
+//        //  物流公司代码.如"POST"就代表中国邮政,"ZJS"就代表宅急送 ，通过接口 "查询物流公司列表"   获取。
+//        item.setCompanyCode("STO");
+//        // 卖家交易备注旗帜，   可选值为：0(灰色), 1(红色), 2(黄色), 3(绿色), 4(蓝色), 5(粉红色)，说明：如果不想加旗帜，则传空串""
+//        item.setFlag("4");
+//        // 卖家交易备注。最大长度: 1000个字节  ，说明：如果不想加旗帜，则传空串""
+//        item.setMemo("好测试2");
+//        list.add(item);
 
         String jsonItems = JSON.toJSONString(list);
         System.out.println(jsonItems);
@@ -235,7 +251,8 @@ public class OpenTaobaoLogisticsTests {
         data.put("sign", Utils.Sign(data, Config.AppSecret));
 
         // 调用服务API
-        doHttpRequest(Config.LogisticesOfflineBatchSendUrl, data);
+        String r = doHttpRequest(Config.LogisticesOfflineBatchSendUrl, data);
+        System.out.println(r);
 
     }
 
@@ -343,6 +360,43 @@ public class OpenTaobaoLogisticsTests {
         data.put("timestamp", timestamp.toString());
 
         data.put("tb_seller_nick", tb_seller_nick);
+//        String checkData = "{" +
+//                "    \"address_and_service_list\": [{" +
+//                "        \"object_id\": \"abc100\"," +
+//                "        \"receive_address\": {" +
+//                "            \"address_detail\": \"裕田小区12号楼6单元201室\"," +
+//                "            \"area_name\": \"呼兰区\"," +
+//                "            \"city_name\": \"哈尔滨市\"," +
+//                "            \"province_name\": \"黑龙江省\"," +
+//                "            \"town_name\": \"利民街道\"" +
+//                "        }," +
+//                "        \"send_address\": {" +
+//                "            \"area_name\": \"黄浦区\"," +
+//                "            \"city_name\": \"广州市\"," +
+//                "            \"province_name\": \"广东省\"," +
+//                "            \"town_name\": \"九佛镇\"" +
+//                "        }" +
+//                "    }, " +
+//                "    {" +
+//                "        \"object_id\": \"def200\"," +
+//                "        \"oaid\": \"1h12M4LqkhUkt1ibEk6VyZv2gRsECYSQayzH33CwBP1s3CmlCdx1CpVPJwkYcmvfj7u30St\"," +
+//                "        \"receive_address\": {" +
+//                "            \"address_detail\": \"蟠凤前路82号\"," +
+//                "            \"area_name\": \"瓯海区\"," +
+//                "            \"city_name\": \"温州市\"," +
+//                "            \"province_name\": \"浙江省\"," +
+//                "            \"town_name\": \"梧田街道\"" +
+//                "        }," +
+//                "        \"send_address\": {" +
+//                "            \"area_name\": \"黄浦区\"," +
+//                "            \"city_name\": \"广州市\"," +
+//                "            \"province_name\": \"广东省\"," +
+//                "            \"town_name\": \"九佛镇\"" +
+//                "        }" +
+//                "    }]," +
+//                "    \"cp_code\": \"YTO\"," +
+//                "    \"send_branch_code\": \"2220111\"" +"}";
+
         String checkData = "{" +
                 "    \"address_and_service_list\": [{" +
                 "        \"object_id\": \"abc100\"," +
@@ -359,24 +413,8 @@ public class OpenTaobaoLogisticsTests {
                 "            \"province_name\": \"广东省\"," +
                 "            \"town_name\": \"九佛镇\"" +
                 "        }" +
-                "    }, " +
-                "    {" +
-                "        \"object_id\": \"def200\"," +
-                "        \"oaid\": \"1h12M4LqkhUkt1ibEk6VyZv2gRsECYSQayzH33CwBP1s3CmlCdx1CpVPJwkYcmvfj7u30St\"," +
-                "        \"receive_address\": {" +
-                "            \"address_detail\": \"蟠凤***路***号***室\"," +
-                "            \"area_name\": \"瓯海区\"," +
-                "            \"city_name\": \"温州市\"," +
-                "            \"province_name\": \"浙江省\"," +
-                "            \"town_name\": \"梧田街道\"" +
-                "        }," +
-                "        \"send_address\": {" +
-                "            \"area_name\": \"黄浦区\"," +
-                "            \"city_name\": \"广州市\"," +
-                "            \"province_name\": \"广东省\"," +
-                "            \"town_name\": \"九佛镇\"" +
-                "        }" +
-                "    }]," +
+                "    }" +
+                "     ]," +
                 "    \"cp_code\": \"YTO\"," +
                 "    \"send_branch_code\": \"2220111\"" +"}";
 
