@@ -28,6 +28,7 @@ public class Config {
     public   static    String     QueryAccountInvokeQtyUrl = baseUrl +  "/gateway/partner/account/invokeqty";
     public   static    String     TradePreCreate = baseUrl +   "/gateway/partner/pay/tradeprecreate";
     public   static    String     QueryPayTradeUrl = baseUrl +   "/gateway/partner/pay/trade/query";
+    public   static    String     PayWXPersonalCreateNativePayUrl = baseUrl +   "/gateway/partner/pay/wx/personal/native";
     public   static    String     F2FQRPayTradeCreateUrl = baseUrl +   "/gateway/partner/pay/f2f/qrpay/trade/create";
     public   static    String     LogisticesCompanyUrl = baseUrl +   "/gateway/taobao/logistices/getcompany";
     public   static    String     LogisticesOnlineSendUrl = baseUrl +   "/gateway/taobao/logistices/onlinesend";
@@ -79,6 +80,7 @@ public class Config {
     public   static    String     TaoBaoLogisticesDummySend = baseUrl +   "/gateway/taobao/logistices/dummysend";
     public   static    String     TaoBaoQianNiuSendMsg = baseUrl +   "/gateway/taobao/qianniu/sendmsg";
     public   static    String     TaoBaoStoreGrantUrl = baseUrl +   "/gateway/partner/store/grant";
+    public   static    String     PartnerBillDownUrl = baseUrl +   "/gateway/partner/bill/down";
     public   static    String     TaoBaoUpdateMemoUrl = baseUrl +   "/gateway/taobao/order/updatememo";
     public   static    String     TaoBaoItemOnSaleUrl = baseUrl +   "/gateway/taobao/item/getonsale";
     public   static    String     TaoBaoItemDetailUrl = baseUrl +   "/gateway/taobao/item/detail";
@@ -86,6 +88,7 @@ public class Config {
     public   static    String     TaoBaoItemUpdateListingUrl = baseUrl +   "/gateway/taobao/item/updatelisting";
     public   static    String     TaoBaoItemUpdateDeListingUrl = baseUrl +   "/gateway/taobao/item/updatedelisting";
     public   static    String     TaoBaoItemUpdateStockUrl = baseUrl +   "/gateway/taobao/item/updatestock";
+    public   static    String     TaoBaoItemImageAnyone= baseUrl +   "/gateway/taobao/item/image/anyone";
     public   static    String     TaoBaoTBKTpWdConvertUrl = baseUrl +   "/gateway/taobao/tbk/tpwdconvert";
     public   static    String     TaoBaoTBKTpWdCreateUrl = baseUrl +   "/gateway/taobao/tbk/tpwdcreate";
     public   static    String     TaoBaoTBKIsTBKOrderUrl = baseUrl +   "/gateway/taobao/tbk/istbkorder";
@@ -140,6 +143,14 @@ public class Config {
     public   static    String     TaoBaologisticesConsignResendUrl = baseUrl +   "/gateway/taobao/logistices/consign/resend";
     public   static    String     WlbOrderJzConsignRequestUrl = baseUrl +   "/gateway/taobao/logistices/wlb/order/jz/consign";
     public   static    String     AlibabaEinvoiceApplyGetUrl = baseUrl +   "/gateway/taobao/einvoice/apply/get";
+    public   static    String     JstSmsSignnameCreateRequestUrl = baseUrl +   "/gateway/taobao/jst/sms/sign/create";
+    public   static    String     JstSmsSignnameQueryRequestUrl = baseUrl +   "/gateway/taobao/jst/sms/sign/query";
+    public   static    String     JstSmsSignnameDeleteRequestUrl = baseUrl +   "/gateway/taobao/jst/sms/sign/delete";
+    public   static    String     JstSmsTemplateCreateRequestUrl = baseUrl +   "/gateway/taobao/jst/sms/template/create";
+    public   static    String     JstSmsTemplateQueryRequestUrl = baseUrl +   "/gateway/taobao/jst/sms/template/query";
+    public   static    String     JstSmsTemplateDeleteRequestUrl = baseUrl +   "/gateway/taobao/jst/sms/template/delete";
+    public   static    String     JstSmsOAIDSendRequestUrl = baseUrl +   "/gateway/taobao/jst/sms/oaid/send";
+    public   static    String     JstSmsTidSendRequestUrl = baseUrl +   "/gateway/taobao/jst/sms/tid/send";
 
     public   static    String     PddOrderDecryptUrl = baseUrl +   "/gateway/pdd/order/decrypt";
     public   static    String     PddOrderDecryptFrontUrl = baseUrl +   "/gateway/pdd/order/decrypt/front";
@@ -166,7 +177,9 @@ public class Config {
     public   static    String     TaoBaoOrderGetMakeFlagExpressUrl = baseUrl +   "/gateway/taobao/order/get/makeflagexpress";
     public   static    String     TaoBaoInventoryListUrl = baseUrl +   "/gateway/taobao/inventory/get";
     public   static    String     TaoBaoItemSellerListUrl = baseUrl +   "/gateway/taobao/item/seller/list";
+    public   static    String     TaoBaoBuyerGetopenuidUrl = baseUrl +   "/gateway/taobao/buyer/getopenuid";
     public   static    String     FCPartnerRemoveGrantUrl = baseUrl +   "/gateway/partner/seller/remove/grant";
+    public   static    String     FCPartnerStoreAuthUrl = baseUrl +   "/gateway/partner/store/auth";
 
     // 丰桥
     public   static    String     SFExpressCreateOrderUrl = baseUrl +   "/gateway/sfexpress/order/create";
@@ -203,8 +216,122 @@ public class Config {
     public   static    String     DDLogisticsNewcreateorderUrl = baseUrl + "/gateway/dd/logistics/newcreateorder" ;
     public   static    String     DDLogisticsGetWayBillUrl = baseUrl + "/gateway/dd/logistics/getwaybill" ;
     public   static    String     DDLogisticsGetOutRangeUrl = baseUrl + "/gateway/dd/logistics/getoutrange" ;
+    public   static    String     DDLogisticsCancelOrderUrl = baseUrl + "/gateway/dd/order/logistics/cancel" ;
+    public   static    String     DDOrderAddOrderRemarkUrl = baseUrl + "/gateway/dd/order/addorderremark" ;
+    public   static    String     DDSmsTemplateApplyRequestUrl = baseUrl + "/gateway/dd/sms/template/apply" ;
+    public   static    String     DDSmsTemplateDeleteRequestUrl = baseUrl + "/gateway/dd/sms/template/delete" ;
+    public   static    String     DDSmsTemplateRevokeRequestUrl = baseUrl + "/gateway/dd/sms/template/revoke" ;
+    public   static    String     DDSmsTemplateApplyListRequestUrl = baseUrl + "/gateway/dd/sms/template/apply/list" ;
+    public   static    String     DDSmsTemplateSearchRequestUrl = baseUrl + "/gateway/dd/sms/template/search" ;
+    public   static    String     DDSmsPublicTemplateRequestURL = baseUrl + "/gateway/dd/sms/public/template" ;
+    public   static    String     DDSmsSignApplyRequestUrl = baseUrl + "/gateway/dd/sms/sign/apply" ;
+    public   static    String     SmsSignSearchRequestUrl = baseUrl + "/gateway/dd/sms/sign/search" ;
+    public   static    String     DDSmsSignDeleteRequestUrl = baseUrl + "/gateway/dd/sms/sign/delete" ;
+    public   static    String     DDSmsSignApplyListRequestUrl = baseUrl + "/gateway/dd/sms/sign/apply/list" ;
+    public   static    String     DDSmsSendRequestUrl = baseUrl + "/gateway/dd/sms/send" ;
+    public   static    String     DDSmsSendResultRequestUrl = baseUrl + "/gateway/dd/sms/send/result" ;
+    public   static    String     DDMetrialCreateFoRequestUrl = baseUrl + "/gateway/dd/material/createfolder" ;
+    public   static    String     DDMetrialUploadImageSyncRequestUrl = baseUrl + "/gateway/dd/material/uploadimagesync" ;
+    public   static    String     DDBatchUploadImageSyncRequestUrl = baseUrl + "/gateway/dd/material/batchuploadimagesync" ;
+    public   static    String     DDBatchUploadVideoAsyncRequestUrl = baseUrl + "/gateway/dd/material/batchuploadvideoasync" ;
+    public   static    String     DDQueryMaterialDetailRequestUrl = baseUrl + "/gateway/dd/material/querymaterialdetail" ;
+    public   static    String     DDSearchMaterialRequestUrl = baseUrl + "/gateway/dd/material/searchmaterial" ;
+    public   static    String     DDGetShopCategoryRequestUrl = baseUrl + "/gateway/dd/shop/getshopcategory" ;
+    public   static    String     DDShopBrandListRequestUrl = baseUrl + "/gateway/dd/shop/brandlist" ;
+    public   static    String     DDFreightTemplateListRequestUrl = baseUrl + "/gateway/dd/freighttemplate/list" ;
+    public   static    String     DDGetCatePropertyV2RequestUrl = baseUrl + "/gateway/dd/product/getcatepropertyv2" ;
+    public   static    String     DDGetProductUpdateRuleRequestUrl = baseUrl + "/gateway/dd/product/getproductupdaterule" ;
+    public   static    String     DDQualificationConfigRequestUrl = baseUrl + "/gateway/dd/product/qualificationconfig" ;
+    public   static    String     DDGetRecommendNameRequestUrl = baseUrl + "/gateway/dd/product/getrecommendname" ;
+    public   static    String     DDAddv2RequestUrl = baseUrl + "/gateway/dd/product/addv2" ;
+    public   static    String     DDProductDetailRequestUrl = baseUrl + "/gateway/dd/product/detail" ;
+    public   static    String     DDSetOfflineRequestUrl = baseUrl + "/gateway/dd/product/setoffline" ;
+    public   static    String     DDEditV2RequestUrl = baseUrl + "/gateway/dd/product/editv2" ;
+    public   static    String     DDProductDetail = baseUrl + "/gateway/dd/product/detail";
+    public   static    String     DDProductListv2 = baseUrl + "/gateway/dd/product/listv2";
+    public   static    String     DDSkuDetail = baseUrl + "/gateway/dd/sku/detail";
+    public   static    String     DDSkuStocknum = baseUrl + "/gateway/dd/sku/stocknum";
+
+    public   static    String     DDBrandList = baseUrl + "/gateway/dd/brand/list";
+    public   static    String     DDMaterialBatchuploadImagesync = baseUrl + "/gateway/dd/material/batchuploadimagesync";
+    public   static    String     DDMaterialBatchuploadVideoasync = baseUrl + "/gateway/dd/material/batchuploadvideoasync";
+    public   static    String     DDMaterialCreatefolder = baseUrl + "/gateway/dd/material/createfolder";
+    public   static    String     DDMaterialEditfolder = baseUrl + "/gateway/dd/material/editfolder";
+    public   static    String     DDMaterialUploadimageSync = baseUrl + "/gateway/dd/material/uploadimagesync";
+    public   static    String     DDMaterialQueryMaterialDetail = baseUrl + "/gateway/dd/material/querymaterialdetail";
+    public   static    String     DDMaterialSearchMaterial = baseUrl + "/gateway/dd/material/searchmaterial";
+    public   static    String     DDMaterialUploadvideoAsync = baseUrl + "/gateway/dd/material/uploadvideoasync";
+    public   static    String     DDMaterialUpload = baseUrl + "/gateway/dd/material/materialupload";
+
+    public   static    String     DDProductAddv2 = baseUrl + "/gateway/dd/product/addv2";
+    public   static    String     DDProductAuditlist = baseUrl + "/gateway/dd/product/auditlist";
+    public   static    String     DDProductCategoryDimlist = baseUrl + "/gateway/dd/product/categorydimlist";
+    public   static    String     DDProductCreatecomponentTemplatev2 = baseUrl + "/gateway/dd/product/createcomponenttemplatev2";
+    public   static    String     DDProductDatchdelComponenttemplate = baseUrl + "/gateway/dd/product/datchdelcomponenttemplate";
+    public   static    String     DDProductDel = baseUrl + "/gateway/dd/product/del";
+    public   static    String     DDProductEditbuyerLimit = baseUrl + "/gateway/dd/product/editbuyerlimit";
+    public   static    String     DDProductEditcomponentTemplate = baseUrl + "/gateway/dd/product/editcomponenttemplate";
+    public   static    String     DDProductEditv2 = baseUrl + "/gateway/dd/product/editv2";
+    public   static    String     DDProductGetcascadeValue = baseUrl + "/gateway/dd/product/getcascadevalue";
+    public   static    String     DDProductGetcategoryPropertyvalue = baseUrl + "/gateway/dd/product/getcategorypropertyvalue";
+    public   static    String     DDProductGetcateProperty = baseUrl + "/gateway/dd/product/getcateproperty";
+    public   static    String     DDProductGetcatePropertyv2 = baseUrl + "/gateway/dd/product/getcatepropertyv2";
+    public   static    String     DDProductLaunchproduct = baseUrl + "/gateway/dd/product/launchproduct";
+    public   static    String     DDProductSetoffline = baseUrl + "/gateway/dd/product/setoffline";
+    public   static    String     DDProductSetonline = baseUrl + "/gateway/dd/product/setonline";
+    public   static    String     DDShopBrandlist = baseUrl + "/gateway/dd/shop/brandlist";
+    public   static    String     DDShopGetshopCategory = baseUrl + "/gateway/dd/shop/getshopcategory";
+    public   static    String     DDSkuAddall = baseUrl + "/gateway/dd/sku/addall";
+    public   static    String     DDSkuList = baseUrl + "/gateway/dd/sku/list";
+    public   static    String     DDSkuEditcode = baseUrl + "/gateway/dd/sku/editcode";
+    public   static    String     DDSkuEditprice = baseUrl + "/gateway/dd/sku/editprice";
+    public   static    String     DDSkuSyncstock = baseUrl + "/gateway/dd/sku/syncstock";
+    public   static    String     DDSkuSyncstockBatch = baseUrl + "/gateway/dd/sku/syncstockbatch";
+    public   static    String     DDSpuGetauditInfo = baseUrl + "/gateway/dd/spu/getauditinfo";
+    public   static    String     DDSpuGetkeyPropertybyCid = baseUrl + "/gateway/dd/spu/getkeypropertybycid";
+    public   static    String     DDSpuGetspuInfobySpuid = baseUrl + "/gateway/dd/spu/getspuinfobyspuid";
+    public   static    String     DDSpuGetspuRule = baseUrl + "/gateway/dd/spu/getspurule";
+    public   static    String     DDSpuGetspuTpl = baseUrl + "/gateway/dd/spu/getsputpl";
+
+    public   static    String     DDBrandGetSug = baseUrl + "/gateway/dd/brand/get/sug";
+    public   static    String     DDProductGetProductUpdateRule = baseUrl + "/gateway/dd/product/get/product/updaterule";
+    public   static    String     DDProductQualificationConfig = baseUrl + "/gateway/dd/product/qualification/config";
+    public   static    String     DDFreightTemplateList = baseUrl + "/gateway/dd/freighttemplate/list";
+    public   static    String     DDReightTemplateCreate = baseUrl + "/gateway/dd/freighttemplate/create";
+    public   static    String     DDProductGetRecommendName = baseUrl + "/gateway/dd/product/get/recommend/name";
+    public   static    String     DDProductGetComponentTemplate = baseUrl + "/gateway/dd/product/get/component/template";
+    public   static    String     DDProductGetRecommendCategory = baseUrl + "/gateway/dd/product/get/recommend/category";
+    public   static    String     DDMaterialBatchUploadImageSync = baseUrl + "/gateway/dd/material/batch/upload/image/sync";
+    public   static    String     DDMaterialCreateFolder = baseUrl + "/gateway/dd/material/create/folder";
+
     public   static    String     AlipayPayPushTradeUrl = baseUrl + "/gateway/partner/pay/quick/alipay/repush" ;
 
 
+    public static String JDOrderListUrl = baseUrl +   "/gateway/jd/order/ensearch";
+    public static String JDExtOrderListUrl = baseUrl +   "/gateway/jd/order/extsearch";
+    public static String JDGetOrderUrl = baseUrl +   "/gateway/jd/order/enget";
+    public static String JDQueryRemarkByOrderId = baseUrl +   "/gateway/jd/order/remark/querybyorderid";
+    public static String JDModifyVenderRemark = baseUrl +   "/gateway/jd/order/modifyvenderremark";
+    public static String JDshipment = baseUrl +   "/gateway/jd/order/shipment";
+    public static String JDfindSkuById = baseUrl +   "/gateway/jd/sku/findskubyid";
+    public static String JDfindWareById = baseUrl +   "/gateway/jd/ware/findwarebyid";
+    public static String JDgetVenderCarrier = baseUrl +   "/gateway/jd/alpha/getvendercarrier";
+    public static String JDgetProviderSign = baseUrl +   "/gateway/jd/alpha/getprovidersign";
+    public static String JDgetProvider = baseUrl +   "/gateway/jd/alpha/getprovider";
+    public static String JDwayBillReceive = baseUrl +   "/gateway/jd/alpha/waybill/receive";
+    public static String JDwayBillPulldata = baseUrl +   "/gateway/jd/printing/pulldata";
+    public static String JDconfirmOrCancel = baseUrl +   "/gateway/jd/alpha/waybill/confirmorcancel";
 
+    public static String JDgetTemplateList = baseUrl +   "/gateway/jd/printing/gettemplatelist";
+    public static String JDsensitivePullData = baseUrl +   "/gateway/jd/printing/sensitivepulldata";
+    public static String JDgetDeliveryCompany = baseUrl +   "/gateway/jd/delivery/company";
+    public static String JDWaybillUnbind = baseUrl +   "/gateway/jd/alpha/waybill/unbind";
+    public static String JDWayBillBigshotQuery = baseUrl +   "/gateway/jd/alpha/bigshotquery";
+    public static String JDWaybillConfirmOrCancel = baseUrl +   "/gateway/jd/alpha/waybill/confirmorcancel";
+    public static String JDGetMobileLIst = baseUrl +   "/gateway/jd/order/getmobilelist";
+    public static String JDDecryptOrder= baseUrl +   "/gateway/jd/order/decrypt";
+    public static String JDWaybillVendorStockQueryUrl = baseUrl +   "/gateway/jd/alpha/waybill/vendor/stock/query";
 }
+
+
+

@@ -204,6 +204,45 @@ public class OpenDouDianTests {
 
     }
 
+    // 对订单进行插旗
+    @Test
+    public void    addOrderRmark() throws Exception {
+
+        Map<String, Object> data = new HashMap<String, Object>();
+        data.put("appid",  Config.AppId);
+        Long timestamp = System.currentTimeMillis() / 1000;
+        data.put("timestamp", timestamp.toString());
+        data.put("seller_nick", Config.DDSellerNick);
+        data.put("order_id","4987737158544862534");
+        data.put("remark","这是通过蜂巢写入");
+        data.put("is_add_star","true");
+        data.put("star","4");
+        data.put("sign", Sign(data,Config.AppSecret));
+        // 调用服务API
+        String resp = doHttpRequest(Config.DDOrderAddOrderRemarkUrl, data);
+        System.out.println(resp);
+
+    }
+
+    // 取消电子面单
+    @Test
+    public void  cancelOrder() throws Exception {
+        Map<String, Object> data = new HashMap<String, Object>();
+        data.put("appid",  Config.AppId);
+        Long timestamp = System.currentTimeMillis() / 1000;
+        data.put("timestamp", timestamp.toString());
+        data.put("seller_nick", Config.DDSellerNick);
+        data.put("logistics_code","zhongtong");
+        data.put("track_no","755449563871502");
+//      data.put("user_id","1");
+        data.put("sign", Sign(data,Config.AppSecret));
+        // 调用服务API
+        String resp = doHttpRequest(Config.DDLogisticsCancelOrderUrl, data);
+        System.out.println(resp);
+
+    }
+
+
    @Test
     public void   OrderDecrypt() throws Exception {
         Map<String, Object> data = new HashMap<String, Object>();
