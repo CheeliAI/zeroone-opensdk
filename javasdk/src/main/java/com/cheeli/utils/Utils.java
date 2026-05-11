@@ -270,7 +270,38 @@ public class Utils {
         return result;
     }
 
+ public static  String doHttpRequest(String url ,  Map<String, Object> data, String filePath){
 
+        String result ="";
+        CloseableHttpClient httpclient = HttpClients.createDefault();
+        HttpPost httpPost = new HttpPost(url);
+        System.out.println("请求Url:" +url);
+        MultipartEntityBuilder builder = MultipartEntityBuilder.create();
+        for (Map.Entry<String, Object> entry : data.entrySet()) {
+            builder.addTextBody(entry.getKey(), entry.getValue().toString(), ContentType.create("text/plain", "UTF-8")); // 添加其他字段
+        }
+        // 如果有文件上传
+        if (!"".equals(filePath)) {
+            builder.addBinaryBody("file", new File(filePath), ContentType.DEFAULT_BINARY, new File(filePath).getName()); // 添加文件
+        }
+        // 设置请求体
+        HttpEntity entity = builder.build();
+        httpPost.setEntity(entity);
+        //发起POST请求
+        try {
+            HttpResponse httpResponse = httpclient.execute(httpPost);
+            if (httpResponse.getStatusLine().getStatusCode() == HttpStatus.SC_OK) {
+                result =  EntityUtils.toString(httpResponse.getEntity());
+            } else {
+                result =  ("doPost Error Response: " + httpResponse.getStatusLine().toString());
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+
+        }
+
+        return result;
+    }
 
 }
 
